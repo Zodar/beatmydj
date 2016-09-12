@@ -1,0 +1,24 @@
+bmd_user:
+    resource: "@BmdUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+bmd_user:
+    resource: "@BmdUserBundle/Controller/profil"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /optional_routing_prefix    
+# ROUTE POUR LES UTILISATEUR MADE BY OH
+
+login_check:
+    pattern:   /login_check
+    
+logout:
+    pattern:   /logout

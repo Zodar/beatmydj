@@ -1,0 +1,20 @@
+acme_topic:
+    channel: acme/channel
+    handler:
+        callback: 'acme.topic' #related to the getName() of your topic
+acme_topic_chat:
+    channel: acme/chat/{room}/{user_id}
+    handler:
+        callback: 'acme.topic' #related to the getName() of your topic
+    requirements:
+        room:
+            pattern: "[a-z]+" #accept all valid regex, don't put delimiters !
+        user_id:
+            pattern: "\\d+"
+acme_rpc:
+    channel: sample/{method}
+    handler:
+        callback: 'acme.rpc' #related to the getName() or your RPC service
+    requirements:
+        method:
+            pattern: "[a-z_]+"

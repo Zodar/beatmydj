@@ -1,0 +1,11 @@
+		{% include 'header.html.twig' %}
+        
+        <div id="main_content" class="container well">
+	        {% block body %}{% endblock %}
+        </div>
+        
+        {% include 'footer.html.twig' %}
+        {% block javascripts %}{% endblock %}
+        {{ ws_client() }}
+    </body>
+</html>

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   	
+   	<h4> Liste des DJ </h4>
+	<hr>
+	   	
+	<div class="row">
+	   	<div id="advanced_search" class="col-md-3">
+			{{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form-listeDJ'}}) }}                		  
+			{{ form_end(form) }}        		    
+	    </div>
+	   	
+	   	<div id="dj_links" class="col-md-9">
+	   		{% for user in users %}
+				<div class="liste_dj_img_div">
+					<a href="{{asset('uploads/dj_photos/')}}{{user['path']}}" title="{{user['userName'] | capitalize }}" data-gallery>
+						<img src="{{asset('uploads/dj_photos/')}}{{user['path']}}" alt="{{user['userName'] | capitalize }}" />
+					</a>
+					<div class="liste_dj_desc_div">
+						<a href="{{path('profil')}}/{{user['userName']}}" type="button" class="btn btn-primary">
+							{{user['userName'] | capitalize }}
+						</a>
+					</div>
+				</div>
+	        {% endfor %}
+			<!-- Liste de dj recupp en js -->
+		</div>
+	</div>
+    
+    <input type="hidden" name="photo_path" value="{{asset('uploads/dj_photos/')}}">
+    
+    <div id="blueimp-gallery" class="blueimp-gallery">
+	    <!-- The container for the modal slides -->
+	    <div class="slides"></div>
+	    <!-- Controls for the borderless lightbox -->
+	    <h3 class="title"></h3>
+	    <a class="prev">‹</a>
+	    <a class="next">›</a>
+	    <a class="close">×</a>
+	    <a class="play-pause"></a>
+	    <ol class="indicator"></ol>
+	    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+	    <div class="modal fade">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" aria-hidden="true">&times;</button>
+	                    <h4 class="modal-title"></h4>
+	                </div>
+	                <div class="modal-body next">
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default prev pull-left">
+	                        <i class="glyphicon glyphicon-chevron-left"></i>
+	                        Previous
+	                    </button>
+	                    <button type="button" class="btn btn-default next">
+	                        Next
+	                        <i class="glyphicon glyphicon-chevron-right"></i>
+	                    </button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('lib/jquery/gallery.js')}}"></script>
+	<script src="{{asset('lib/jquery/bootstrap-image-gallery.min.js')}}"></script>
+{% endblock %}
+

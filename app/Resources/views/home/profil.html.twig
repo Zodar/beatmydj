@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="row">
+        <div class="col-md-4">
+            <div>
+            	<input type="hidden" value="{{user.id}}" name="user_id"/>
+            	<input type="hidden" value="{{path('messages')}}" name="path_messages"/>
+            	
+            	{% if app.user and user.userName == app.user.userName and own is null %}
+            		<input type="hidden" value="own_profil_edit" name="page_type"/>
+			 	{% elseif app.user and user.userName == app.user.userName and own is not null %} 
+            		<input type="hidden" value="own_profil_view" name="page_type"/>
+			 	{% elseif app.user and user.userName != app.user.userName %} 
+            		<input type="hidden" value="other_profil" name="page_type"/>	 	
+            	{% else %}	
+            		<input type="hidden" value="unsigned" name="page_type"/>
+		 	   	{% endif %}
+            
+            	<h4> {{user.userName | capitalize }}</h4>
+				<hr>
+                <img id="user_image" class="img-responsive" src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />
+                
+                <div class="only_edit">
+                	<form id="formImgUpld" enctype="multipart/form-data">
+                		<input type="file" class="btn btn-sm" name="photo" id="fileToUpload"/>
+                    	<input type="submit" class="btn btn-sm btn-primary" value="Valider" id="fileToUploadValider" />
+                   	</form>
+                </div>
+            </div>
+            <br>
+            <div>
+                <ul class="list-group profil_edition">
+                    <li class="list-group-item list-group-item-info">
+                    	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    	<span id="userFirstName">{{user.firstname}}</span>
+                    	<span id="userLastName">{{user.lastname}}</span>
+                	</li>
+                    <li class="list-group-item list-group-item-info">
+                    	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>  
+                		<span class="to_edit"> Paris, France </span> 
+                	</li>
+                    <li class="list-group-item list-group-item-info">
+                    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
+                		<span id="userEmail"> {{ user.email }} </span> 
+                	</li>
+				 	{% if user.role.idRole == 3 %}
+		                <li class="list-group-item list-group-item-info">
+		                	<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>  
+	                		<span id="userTarif"> 15 </span> € l'heure 
+	            		</li> 
+		                <li class="list-group-item list-group-item-info style">
+		                	<span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+	                		<span class="to_edit"> 		{% if own is null %}
+	                		 {{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form'}}) }}
+	                		
+	                		  {{ form_rest(form) }} 
+	                		  
+	                		    {{ form_end(form) }}
+	                		  {% else %}
+	                		 	 Style : 
+		                		  {% if user.getStyleText is not null %}
+		                		   		{% for style in user.getStyleText %}
+								        	{{ style|trans  }}{% if not loop.last%},{% endif %}
+							        	{% endfor %}
+	                		  	  {% endif %} 
+	            		  	  {% endif %} 
+	     		   	          {% if own is null %}
+	     		   	          	<div>
+	            					<button id="prez_edit" class="btn btn-success" >Valider les modifications</button>
+	            	  		  	</div>
+	            	  		  {% endif %}
+	            		</li>
+	                {% endif %}	            		            	                           
+                </ul>
+            </div>
+		   	
+	   	</div>
+        <div class="col-md-4">
+            <h4> Présentation </h4>
+            <hr>
+            <span id="userPresentation"> {{user.presentation | nl2br}} </span>
+        	
+		 	{% if user.role.idRole == 3 %}	
+		        	<h4> Ma playlist </h4>
+					<hr>
+		            {% if user.soundcloodlink is null %}
+						<p class="basik_text"> Aucune playlist pour le moment. </p>
+		            {% else %}
+			        	<input type="hidden" name="user_playlist_link" value="{{user.soundcloodlink}}">
+			        	<div id="user_playlist"> </div>
+			        {% endif %}
+			        <span id="changePlaylist" class="only_edit"> {{user.soundcloodlink}} </span>
+					
+		            <h4> Avis </h4>
+					<hr>
+		            {% if Allcomment is empty %}
+						<p class="basik_text"> Aucun commentaire pour le moment. </p>
+					{% else %}
+			            {% for comment in Allcomment %}
+			            	 <fieldset>
+								<legend>{{comment.pseudo}}, le {{comment.date|date('d/m/Y à H:i') }}</legend>
+								<p>{{comment.content}}</p>
+						    </fieldset>
+						{% endfor %}
+					{% endif %}
+		   	{% endif %}
+        </div>
+        <div class="col-md-4">
+		 	{% if user.role.idRole == 3 %}	 	
+		  		<div class="only_other_profil">
+			 		<h4>Poster un avis</h4>
+			 		<hr>
+			 		<textarea id="my_comment"> </textarea maxlength="250">
+		 		 	<div>
+			 			<button id="add_comment" type="button" class="btn btn-sm btn-primary"> Poster </button>
+			   		</div>
+			   	</div>
+		   	{% endif %}
+			   	
+		   	<div class="only_other_profil">
+		 		<h4>Envoyer un message privé</h4>
+		 		<hr>
+		 		<textarea id="new_messages"> </textarea maxlength="250">
+	 		 	<div>
+		 			<button id="send_messages" type="button" userid="{{user.id}}" class="btn btn-sm btn-primary"> {{"Send" | trans}} </button>
+		   		</div>
+		   	</div>
+        
+            <div class="only_view">
+            	<h4>Visualisation</h4>
+		 		<hr>
+	 			<a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}"> Edition </a>
+		 	</div>
+            <div class="only_edit"> 
+            	<h4>Visualisation</h4>
+		 		<hr>
+		 		{% if app.user %}
+	 				<a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}/{{app.user.userName}}"> Aperçu </a>
+		 		{% endif %}
+		 		<h4> Mon compte </h4>
+	            <hr>
+	       		<button type="button" class="btn btn-sm btn-primary" id="remove_user">
+	       			<span class="glyphicon glyphicon-remove"></span> Supprimer mon compte
+	   			</button>
+   			</div>
+            
+            
+            
+            <!-- PAS ENCORE DISPONIBLE
+            <h4>Disponibilité</h4>
+            <hr>
+            <div> Lundi </div>
+		   	<div class="only_edit"> 
+            	<h4>Demandes de créneaux</h4>
+            	<hr>
+            </div>
+		   	<div class="only_other_profil"> 
+            	<h4>Réservation de créneaux</h4>
+            	<hr>
+            </div>
+            -->
+            
+            
+            
+        </div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/profil.js') }}"></script>
+	<script src="{{ asset('js/soundclood_userPlaylist.js') }}"></script>	
+{% endblock %}

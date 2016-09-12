@@ -1,0 +1,18 @@
+{# src/OC/UserBundle/Resources/views/Security/login.html.twig #}
+
+{% block body %}
+
+  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+
+  {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+  <form  method="post">
+    <label for="username">Présentation:</label>
+    <input type="text" id="presentation" name="presentation" value="{{ last_presentation }}" />
+
+    <label for="Style">Style : </label>
+    <input type="text" id="style" name="style" />
+    <br />
+    <input type="submit" value="Valider" />
+  </form>
+
+{% endblock %}

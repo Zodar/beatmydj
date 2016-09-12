@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<title>BeatMyDJ</title>
+<meta charset="utf-8"><link rel="icon" href="{{asset('web/images/logo.jpg')}}" />
+
+<!-- LIB CSS -->
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/boostrap-social.css')}}">
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.structure.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.theme.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/editable/css/bootstrap-editable.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/gallery.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap-image-gallery.min.css')}}">
+
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
+<link rel="stylesheet" href="{{asset('css/main.css')}}" />
+
+</head>
+<body>
+	<input type="hidden" value="{{path('homepage')}}" name="baseurl"/>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+ 		<img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.jpg')}}" alt="LOGO" />
+        <a class="navbar-brand" href="{{path('homepage')}}">BeatMyDJ</a>
+      </div>
+      
+      <ul class="nav navbar-nav pull-right">
+        <li>
+	        <a href="#">
+		      <span class="inner-addon">
+				    <i id="loupe_search_dj" class="glyphicon glyphicon-search"></i>
+				    <input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name">
+			  </span>
+			</a>
+        </li>
+
+        <li>
+	        <a href="{{ path('homepage') }}">
+		      <button type="button" class="btn btn-primary btn-sm">
+	            <span class="glyphicon glyphicon-home"></span> Home
+	          </button>
+	        </a>
+        </li>
+        
+        <li>
+	        <a href="{{ path('search_advanced') }}">
+		      <button type="button" class="btn btn-primary btn-sm">
+	            <span class="glyphicon glyphicon-music"></span> Nos DJ
+	          </button>
+	        </a>
+        </li>
+        
+        
+        
+        
+        <!-- Pas encore disponible
+        <li>
+	        <a href="#">
+		      <button type="button" class="btn btn-primary btn-sm">
+	            <span class="glyphicon glyphicon-play-circle"></span> Aperçu musical
+	          </button>
+	        </a>
+        </li>
+		-->
+		
+		
+		
+		
+        {% if app.user %}
+	        <li>
+		        <a href="{{ path('messages') }}">
+			      <button type="button" class="btn btn-primary btn-sm">
+		            <span class="glyphicon glyphicon-envelope"></span> {{ fos_message_nb_unread() }} 
+		          </button>
+		        </a>
+	        </li>
+	        
+	        <li>
+		        <a href="{{ path('profil') }}">
+			      <button type="button" class="btn btn-success btn-sm">
+		            <span class="glyphicon glyphicon-user"></span> {{ app.user.firstName }} {{ app.user.lastName }}
+		          </button>
+		        </a>
+	        </li>
+	        
+	        <li>
+	         <a href="{{ path('logout') }}">
+	          <button type="button" class="btn btn-success btn-sm"> 
+	            <span class="glyphicon glyphicon-log-out"></span> Log out
+	          </button>
+	          </a>
+	        </li> 
+        {% else %}
+	        <li>
+		    	<a href="#">
+		          <button type="button" class="login-btn btn btn-success btn-sm" data-toggle="modal" data-target="#inscription_modal">
+		            Inscription
+		          </button>
+		        </a>
+	        </li>
+	        <li>
+	        	<a href="{{path('login')}}">
+	  			  <button type="button" class="login-btn btn btn-success btn-sm"> Connexion </button>
+	            </a>
+	        </li> 
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  {% if app.user %} {% else %}
+  <!-- POP UP INSCRIPTION -->
+  <div id="inscription_modal" class="modal fade" tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="inscription_form">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Inscription</h4>
+            <span class="info"></span>
+          </div>
+          <div class="modal-body">
+	          <div style="text-align:center;">
+	          	<input type="radio" name="role" value="3">DJ
+				<input type="radio" name="role" value="4" >Client
+			  </div>
+			  <div>
+		    	<label for="firstname">Prénom :</label>		  
+	            <input class="inscription_input" type="text" name="firstname">
+			  </div>
+	  		  <div>
+		    	<label for="lastname">Nom :</label>
+	            <input class="inscription_input" type="text" name="lastname">
+			  </div>
+	        
+			  <div>    
+		    	<label for="pseudo">Pseudo :</label>
+	            <input class="inscription_input" type="text" name="pseudo">
+	          </div>
+	        
+		      <div>
+		    	<label for="mail">Mail :</label>
+	            <input class="inscription_input" type="text" name="mail">
+			  </div>
+	        
+		      <div>
+		    	<label for="password">Mot de passe :</label>
+	            <input class="inscription_input" type="password" name="password">
+	          </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary"
+              value="S'inscrire"/>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- FIN POP UP INSCRIPTION -->
+
+
+  <!-- POP UP CONNEXION -->
+  <div id="connexion_modal" class="modal fade" tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="connexion_form">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Connexion</h4>
+        </div>
+        <div class="modal-body">
+          <input class="inscription_input" type="text" name="_login"
+            placeholder="Mail"> <input class="inscription_input"
+            type="password" name="_password" placeholder="Mot de passe">
+        </div>
+        <div class="modal-footer">
+           <input type="submit" class="btn btn-primary" value="Connexion"/>
+        </div>
+          </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- FIN POP UP CONNEXION -->
+  {% endif %}

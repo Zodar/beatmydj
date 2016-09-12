@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h4> Messages privés </h4>
+	<hr>
+	
+	<div class="row">
+	
+		<div class="list_user col-md-2">
+			  {% for t in thread %}
+				  <button class="btn btn-sm btn-primary users" id="{{ t.id }}">
+					  {% for user in t.getParticipants %}
+						  {% if user.id != app.user.id %}
+							  <img src="{{asset('uploads/dj_photos/')}}{{user.path}}" alt="{{user.username | capitalize }}" />
+							  <p class="username">{{user.username | capitalize }} </p>
+						  {% endif %}
+					  {% endfor %}
+				  </button>
+			  {% endfor %}
+		</div>
+		
+		<div class="list_threads col-md-10">
+			{% for t in thread %}
+				<div class="threads" id="thread_{{ t.id }}">
+					{% for m in t.getmessages%}
+						<div class="message {% if m.sender.id == app.user.id %} fromme triangle-right right {%else%} fromOther triangle-right left {%endif%}">
+							<p class="message_body"> {{ m.body | nl2br }} </p>
+						</div> 
+					{% endfor %}
+					<textarea class="response" id="response_{{ t.id }}"></textarea>
+					<button class="btn btn-sm btn-primary send_message" thread="{{ t.id }}"> {{ "Send"|trans  }} </button>
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/messages.js') }}"></script>
+{% endblock %}
