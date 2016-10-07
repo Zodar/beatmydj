@@ -9,6 +9,9 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Comment;
+use BmdUserBundle\Entity\UserAvailability;
+use \DateTime;
+use \DateInterval;
 class ProfilController extends Controller
 {
 
@@ -29,6 +32,76 @@ class ProfilController extends Controller
 
     /**
      *
+     * @Route("/profil/add_event", name="ajout_evenement")
+     * @Method("POST")
+     *
+     * @param Request $request            
+     */
+    public function AddEventAction(Request $request)
+    {
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            
+            $timestamp = $this->get('request')->get('date') / 1000;
+            $date = new DateTime();
+            $date->setTimestamp($timestamp);
+            $dateend = new DateTime();
+            $dateend->add(new DateInterval('PT4H'));
+            $date->setTimestamp($timestamp);
+            if ($this->checkEventAvailable($date,$dateend,$this->get('request')
+                ->get('user')) == false);
+            return new JsonResponse(array(
+                'success' => "false",
+                "info" => "Un evenement a lieu pendant cette periode"
+            ));
+            $usr = $this->get('security.token_storage')
+                ->getToken()
+                ->getUser();
+            
+            $event = new UserAvailability();
+            $event->setauteur($usr->getUsername());
+            $event->setuserid($this->get('request')
+                ->get('user'));
+            
+            $event->setdatestart($date);
+            $event->setdateend($dateend);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+            return new JsonResponse(array(
+                'success' => "true"
+            ));
+        } else {
+            return new JsonResponse(array(
+                'success' => "false"
+            ));
+        }
+    }
+
+    private function checkEventAvailable($datestart, $dateend, $userid)
+    {
+        $Events = $this->getDoctrine()->getManager()->getRepository('BmdUserBundle:UserAvailability')
+            ->createQueryBuilder('e')
+            ->where('e.dateStart >= :startDate AND e.userid = :userId')
+            ->setParameter('startDate', $datestart->format('Y-m-d H:i:s'))
+            ->setParameter('userId', $userid)
+            ->getQuery()
+            ->getResult();
+        
+        if (!empty($Events))
+            return false;
+        $Events = $this->getDoctrine()->getManager()->getRepository('BmdUserBundle:UserAvailability')
+        ->createQueryBuilder('e')
+        ->where('e.dateEnd >= :endDate AND e.userid = :userId')
+        ->setParameter('endDate', $datestart->format('Y-m-d H:i:s'))
+        ->setParameter('userId', $userid)
+        ->getQuery()
+        ->getResult();
+        if (!empty($Events))
+            return false;
+    }
+
+    /**
+     *
      * @Route("/profil/edit", name="edit_profil_POST")
      * @Method("POST")
      *
@@ -38,28 +111,45 @@ class ProfilController extends Controller
     {
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             
-            $usr = $this->get('security.token_storage')->getToken()->getUser();
+            $usr = $this->get('security.token_storage')
+                ->getToken()
+                ->getUser();
             
             if ($this->get('request')->get('name') != null) {
                 if ($this->get('request')->get('name') == "userFirstName") {
-                    $usr->setfirstname($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userLastName") {
-                    $usr->setlastname($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userLocation") {
-                    $usr->setLocation($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userEmail") {
-                    $usr->setEmail($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "tarif") {
-                    $usr->setTarif($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "style") {
-                    $usr->setStyle($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userPresentation") {
-                    $usr->setPresentation($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "changePlaylist") {
-                    $usr->setSoundCloodLink($this->get('request')->get('value'));                     
-                }
+                    $usr->setfirstname($this->get('request')
+                        ->get('value'));
+                } else 
+                    if ($this->get('request')->get('name') == "userLastName") {
+                        $usr->setlastname($this->get('request')
+                            ->get('value'));
+                    } else 
+                        if ($this->get('request')->get('name') == "userLocation") {
+                            $usr->setLocation($this->get('request')
+                                ->get('value'));
+                        } else 
+                            if ($this->get('request')->get('name') == "userEmail") {
+                                $usr->setEmail($this->get('request')
+                                    ->get('value'));
+                            } else 
+                                if ($this->get('request')->get('name') == "tarif") {
+                                    $usr->setTarif($this->get('request')
+                                        ->get('value'));
+                                } else 
+                                    if ($this->get('request')->get('name') == "style") {
+                                        $usr->setStyle($this->get('request')
+                                            ->get('value'));
+                                    } else 
+                                        if ($this->get('request')->get('name') == "userPresentation") {
+                                            $usr->setPresentation($this->get('request')
+                                                ->get('value'));
+                                        } else 
+                                            if ($this->get('request')->get('name') == "changePlaylist") {
+                                                $usr->setSoundCloodLink($this->get('request')
+                                                    ->get('value'));
+                                            }
             }
-
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($usr);
             $em->flush();
@@ -90,9 +180,11 @@ class ProfilController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($usr);
             $em->flush();
-
+            
             $this->get('security.context')->setToken(null);
-            $this->get('request')->getSession()->invalidate();
+            $this->get('request')
+                ->getSession()
+                ->invalidate();
             
             return new JsonResponse(array(
                 'success' => "true"

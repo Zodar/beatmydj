@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+                        <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
 	<div class="row">
         <div class="col-md-4">
             <div>
@@ -131,6 +132,12 @@
             	<h4>Visualisation</h4>
 		 		<hr>
 	 			<a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}"> Edition </a>
+
+	 			<h4>Stream</h4>
+	 			<iframe id="player" type="text/html" width="340" height="190"
+  					src="http://www.youtube.com/embed/hLpfwI3SFNk?enablejsapi=1&origin=http://example.com"
+  					frameborder="0">
+  				</iframe>
 		 	</div>
             <div class="only_edit"> 
             	<h4>Visualisation</h4>
@@ -146,10 +153,10 @@
    			</div>
             
             
-            
-            <!-- PAS ENCORE DISPONIBLE
+
             <h4>Disponibilité</h4>
             <hr>
+<!-- PAS ENCORE DISPONIBLE
             <div> Lundi </div>
 		   	<div class="only_edit"> 
             	<h4>Demandes de créneaux</h4>
@@ -161,13 +168,26 @@
             </div>
             -->
             
-            
-            
+            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+
         </div>
 	</div>
+
 {% endblock %}
 
+
+
 {% block javascripts %}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/calendar-settings.js') }}"></script>
+
+	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('js/moment.js') }}"></script>
+	<script src="{{ asset('js/fullcalendar-all.js') }}"></script>
+
 	<script src="{{ asset('js/profil.js') }}"></script>
 	<script src="{{ asset('js/soundclood_userPlaylist.js') }}"></script>	
+
 {% endblock %}

@@ -23,7 +23,9 @@ class AppKernel extends Kernel
             new BmdUserBundle\BmdUserBundle(),
             new Gos\Bundle\WebSocketBundle\GosWebSocketBundle(),
             new Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle(),
-            new FOS\MessageBundle\FOSMessageBundle()
+            new FOS\MessageBundle\FOSMessageBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
         );
         
         if (in_array($this->getEnvironment(), array(
