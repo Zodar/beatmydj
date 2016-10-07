@@ -8,3 +8,8 @@ services:
         class: BmdUserBundle\Rpc\AcmeRpc
         tags:
             - { name: gos_web_socket.rpc }
+    bmduserbundle.calendar_listener: 
+        class: BmdUserBundle\EventListener\CalendarEventListener
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - { name: kernel.event_listener, event: calendar.load_events ,  method: loadEvents} 
