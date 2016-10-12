@@ -35,7 +35,7 @@ function initMap() {
 }
 
 function setInfoWindow(place, name, map) {
-	$.ajax({data: {address:  place}, url: "http://maps.google.com/maps/api/geocode/json",
+	$.ajax({data: {address:  place}, url: "https://maps.google.com/maps/api/geocode/json",
 		success: function(data) {
 			var infowindow = new google.maps.InfoWindow({});
 	        			
