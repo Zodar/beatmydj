@@ -1,8 +1,6 @@
 var map;
 var infoWindows = [];
 
-initMap();
-
 function initMap() {
 	var map = new google.maps.Map(document.getElementById('googleMap'), {
 		zoom: 12
