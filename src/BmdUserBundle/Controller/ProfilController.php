@@ -117,37 +117,22 @@ class ProfilController extends Controller
             
             if ($this->get('request')->get('name') != null) {
                 if ($this->get('request')->get('name') == "userFirstName") {
-                    $usr->setfirstname($this->get('request')
-                        ->get('value'));
-                } else 
-                    if ($this->get('request')->get('name') == "userLastName") {
-                        $usr->setlastname($this->get('request')
-                            ->get('value'));
-                    } else 
-                        if ($this->get('request')->get('name') == "userLocation") {
-                            $usr->setLocation($this->get('request')
-                                ->get('value'));
-                        } else 
-                            if ($this->get('request')->get('name') == "userEmail") {
-                                $usr->setEmail($this->get('request')
-                                    ->get('value'));
-                            } else 
-                                if ($this->get('request')->get('name') == "tarif") {
-                                    $usr->setTarif($this->get('request')
-                                        ->get('value'));
-                                } else 
-                                    if ($this->get('request')->get('name') == "style") {
-                                        $usr->setStyle($this->get('request')
-                                            ->get('value'));
-                                    } else 
-                                        if ($this->get('request')->get('name') == "userPresentation") {
-                                            $usr->setPresentation($this->get('request')
-                                                ->get('value'));
-                                        } else 
-                                            if ($this->get('request')->get('name') == "changePlaylist") {
-                                                $usr->setSoundCloodLink($this->get('request')
-                                                    ->get('value'));
-                                            }
+                    $usr->setfirstname($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "userLastName") {
+                    $usr->setlastname($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "userLocation") {
+                    $usr->setLocation($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "userEmail") {
+                    $usr->setEmail($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "tarif") {
+                    $usr->setTarif($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "style") {
+                    $usr->setStyle($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "userPresentation") {
+                    $usr->setPresentation($this->get('request')->get('value'));
+                } else if ($this->get('request')->get('name') == "changePlaylist") {
+                    $usr->setSoundCloodLink($this->get('request')->get('value'));
+                }
             }
             
             $em = $this->getDoctrine()->getManager();
