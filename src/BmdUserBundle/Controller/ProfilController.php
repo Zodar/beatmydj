@@ -98,6 +98,8 @@ class ProfilController extends Controller
         ->getResult();
         if (!empty($Events))
             return false;
+		
+		return true;
     }
 
     /**
