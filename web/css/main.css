@@ -246,3 +246,8 @@ form#inscription_form label {
 #style-form-listeDJ {
 	display: none;
 }
+
+#myCarousel img {
+    max-height: 400px;
+    margin: auto;
+}

@@ -114,7 +114,7 @@ class RegistrationController extends Controller
     public function loginAction(Request $request)
     {
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('oc_platform_accueil');
+            return $this->redirectToRoute('homepage');
         }
 
         $authenticationUtils = $this->get('security.authentication_utils');
