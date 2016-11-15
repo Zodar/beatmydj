@@ -13,7 +13,8 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use AppBundle\Entity\Comment;
 use Doctrine\ORM\Query;
-
+use \DateTime;
+use \DateInterval;
 
 class DefaultController extends Controller
 {
@@ -216,7 +217,7 @@ class DefaultController extends Controller
         if (empty($Events))
             return null;
     
-        return json_encode($Events[0]->getId());
+        return $Events[0];
     }
     
   /**
@@ -225,6 +226,9 @@ class DefaultController extends Controller
      */
     public function profil(Request $request, $user = null)
     {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('homepage');
+        }
         $form = "rien";
         if ($user != null) {
             $find = $this->getDoctrine()->getRepository('AppBundle:User');

@@ -108,6 +108,18 @@
 		   	{% endif %}
         </div>
         <div class="col-md-4">
+	        {% if live is not null %}
+	        	{% if app.user and user.userName == app.user.userName %}
+					<h4> Live en cours ! </h4>
+					<hr>
+   		 	   		<a type="button" class="btn btn-sm btn-primary" href="{{path('streamDJ')}}"> Commencer le live </a>
+   		 	   	{% elseif app.user and live.auteur == app.user.userName %}
+ 					<h4> Live en cours ! </h4>
+					<hr>
+       				<a type="button" class="btn btn-sm btn-primary" href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
+	        	{%endif%}
+            {%endif%}
+        
 		 	{% if user.role.idRole == 3 %}	 	
 		  		<div class="only_other_profil">
 			 		<h4>Poster un avis</h4>
@@ -132,12 +144,6 @@
             	<h4>Visualisation</h4>
 		 		<hr>
 	 			<a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}"> Edition </a>
-
-	 			<h4>Stream</h4>
-	 			<iframe id="player" type="text/html" width="340" height="190"
-  					src="http://www.youtube.com/embed/hLpfwI3SFNk?enablejsapi=1&origin=http://example.com"
-  					frameborder="0">
-  				</iframe>
 		 	</div>
             <div class="only_edit"> 
             	<h4>Visualisation</h4>
@@ -151,17 +157,12 @@
 	       			<span class="glyphicon glyphicon-remove"></span> Supprimer mon compte
 	   			</button>
    			</div>
-            
-            
 
-            <h4>Disponibilité</h4>
-            <hr>
-               {% if live is not null %}
-               <p class="warning"> Live en cours ! </p>
-               <a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}/{{live}}"> Voir le live </a>
-               {%endif%}
-            
-            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+   		 	{% if user.role.idRole == 3 %}
+	            <h4>Disponibilité</h4>
+	            <hr>
+	            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+        	{%endif%}
 
         </div>
 	</div>

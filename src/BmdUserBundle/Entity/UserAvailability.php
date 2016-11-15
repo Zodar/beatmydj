@@ -42,6 +42,10 @@ Class UserAvailability {
      */
     protected $dateEnd;
     
+    public function getId(){
+        return $this->userid;
+    }
+    
     public function setuserid($userid){
         $this->userid = $userid;
     }
