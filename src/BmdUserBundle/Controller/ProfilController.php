@@ -14,38 +14,71 @@ use \DateTime;
 use \DateInterval;
 class ProfilController extends Controller
 {
+     /**
+     *
+     * @Route("/profil/edit", name="edit_profil")
+     * @Method("GET")
+     *
+     * @param Request $request            
+     */
+    public function EditProfilAction(Request $request)
+    {
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
+            return $this->render('BmdUserBundle:Profil:edit.html.twig', array());
+        else
+            return $this->redirect($this->generateUrl('homepage'));
+    }
+
+    
+    /**
+     *
+     * @Route("/video", name="video")
+     * @Method("GET")
+     *
+     * @param Request $request
+     */
+    public function VideoAction(Request $request)
+    {
+
+    $filename = "C:\\Users\\ohandoura\\ETNA\\PROJET-ETNA\\GPE\\beatmydj\\web\\uploads\\videos\\Wildlife.wmv";
+    $handle = fopen($filename, "r");
+    $contents = fread($handle, filesize($filename));
+    fclose($handle);
+    return new Response($contents, 200, array(
+        'Content-Type'        => 'video/wmv'          
+    ));
+    }
     /**
      *
      * @Route("/profil/add_event", name="ajout_evenement")
      * @Method("POST")
      *
-     * @param Request $request
+     * @param Request $request            
      */
     public function AddEventAction(Request $request)
     {
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-    
+            
             $timestamp = $this->get('request')->get('date') / 1000;
             $date = new DateTime();
             $date->setTimestamp($timestamp);
-            $dateend = new DateTime();
-            $dateend->add(new DateInterval('PT4H'));
+            $dateend = clone $date;
+            $dateend->add(new DateInterval('PT1H'));
             $date->setTimestamp($timestamp);
-            if ($this->checkEventAvailable($date,$dateend,$this->get('request')
-                ->get('user')) == false);
-            return new JsonResponse(array(
-                'success' => "false",
-                "info" => "Un evenement a lieu pendant cette periode"
-            ));
+            $uid = $this->get('request')->get('user');
+            if ($this->checkEventAvailable($date, $dateend, $uid) == false)
+                return new JsonResponse(array(
+                    'success' => "false",
+                    "info" => "Un evenement a lieu pendant cette periode"
+                ));
             $usr = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
-    
+                ->getToken()
+                ->getUser();
+            
             $event = new UserAvailability();
             $event->setauteur($usr->getUsername());
-            $event->setuserid($this->get('request')
-                ->get('user'));
-    
+            $event->setuserid($uid);
+            
             $event->setdatestart($date);
             $event->setdateend($dateend);
             $em = $this->getDoctrine()->getManager();
@@ -60,29 +93,33 @@ class ProfilController extends Controller
             ));
         }
     }
-    
+
     private function checkEventAvailable($datestart, $dateend, $userid)
-    {
-        $Events = $this->getDoctrine()->getManager()->getRepository('BmdUserBundle:UserAvailability')
-        ->createQueryBuilder('e')
-        ->where('e.dateStart >= :startDate AND e.userid = :userId')
-        ->setParameter('startDate', $datestart->format('Y-m-d H:i:s'))
-        ->setParameter('userId', $userid)
-        ->getQuery()
-        ->getResult();
-    
-        if (!empty($Events))
+    {        
+        $Events = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('BmdUserBundle:UserAvailability')
+            ->createQueryBuilder('e')
+            ->where('e.dateStart <= :startDate AND e.dateEnd >= :startDate AND e.userid = :userId')
+            ->setParameter('startDate', $datestart->format('Y-m-d H:i:s'))
+            ->setParameter('userId', $userid)
+            ->getQuery()
+            ->getResult();
+        
+        if (! empty($Events))
             return false;
-        $Events = $this->getDoctrine()->getManager()->getRepository('BmdUserBundle:UserAvailability')
-        ->createQueryBuilder('e')
-        ->where('e.dateEnd >= :endDate AND e.userid = :userId')
-        ->setParameter('endDate', $datestart->format('Y-m-d H:i:s'))
-        ->setParameter('userId', $userid)
-        ->getQuery()
-        ->getResult();
-        if (!empty($Events))
+        $Events = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('BmdUserBundle:UserAvailability')
+            ->createQueryBuilder('e')
+            ->where('e.dateEnd >= :endDate AND e.dateStart <= :endDate AND e.userid = :userId')
+            ->setParameter('endDate', $dateend->format('Y-m-d H:i:s'))
+            ->setParameter('userId', $userid)
+            ->getQuery()
+            ->getResult();
+        if (! empty($Events))
             return false;
-    
+       
         return true;
     }
     
