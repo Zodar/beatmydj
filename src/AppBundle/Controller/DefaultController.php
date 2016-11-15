@@ -202,7 +202,24 @@ class DefaultController extends Controller
         }
     }
 
-    /**
+    public function check_stream($uid){
+        $date = new DateTime();;
+        $Events = $this->getDoctrine()
+        ->getManager()
+        ->getRepository('BmdUserBundle:UserAvailability')
+        ->createQueryBuilder('e')
+        ->where('e.dateStart <= :date AND e.dateEnd >= :date AND e.userid = :userId')
+        ->setParameter('date', $date->format('Y-m-d H:i:s'))
+        ->setParameter('userId', $uid)
+        ->getQuery()
+        ->getResult();
+        if (empty($Events))
+            return null;
+    
+        return json_encode($Events[0]->getId());
+    }
+    
+  /**
      * @Route("/profil", name="profil")
      * @Route("/profil/{user}", name="all_profil")
      */
@@ -217,6 +234,7 @@ class DefaultController extends Controller
             if (! isset($pseudo[0]))
                 return $this->redirect($this->generateUrl('homepage'));
             $usr = $pseudo[0];
+            
         } else {
             $usr = $this->get('security.token_storage')
                 ->getToken()
@@ -239,17 +257,12 @@ class DefaultController extends Controller
             "userpage" => $usr->getId()
         ));
         
-        /* */
-        
-        // $thread = $provider->getThread( $threads[0]->getid());
-        // return var_dump($thread->getmessages()[0]->getbody());
-        /* */
-        
         return $this->render('home/profil.html.twig', array(
             "user" => $usr,
             "own" => $user,
             "Allcomment" => $comment,
-            "form" => $form
+            "form" => $form,
+            "live" => $this->check_stream($usr->getId())
         ));
     }
 }

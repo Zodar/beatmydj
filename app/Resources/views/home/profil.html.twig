@@ -156,17 +156,10 @@
 
             <h4>Disponibilité</h4>
             <hr>
-<!-- PAS ENCORE DISPONIBLE
-            <div> Lundi </div>
-		   	<div class="only_edit"> 
-            	<h4>Demandes de créneaux</h4>
-            	<hr>
-            </div>
-		   	<div class="only_other_profil"> 
-            	<h4>Réservation de créneaux</h4>
-            	<hr>
-            </div>
-            -->
+               {% if live is not null %}
+               <p class="warning"> Live en cours ! </p>
+               <a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}/{{live}}"> Voir le live </a>
+               {%endif%}
             
             {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 
