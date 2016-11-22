@@ -1264,3 +1264,8 @@
   /* reduce the damage in FF3.0 */
   display:block;
 }
+
+.conversation__wrap {
+    height: 60%;
+    overflow-y: scroll;
+}

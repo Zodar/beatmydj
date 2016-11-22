@@ -251,3 +251,12 @@ form#inscription_form label {
     max-height: 400px;
     margin: auto;
 }
+
+.divForTchat {
+	background: #de9a44;
+    margin: 3px;
+    width: 80px;
+    height: 40px;
+    display: none;
+    float: left;
+}
