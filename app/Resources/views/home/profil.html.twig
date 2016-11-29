@@ -37,6 +37,7 @@
                     	<span id="userFirstName">{{user.firstname}}</span>
                     	<span id="userLastName">{{user.lastname}}</span>
                 	</li>
+                    <!--
                     <li class="list-group-item list-group-item-info">
                     	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>  
                 		<span class="to_edit"> Paris, France </span> 
@@ -45,11 +46,16 @@
                     	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
                 		<span id="userEmail"> {{ user.email }} </span> 
                 	</li>
+                	-->
+                	
 				 	{% if user.role.idRole == 3 %}
+ 	                    <!--
 		                <li class="list-group-item list-group-item-info">
 		                	<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>  
 	                		<span id="userTarif"> 15 </span> € l'heure 
 	            		</li> 
+	                	-->
+	            		
 		                <li class="list-group-item list-group-item-info style">
 		                	<span class="glyphicon glyphicon-music" aria-hidden="true"></span>
 	                		<span class="to_edit"> 		{% if own is null %}

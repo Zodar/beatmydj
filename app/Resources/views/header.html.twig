@@ -26,7 +26,7 @@
 	<input type="hidden" value="{{path('homepage')}}" name="baseurl"/>
     <input type="hidden" name="photo_path" value="{{asset('uploads/dj_photos/')}}">
     {% if app.user and app.user.userName and app.user.id %}
-    	<input type="hidden" value="{{app.user.id}}" name="user_id"/>
+    	<input type="hidden" value="{{app.user.id}}" name="userConnected_id"/>
     	<input type="hidden" value="{{app.user.userName}}" name="user_userName"/>
     {% endif %}
   <nav class="navbar navbar-default">
