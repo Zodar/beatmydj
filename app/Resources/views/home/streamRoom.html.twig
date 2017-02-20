@@ -5,23 +5,25 @@
 
     <div class="container master grey lighten-5">
         <div class="row">
-			<h4> En attente de connexion </h4>
-			
-			{% if currentUserRole == 3 %}
-				<p> Aucun client n'est présent dans la session. </p>
-        	{% else %}	
-				<button href="#" onclick="apiCC.session.apiCCWebRTCClient.call({{DJID}});">
-					Rejoindre la session
-				</button>
-		   	{% endif %}
-			<!--
-            <div id="command"></div>
-            <div id="status"></div>
-			-->
-            <div id="local" style="position: absolute; width:640px; height:480px;"><video id="myLocalVideo" autoplay="autoplay" muted="true"></video></div>
-            <div id="remote" style="position: absolute;">
-                <div id="myRemoteVideo" style="width:640px; height:480px;"></div>
-                <div id="mini"><video width="20%" height="20%" id="myMiniVideo" autoplay="autoplay" muted="true"></video></div>
+        	<div class="col-md-12">
+				<h4> En attente de connexion </h4>
+				<hr>
+				{% if currentUserRole == 3 %}
+					<p> Aucun client n'est présent dans la session. </p>
+	        	{% else %}	
+					<button href="#" onclick="apiCC.session.apiCCWebRTCClient.call({{DJID}});">
+						Rejoindre la session
+					</button>
+			   	{% endif %}
+				<!--
+	            <div id="command"></div>
+	            <div id="status"></div>
+				-->
+	            <div id="local" style="position: absolute; width:640px; height:480px;"><video id="myLocalVideo" autoplay="autoplay" muted="true"></video></div>
+	            <div id="remote" style="position: absolute;">
+	                <div id="myRemoteVideo" style="width:640px; height:480px;"></div>
+	                <div id="mini"><video width="20%" height="20%" id="myMiniVideo" autoplay="autoplay" muted="true"></video></div>
+	            </div>
             </div>
         </div>
     </div><!-- /.container -->
