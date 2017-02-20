@@ -159,9 +159,12 @@
    			</div>
 
    		 	{% if user.role.idRole == 3 %}
-	            <h4>Disponibilité</h4>
+   		 	<div class="dispo">
+	            <h4>Disponibilité </h4><button class="btn btn-info" id="enlarge-calendar">Agrandir</button>
 	            <hr>
+
 	            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+	            </div>
         	{%endif%}
 
         </div>
