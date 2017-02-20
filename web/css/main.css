@@ -101,7 +101,13 @@ color: white;
 	padding: 15px;
 	text-align: center;
 }
-
+h4.username, a.new_message{
+	display: inline;
+}
+ a#new_message {
+	font-size: 20px;
+	padding-left: 10px;
+ }
 .navbar-brand, h4 {
 	background: -webkit-gradient(linear, left top, left bottom, from(#0a1d7b),
 		to(#9dc0ec));
@@ -259,5 +265,18 @@ form#inscription_form label {
     display: none;
     float: left;
 }.bootbox-calendar .modal-content{
-	width: 900px;
+	width: 700px;
+
 }
+.modal-content * {
+	-webkit-text-fill-color: inherit;
+}
+.xdsoft_ * {
+	-webkit-text-fill-color: inherit;
+}
+
+#eventdatepicker{
+	display:block;
+	padding: 5px;
+}
+

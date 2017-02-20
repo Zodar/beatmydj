@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	var baseurl = $("input[name='baseurl']").val();
 	var path_messages = $("input[name='path_messages']").val();
 	var page_type = $("input[name='page_type']").val();
@@ -183,6 +182,30 @@ $(document).ready(function(){
 
 	});
 
+	/* envoyer un message */
+	$("#new_message").click(function(){
+		bootbox.prompt({
+			title : "Message privé a : " + $(".username").html(), 
+			inputType : "textarea",
+			callback : function(result){
+				if (result != null && result.length > 0)
+				$.ajax({type:"POST", data: {userId :  $("input[name='user_id']").val()  ,body : result}, url: baseurl + "messages_new",
+					success: function(data){
+						var dialog = bootbox.dialog({
+							message: 'Votre message a bien été envoyé'
+						});
+						setTimeout(function(){ window.location.replace(path_messages); }, 1000);
+					},
+					error: function(data){
+						console.log(data.responseText);
+					}
+				});
+				
+				
+			}
+		})
+	})
+	
 	/*
 	var websocket = WS.connect("ws://127.0.0.1:1337");
 	websocket.on("socket/connect", function(session){

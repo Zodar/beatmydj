@@ -18,7 +18,8 @@
             		<input type="hidden" value="unsigned" name="page_type"/>
 		 	   	{% endif %}
             
-            	<h4> {{user.userName | capitalize }}</h4>
+            	<h4 class="username" > {{user.userName | capitalize }}  </h4>  <a id="new_message" href="#"> <span class="glyphicon glyphicon-envelope"></span>
+        </a>
 				<hr>
                 <img id="user_image" class="img-responsive" src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />
                 
@@ -135,17 +136,7 @@
 			 			<button id="add_comment" type="button" class="btn btn-sm btn-primary"> Poster </button>
 			   		</div>
 			   	</div>
-		   	{% endif %}
-			   	
-		   	<div class="only_other_profil">
-		 		<h4>Envoyer un message privé</h4>
-		 		<hr>
-		 		<textarea id="new_messages"> </textarea maxlength="250">
-	 		 	<div>
-		 			<button id="send_messages" type="button" userid="{{user.id}}" class="btn btn-sm btn-primary"> {{"Send" | trans}} </button>
-		   		</div>
-		   	</div>
-        
+		   	{% endif %}        
             <div class="only_view">
             	<h4>Visualisation</h4>
 		 		<hr>
@@ -183,13 +174,13 @@
 {% block javascripts %}
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/calendar-settings.js') }}"></script>
 
+<script type="text/javascript" src="{{ asset('js/calendar-settings.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('js/moment.js') }}"></script>
-	<script src="{{ asset('js/fullcalendar-all.js') }}"></script>
-
+	<script src="{{ asset('js/fullcalendar.js') }}"></script>
+	<script src="{{ asset('js/fr.js') }}"></script>
 	<script src="{{ asset('js/profil.js') }}"></script>
 	<script src="{{ asset('js/soundclood_userPlaylist.js') }}"></script>	
 

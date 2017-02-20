@@ -1,4 +1,5 @@
 $(function () {
+	jQuery.datetimepicker.setLocale('fr');
 	var baseurl = $("input[name='baseurl']").val();
 	var date = new Date();
 	var d = date.getDate();
@@ -17,13 +18,16 @@ $(function () {
 			$(this).css('border-color', 'red');
 		},allDaySlot : false,
 		dayClick: function(date, allDay, jsEvent, view) {
-
-			console.log(date);
 			moment.locale('fr');
-			bootbox.prompt("Quand aura lieu l'evenement ? <br> Date : " + get_selects(date) + "</br>" + get_selects_hours(), function(result) {
+			bootbox.confirm("Quand aura lieu l'evenement ? <br/>" + '<input id="eventdatepicker" type="text" ></input>' + "</br>" + get_selects_hours(), function(result) {
 				if (result != null)
 					if (result != ""){
-						$.ajax({type:"POST", data: {date : Date.parse(date),titre : result,user : $("input[name='user_id']").val()}, url: baseurl + "profil/add_event",
+						$.ajax({type:"POST", data: {
+							date : $('#eventdatepicker').datetimepicker('getValue').getTime(),
+							titre : result,
+							user : $("input[name='user_id']").val(),
+							duree : $("#hourseventdatepicker").val()
+							}, url: baseurl + "profil/add_event",
 							success: function(data){
 								if (data.success == "false"){
 									var dialog = bootbox.alert({
@@ -39,6 +43,7 @@ $(function () {
 									var dialog = bootbox.dialog({
 										message: 'L\'evenement a bien été créé'
 									});
+									$('#calendar-holder').fullCalendar( 'refetchEvents' );
 									setTimeout(function(){
 										dialog.modal('hide')
 									}, 1500);
@@ -53,10 +58,16 @@ $(function () {
 
 					}
 			});
+			console.log(date._d);
+			  $( "#eventdatepicker" ).datetimepicker({
+				  format:'d/m/Y H:00',
+				  defaultDate: date._d,
+				  inline:true,
+			  });
 		},
 		eventSources: [
 		               {
-		            	   url: Routing.generate('fullcalendar_loader'),
+		            	   url: baseurl + "profil/userEvent",
 		            	   type: 'POST',
 		            	   // A way to add custom filters to your event listeners
 		            	   data: {
@@ -71,46 +82,15 @@ $(function () {
 	});
 
 	function get_selects_hours(){
-		var html = "Durée : <select name='hours' >";
-		var select = "";
-		for (var i = 0; 10 > i;i++){
-			html += "<option value='"+i + "'"+ select + ">" + i + "H</option>";
-			select = "";
+		var html = "Durée : <select name='hours' id='hourseventdatepicker'>";
+		html += "<option value='1' selected >1H</option>";
+		for (var i = 2; 10 > i;i++){
+			html += "<option value='"+i + "'>" + i + "H</option>";
 		}
 		html += "</select>"
 			return html;
 	}
-	function get_selects(date){
-		 moment.locale('fr');
-		var months = moment.months();
-		var html = "<select name='day' >";
-		var select = "";
-		for (var i = 0; 31 > i;i++){
-			if (date.getDate() == i)
-				select = "selected"
-			html += "<option value='"+i + "'"+ select + ">" + i + "</option>";
-			select = "";
-		}
-		
-		html += "</select> <select>";
-		for (var i = 0; months.length > i;i++){
-			if (date.getMonth() == i)
-				select = "selected"
-			html += "<option value='"+i + "'"+ select + ">" + months[i] + "</option>"
-			select = "";
-		}
-		html += "</select> <select>";
-		var year = new Date().getFullYear();
-		for (var i = year ; year + 2 > i;i++){
-			if (date.getFullYear() == i)
-				select = "selected"
-			html += "<option value='"+i + "'"+ select + ">" + i + "</option>"
-			select = "";
-		}
-		html += "</select>"
-			
-			return html;
-	}
+	
 	$("#enlarge-calendar").click(function(){
 		$("#calendar-holder").fullCalendar('option', 'height', 900);
 		$('#calendar-holder').fullCalendar('option', 'aspectRatio', 10);

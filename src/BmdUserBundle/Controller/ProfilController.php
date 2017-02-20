@@ -1,6 +1,7 @@
 <?php
 namespace BmdUserBundle\Controller;
 
+use ADesigns\CalendarBundle\Event\CalendarEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -32,6 +33,38 @@ class ProfilController extends Controller
     
     /**
      *
+     * @Route("/profil/userEvent", name="user_event")
+     * @Method("Post")
+     *
+     * @param Request $request
+     */
+    public function loadCalendarAction(Request $request)
+    {
+        
+        $startDatetime = new \DateTime();
+        $startDatetime->setTimestamp(strtotime($request->get('start')));
+        
+        $endDatetime = new \DateTime();
+        $endDatetime->setTimestamp(strtotime($request->get('end')));
+    
+        $events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime, $request))->getEvents();
+    
+        $response = new \Symfony\Component\HttpFoundation\Response();
+        $response->headers->set('Content-Type', 'application/json');
+    
+        $return_events = array();
+    
+        foreach($events as $event) {
+            $return_events[] = $event->toArray();
+        }
+    
+        $response->setContent(json_encode($return_events));
+    
+        return $response;
+    }
+    
+    /**
+     *
      * @Route("/video", name="video")
      * @Method("GET")
      *
@@ -58,12 +91,12 @@ class ProfilController extends Controller
     public function AddEventAction(Request $request)
     {
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            
+            $duree = $this->get('request')->get('duree') != null? $this->get('request')->get('duree'):"1";
             $timestamp = $this->get('request')->get('date') / 1000;
             $date = new DateTime();
             $date->setTimestamp($timestamp);
             $dateend = clone $date;
-            $dateend->add(new DateInterval('PT1H'));
+            $dateend->add(new DateInterval("PT{$duree}H"));
             $date->setTimestamp($timestamp);
             $uid = $this->get('request')->get('user');
             if ($this->checkEventAvailable($date, $dateend, $uid) == false)
