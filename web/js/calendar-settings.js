@@ -72,7 +72,7 @@ $(function () {
 		            	   // A way to add custom filters to your event listeners
 		            	   data: {
 		            		   filter: 'my_custom_filter_param',
-		            		   userid : $("input[name='user_id']").val()
+		            		   userid : $("input[name='user_id']").val(),
 		            	   },
 		            	   error: function() {
 		            		   //alert('There was an error while fetching Google Calendar!');

@@ -13,74 +13,71 @@ use AppBundle\Entity\Comment;
 use BmdUserBundle\Entity\UserAvailability;
 use \DateTime;
 use \DateInterval;
+
 class ProfilController extends Controller
 {
-     /**
-     *
-     * @Route("/profil/edit", name="edit_profil")
-     * @Method("GET")
-     *
-     * @param Request $request            
-     */
-    public function EditProfilAction(Request $request)
-    {
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
-            return $this->render('BmdUserBundle:Profil:edit.html.twig', array());
-        else
-            return $this->redirect($this->generateUrl('homepage'));
-    }
 
-    
     /**
      *
      * @Route("/profil/userEvent", name="user_event")
      * @Method("Post")
      *
-     * @param Request $request
+     * @param Request $request            
      */
     public function loadCalendarAction(Request $request)
     {
-        
         $startDatetime = new \DateTime();
         $startDatetime->setTimestamp(strtotime($request->get('start')));
         
         $endDatetime = new \DateTime();
         $endDatetime->setTimestamp(strtotime($request->get('end')));
-    
-        $events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime, $request))->getEvents();
-    
+        
+//         $events = $this->container->get('event_dispatcher')
+//             ->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime, $request))
+//             ->getEvents();
+        
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
-    
+        
         $return_events = array();
-    
-        foreach($events as $event) {
+        $events = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('BmdUserBundle:UserAvailability')
+            ->createQueryBuilder('ua')
+            ->where('ua.dateStart >= :startDate')
+            ->andWhere('ua.dateEnd <= :endDate')
+            ->andWhere('ua.accept = 1')
+            ->setParameter('startDate', $startDatetime->format('Y-m-d H:i:s'))
+            ->setParameter('endDate', $endDatetime->format('Y-m-d H:i:s'))
+            ->getQuery()
+            ->getResult();
+        
+        foreach ($events as $event) {
             $return_events[] = $event->toArray();
         }
-    
+        
         $response->setContent(json_encode($return_events));
-    
         return $response;
     }
-    
+
     /**
      *
      * @Route("/video", name="video")
      * @Method("GET")
      *
-     * @param Request $request
+     * @param Request $request            
      */
     public function VideoAction(Request $request)
     {
-
-    $filename = "C:\\Users\\ohandoura\\ETNA\\PROJET-ETNA\\GPE\\beatmydj\\web\\uploads\\videos\\Wildlife.wmv";
-    $handle = fopen($filename, "r");
-    $contents = fread($handle, filesize($filename));
-    fclose($handle);
-    return new Response($contents, 200, array(
-        'Content-Type'        => 'video/wmv'          
-    ));
+        $filename = "C:\\Users\\ohandoura\\ETNA\\PROJET-ETNA\\GPE\\beatmydj\\web\\uploads\\videos\\Wildlife.wmv";
+        $handle = fopen($filename, "r");
+        $contents = fread($handle, filesize($filename));
+        fclose($handle);
+        return new Response($contents, 200, array(
+            'Content-Type' => 'video/wmv'
+        ));
     }
+
     /**
      *
      * @Route("/profil/add_event", name="ajout_evenement")
@@ -91,7 +88,7 @@ class ProfilController extends Controller
     public function AddEventAction(Request $request)
     {
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $duree = $this->get('request')->get('duree') != null? $this->get('request')->get('duree'):"1";
+            $duree = $this->get('request')->get('duree') != null ? $this->get('request')->get('duree') : "1";
             $timestamp = $this->get('request')->get('date') / 1000;
             $date = new DateTime();
             $date->setTimestamp($timestamp);
@@ -128,7 +125,7 @@ class ProfilController extends Controller
     }
 
     private function checkEventAvailable($datestart, $dateend, $userid)
-    {        
+    {
         $Events = $this->getDoctrine()
             ->getManager()
             ->getRepository('BmdUserBundle:UserAvailability')
@@ -152,10 +149,10 @@ class ProfilController extends Controller
             ->getResult();
         if (! empty($Events))
             return false;
-       
+        
         return true;
     }
-    
+
     /**
      *
      * @Route("/profil/edit", name="edit_profil_POST")
@@ -173,22 +170,37 @@ class ProfilController extends Controller
             
             if ($this->get('request')->get('name') != null) {
                 if ($this->get('request')->get('name') == "userFirstName") {
-                    $usr->setfirstname($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userLastName") {
-                    $usr->setlastname($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userLocation") {
-                    $usr->setLocation($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userEmail") {
-                    $usr->setEmail($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "tarif") {
-                    $usr->setTarif($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "style") {
-                    $usr->setStyle($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "userPresentation") {
-                    $usr->setPresentation($this->get('request')->get('value'));
-                } else if ($this->get('request')->get('name') == "changePlaylist") {
-                    $usr->setSoundCloodLink($this->get('request')->get('value'));
-                }
+                    $usr->setfirstname($this->get('request')
+                        ->get('value'));
+                } else 
+                    if ($this->get('request')->get('name') == "userLastName") {
+                        $usr->setlastname($this->get('request')
+                            ->get('value'));
+                    } else 
+                        if ($this->get('request')->get('name') == "userLocation") {
+                            $usr->setLocation($this->get('request')
+                                ->get('value'));
+                        } else 
+                            if ($this->get('request')->get('name') == "userEmail") {
+                                $usr->setEmail($this->get('request')
+                                    ->get('value'));
+                            } else 
+                                if ($this->get('request')->get('name') == "tarif") {
+                                    $usr->setTarif($this->get('request')
+                                        ->get('value'));
+                                } else 
+                                    if ($this->get('request')->get('name') == "style") {
+                                        $usr->setStyle($this->get('request')
+                                            ->get('value'));
+                                    } else 
+                                        if ($this->get('request')->get('name') == "userPresentation") {
+                                            $usr->setPresentation($this->get('request')
+                                                ->get('value'));
+                                        } else 
+                                            if ($this->get('request')->get('name') == "changePlaylist") {
+                                                $usr->setSoundCloodLink($this->get('request')
+                                                    ->get('value'));
+                                            }
             }
             
             $em = $this->getDoctrine()->getManager();

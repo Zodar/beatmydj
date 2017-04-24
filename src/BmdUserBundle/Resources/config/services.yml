@@ -13,3 +13,9 @@ services:
         arguments: [@doctrine.orm.entity_manager]
         tags: 
             - { name: kernel.event_listener, event: calendar.load_events ,  method: loadEvents} 
+    activity_listener:
+        class: BmdUserBundle\Listener\ActivityListener
+        arguments: [@security.context, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+            

@@ -15,6 +15,7 @@ use AppBundle\Entity\Comment;
 use Doctrine\ORM\Query;
 use \DateTime;
 use \DateInterval;
+use BmdUserBundle\Entity\ClientView;
 
 class DefaultController extends Controller
 {
@@ -25,43 +26,43 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
-    	$finduser = $this->getDoctrine()->getRepository('AppBundle:User');
-    	$findDjRole = $this->getDoctrine()->getRepository('AppBundle:RoleAssociative');
-    	//$users = $find->findAll(Query::HYDRATE_ARRAY);
-    	$djs =  $findDjRole->findBy(array(
-    	    "idRole" => 3
-    	));
-    	$id = array();
-    	foreach ($djs as $dj) {
-    	    $id[] = $dj->getidUser();
-    	}
-    	
-    	$pseudo = $find->findBy(array(
-    	    "id" => $id
-    	));
-    	$datas = [];
-    	
-    	foreach ($pseudo as $user) {
-    		$data = [];
-    		$data["id"] = $user->getId();
-    		$data["email"] = $user->getEmail();
-    		$data["firstName"] = $user->getFirstName();
-    		$data["lastName"] = $user->getLastName();
-    		$data["userName"] = $user->getUserName();
-    		$data["presentation"] = $user->getPresentation();
-    		$data["style"] = $user->getStyle();
-    		$data["dispo"] = $user->getDispo();
-    		$data["path"] = $user->path;
-    		array_push($datas, $data);
-    	}
-    	
+        $finduser = $this->getDoctrine()->getRepository('AppBundle:User');
+        $findDjRole = $this->getDoctrine()->getRepository('AppBundle:RoleAssociative');
+        // $users = $find->findAll(Query::HYDRATE_ARRAY);
+        $djs = $findDjRole->findBy(array(
+            "idRole" => 3
+        ));
+        $id = array();
+        foreach ($djs as $dj) {
+            $id[] = $dj->getidUser();
+        }
+        
+        $pseudo = $find->findBy(array(
+            "id" => $id
+        ));
+        $datas = [];
+        
+        foreach ($pseudo as $user) {
+            $data = [];
+            $data["id"] = $user->getId();
+            $data["email"] = $user->getEmail();
+            $data["firstName"] = $user->getFirstName();
+            $data["lastName"] = $user->getLastName();
+            $data["userName"] = $user->getUserName();
+            $data["presentation"] = $user->getPresentation();
+            $data["style"] = $user->getStyle();
+            $data["dispo"] = $user->getDispo();
+            $data["path"] = $user->path;
+            array_push($datas, $data);
+        }
+        
         $lastUser = array_pop($datas);
         $firstUser = array_shift($datas);
-		$randomUser = null;
-		if (!empty($datas)) {
-			$randomUser = $datas[array_rand($datas)];
-		}
-            
+        $randomUser = null;
+        if (! empty($datas)) {
+            $randomUser = $datas[array_rand($datas)];
+        }
+        
         return $this->render('home/home.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
             'firstUser' => $firstUser,
@@ -127,13 +128,15 @@ class DefaultController extends Controller
     {
         $composer = $this->get('fos_message.composer');
         $provider = $this->get('fos_message.provider');
-        $thread = $provider->getThread($this->get('request')->get('id'));
+        $thread = $provider->getThread($this->get('request')
+            ->get('id'));
         
         $message = $composer->reply($thread)
             ->setSender($this->get('security.token_storage')
-                ->getToken()
-                ->getUser())
-            ->setBody($this->get('request')->get('body'))
+            ->getToken()
+            ->getUser())
+            ->setBody($this->get('request')
+            ->get('body'))
             ->getMessage();
         
         $sender = $this->get('fos_message.sender');
@@ -155,8 +158,11 @@ class DefaultController extends Controller
     public function messagesActionPostNew(Request $request)
     {
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
-        $usr = $find->find($this->get('request')->get('userId'));
-        $currentUsr = $this->get('security.token_storage')->getToken()->getUser();        
+        $usr = $find->find($this->get('request')
+            ->get('userId'));
+        $currentUsr = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
         
         $composer = $this->get('fos_message.composer');
         $provider = $this->get('fos_message.provider');
@@ -164,7 +170,7 @@ class DefaultController extends Controller
         
         $alreadyHave = DefaultController::alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider);
         
-        if (!$alreadyHave) {
+        if (! $alreadyHave) {
             $message = $composer->newThread()
                 ->setSender($currentUsr)
                 ->addRecipient($usr)
@@ -174,8 +180,9 @@ class DefaultController extends Controller
                 ->getMessage();
         } else {
             $message = $composer->reply($alreadyHave)
-            ->setSender($currentUsr)
-                ->setBody($this->get('request')->get('body'))
+                ->setSender($currentUsr)
+                ->setBody($this->get('request')
+                ->get('body'))
                 ->getMessage();
         }
         
@@ -185,8 +192,9 @@ class DefaultController extends Controller
             'success' => "success"
         ));
     }
-    
-    public static function alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider) {
+
+    public static function alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider)
+    {
         $threads = $provider->getSentThreads();
         
         if (empty($threads)) {
@@ -203,30 +211,32 @@ class DefaultController extends Controller
         }
     }
 
-    public function check_stream($uid){
-        $date = new DateTime();;
+    public function check_stream($uid)
+    {
+        $date = new DateTime();
+        ;
         $Events = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('BmdUserBundle:UserAvailability')
-        ->createQueryBuilder('e')
-        ->where('e.dateStart <= :date AND e.dateEnd >= :date AND e.userid = :userId')
-        ->setParameter('date', $date->format('Y-m-d H:i:s'))
-        ->setParameter('userId', $uid)
-        ->getQuery()
-        ->getResult();
+            ->getManager()
+            ->getRepository('BmdUserBundle:UserAvailability')
+            ->createQueryBuilder('e')
+            ->where('e.dateStart <= :date AND e.dateEnd >= :date AND e.userid = :userId')
+            ->setParameter('date', $date->format('Y-m-d H:i:s'))
+            ->setParameter('userId', $uid)
+            ->getQuery()
+            ->getResult();
         if (empty($Events))
             return null;
-    
+        
         return $Events[0];
     }
-    
-  /**
+
+    /**
      * @Route("/profil", name="profil")
      * @Route("/profil/{user}", name="all_profil")
      */
     public function profil(Request $request, $user = null)
     {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (! $this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('homepage');
         }
         $form = "rien";
@@ -238,7 +248,6 @@ class DefaultController extends Controller
             if (! isset($pseudo[0]))
                 return $this->redirect($this->generateUrl('homepage'));
             $usr = $pseudo[0];
-            
         } else {
             $usr = $this->get('security.token_storage')
                 ->getToken()
@@ -254,6 +263,8 @@ class DefaultController extends Controller
         
         if (isset($usrUserName) && $user == $usrUserName) {
             $user = null;
+        } else {
+            $this->generateClientView($usr->getId());
         }
         
         $find = $this->getDoctrine()->getRepository('AppBundle:Comment');
@@ -268,5 +279,23 @@ class DefaultController extends Controller
             "form" => $form,
             "live" => $this->check_stream($usr->getId())
         ));
+    }
+
+    private function generateClientView($username)
+    {
+        $usr = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+        if ($usr->getRole()->getidRole() == 4) {
+            $clientView = new ClientView();
+            
+            $clientView->setClient($usr->getUsername());
+            $clientView->setVisited($username);
+            $clientView->setDate();
+            $em = $this->getDoctrine()->getManager();
+            
+            $em->persist($clientView);
+            $em->flush();
+        }
     }
 }

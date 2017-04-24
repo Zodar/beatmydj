@@ -1,3 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<title>BeatMyDJ</title>
+<meta charset="utf-8">
+<link rel="icon" href="{{asset('web/images/logo.jpg')}}" />
+
+<!-- LIB CSS -->
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/boostrap-social.css')}}">
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.structure.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.theme.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/editable/css/bootstrap-editable.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/gallery.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap-image-gallery.min.css')}}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="{{asset('css/fullcalendar.css')}}" />
+<link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
+<link rel="stylesheet" href="{{asset('css/live_tchat.css')}}" />
+<link rel="stylesheet" href="{{asset('css/main.css')}}" />
+<link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
+</head>
+<body  ng-app="beatMyDj" >
 		{% include 'header.html.twig' %}
         
         <div id="main_content" class="container well">
@@ -6,6 +35,9 @@
         
         {% include 'footer.html.twig' %}
         {% block javascripts %}{% endblock %}
+        <div  ng-controller="ChatController">
         {% include 'discussionBox.html.twig' %}
+        </div>
     </body>
+    	<script src="{{ asset('js/chat.js') }}"></script>
 </html>

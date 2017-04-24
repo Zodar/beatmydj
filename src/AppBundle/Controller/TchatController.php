@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TchatController extends Controller
 {
-    
+
     /**
      * @Route("/post_tchat_msg", name="post_tchat_msg")
      * @Method("POST")
@@ -44,22 +43,29 @@ class TchatController extends Controller
      */
     public function get_tchat_msg(Request $request)
     {
-        $to = $this->get('request')->get('to');
-        
-        $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQueryBuilder()
-		->select('live_tchat.id, live_tchat.from, live_tchat.value')
-		->from('\AppBundle\Entity\LiveTchat', 'live_tchat')
-		->where("live_tchat.to LIKE :to")->setParameter('to', $to)
-        ->andWhere('live_tchat.viewed = 0')
-        ->getQuery();
-        $data = $query->getResult();
-        
-        return new JsonResponse(array(
-            'value' => $data
-        ));
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $usr = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+           
+            $to = $usr->getUsername();
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $query = $entityManager->createQueryBuilder()
+                ->select('live_tchat.id, live_tchat.from, live_tchat.value')
+                ->from('\AppBundle\Entity\LiveTchat', 'live_tchat')
+                ->where("live_tchat.to LIKE :to")
+                ->setParameter('to', $to)
+                ->andWhere('live_tchat.viewed = 0')
+                ->getQuery();
+            $data = $query->getResult();
+            
+            return new JsonResponse(array(
+                'value' => $data
+            ));
+        }
     }
-    
+
     /**
      * @Route("/set_viewed_tchat_msg", name="set_viewed_tchat_msg")
      * @Method("POST")
@@ -67,18 +73,18 @@ class TchatController extends Controller
     public function set_viewed_tchat_msg(Request $request)
     {
         $id = $this->get('request')->get('id');
-    
+        
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQueryBuilder()
-        ->update('\AppBundle\Entity\LiveTchat', 'live_tchat')
-        ->set('live_tchat.viewed', '1')
-        ->where("live_tchat.id = :id")->setParameter('id', $id)
-        ->getQuery();
+            ->update('\AppBundle\Entity\LiveTchat', 'live_tchat')
+            ->set('live_tchat.viewed', '1')
+            ->where("live_tchat.id = :id")
+            ->setParameter('id', $id)
+            ->getQuery();
         $data = $query->getResult();
         
         return new JsonResponse(array(
             'value' => $data
         ));
     }
-
 }

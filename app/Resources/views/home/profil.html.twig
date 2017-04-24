@@ -1,7 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-                        <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+      {% if app.user and app.user.role.idRole == 3 and own is null %}
+<ul class="profil-header nav nav-tabs">
+  <li class="active"><a href="#home">Accueil</a></li>
+  <li><a href="#vues">Vus de profil</a></li>
+  <li><a href="#streams">Demande de stream</a></li>
+</ul>
+        {% endif %}
+<link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+<div class="tab-content" ng-controller="ProfilController">
+ <div id="home" class="tab-pane fade in active">
+                        
 	<div class="row">
         <div class="col-md-4">
             <div>
@@ -18,8 +28,11 @@
             		<input type="hidden" value="unsigned" name="page_type"/>
 		 	   	{% endif %}
             
-            	<h4 class="username" > {{user.userName | capitalize }}  </h4>  <a id="new_message" href="#"> <span class="glyphicon glyphicon-envelope"></span>
-        </a>
+            	<h4 class="username" > {{user.userName | capitalize }}  </h4>  
+            	{% if app.user and own is not null %}
+            	<a id="new_message" href="#"> <span class="glyphicon glyphicon-envelope"></span>
+        		</a>
+        		{% endif %}
 				<hr>
                 <img id="user_image" class="img-responsive" src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />
                 
@@ -166,18 +179,31 @@
 
         </div>
 	</div>
+		</div>
+	{% if app.user and app.user.role.idRole == 3 and own is null %}
+	{% include 'home/djPanel.html.twig' %}
 
+   {%endif%}
+
+</div>
 {% endblock %}
 
 
 
 {% block javascripts %}
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+});
+</script>
 
 <script type="text/javascript" src="{{ asset('js/calendar-settings.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('js/djpanelController.js') }}"></script>
 	<script src="{{ asset('js/moment.js') }}"></script>
 	<script src="{{ asset('js/fullcalendar.js') }}"></script>
 	<script src="{{ asset('js/fr.js') }}"></script>

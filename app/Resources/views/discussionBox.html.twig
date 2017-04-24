@@ -1,7 +1,11 @@
-<button type="button" class="button_chat js-trigger"></button>
+<button type="button" class="button_chat js-trigger">Chat ({[{useronline.length}]})</button>
 <nav class="chat">
     <h2 class="chat__users"></h2>
     <ul class="chat__wrapper">
+    		<li ng-repeat="user in useronline" class='chat__human'>
+    		 <img class="chat__avatar" src="{{asset('uploads/dj_photos/')}}{[{user.path}]}"  alt="{[{user.path}]}" 
+    		 <span class="chat__name">{[{user.userName}]}</span>
+    		</li>
 	<!-- A NE PAS SUPPRIMER ! -->
     </ul>
 </nav>

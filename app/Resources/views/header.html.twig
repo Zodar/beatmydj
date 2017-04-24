@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-
-<title>BeatMyDJ</title>
-<meta charset="utf-8">
-<link rel="icon" href="{{asset('web/images/logo.jpg')}}" />
-
-<!-- LIB CSS -->
-<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{asset('lib/bootstrap/css/boostrap-social.css')}}">
-<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.structure.min.css')}}" />
-<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.theme.min.css')}}" />
-<link rel="stylesheet" href="{{asset('lib/editable/css/bootstrap-editable.css')}}">
-<link rel="stylesheet" href="{{asset('lib/bootstrap/css/gallery.css')}}">
-<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap-image-gallery.min.css')}}">
-
-<!-- CUSTOM CSS -->
-<link rel="stylesheet" href="{{asset('css/fullcalendar.css')}}" />
-<link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
-<link rel="stylesheet" href="{{asset('css/live_tchat.css')}}" />
-<link rel="stylesheet" href="{{asset('css/main.css')}}" />
-<link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
-</head>
-<body>
 	<input type="hidden" value="{{path('homepage')}}" name="baseurl"/>
     <input type="hidden" name="photo_path" value="{{asset('uploads/dj_photos/')}}">
     {% if app.user and app.user.userName and app.user.id %}
@@ -63,6 +37,8 @@
 	        </a>
         </li>
         
+         
+     
         <!--
         <li>
 	        <a href="#">
@@ -74,10 +50,11 @@
 		-->
 		
         {% if app.user %}
+       
 	        <li>
 		        <a href="{{ path('messages') }}">
 			      <button type="button" class="btn btn-primary btn-sm">
-		            <span class="glyphicon glyphicon-envelope"></span> {{ fos_message_nb_unread() }} 
+		            <span class="glyphicon glyphicon-inbox"></span> {{ fos_message_nb_unread() }} 
 		          </button>
 		        </a>
 	        </li>

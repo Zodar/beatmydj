@@ -19,7 +19,6 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends Controller implements UserInterface, ParticipantInterface
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -67,6 +66,11 @@ class User extends Controller implements UserInterface, ParticipantInterface
      * @ORM\Column(type="string", length=4096, nullable=true)
      */
     private $dispo;
+    
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    private $lastActivity;
 
     /**
      * @Assert\NotBlank()
@@ -105,6 +109,15 @@ class User extends Controller implements UserInterface, ParticipantInterface
      */
     private $soundCloodLink;
     
+    public function getLastActivity(){
+        return $this->lastActivity;
+    }
+    public function setLastActivity($la){
+        return $this->lastActivity = $la;
+    }
+    public function isActiveNow(){
+        $this->setLastActivity(new \DateTime());
+    }
     public function getSoundCloodLink() {
         return $this->soundCloodLink;
     }
