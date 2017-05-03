@@ -98,7 +98,7 @@ class DefaultController extends Controller
         $page = $this->get('request')->get('page');
         $message = \Swift_Message::newInstance()
         ->setSubject('Un utilisateur a laissé un avis')
-        ->setFrom('beatmyDjSite@beatmyDj.com')
+        ->setFrom('website@beatmydj.com')
         ->setTo('beat.my.dj@gmail.com')
         ->setBody("Un utilisateur a laissé un avis! <br/>Page: $page <br/> note: $note <br/> avis: $text",'text/html'
         ) ;
