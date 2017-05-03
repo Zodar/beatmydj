@@ -1,0 +1,28 @@
+	 <div id="vues" class="tab-pane fade">
+	 <p>Les clients qui ont vus mon profil</p>
+	 
+	 <table class="mystream">
+	 	<tr> <th> Pseudo du client </th> <th> Date </th> </tr>
+			<tr ng-repeat="view in views">
+			<td  >{[{ view.userName}]}</td>
+			<td  >{[{ view.date.date | parseDate |date:'dd/MM/yyyy HH:mm'}]}</td>
+			</tr>
+		</table>
+    </div>
+    <div id="streams" class="tab-pane fade">
+         <h4>Mes demandes de streams</h4>
+    	<table class="mystream">
+	 	<tr> <th data-checkbox="true"></th> <th> Auteur </th> <th> Date de debut </th> <th> Date de fin </th> </tr>
+			<tr ng-repeat="stream in streams">
+			   			<td><input type="checkbox"  ng-model="checkStatus"
+     ng-change="stateChanged(checkStatus)" class="events" eventid="{[{ stream.id}]}" /></td>
+						<td onclick="selectRow(this)" >{[{ stream.auteur}]}</td>
+						<td onclick="selectRow(this)" >{[{ stream.dateStart.date | parseDate |date:'dd/MM/yyyy HH:mm'}]}</td>
+						<td onclick="selectRow(this)" >{[{ stream.dateEnd.date | parseDate | date:'dd/MM/yyyy HH:mm'}]}</td>
+			</tr>
+		</table>
+		<div ng-show="streamcheck > 0" class="streamsbutton">
+		<button type="button" class="btn btn-success" ng-click="validestream()">Accepter</button>
+		<button type="button" class="btn btn-danger"  ng-click="refusestream()">Refuser</button>
+		</div>
+    </div>
