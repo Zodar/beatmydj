@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             new Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle()
         );
         
         if (in_array($this->getEnvironment(), array(

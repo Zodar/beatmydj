@@ -1,9 +1,8 @@
 $(document).ready(function(){
-	$("#search-query").prop('disabled', true);
-	$("#search-query-tchat").prop('disabled', true);
 
 	var baseurl = $("input[name='baseurl']").val();
 	var photoPath = $("input[name='photo_path']").val();
+	getAllUsers();
 
 	$("#advanced_search input[type=checkbox]").change(function() {
 
@@ -31,3 +30,31 @@ $(document).ready(function(){
 	});
 });
 
+function getAllUsers() {
+	var getAllUser = Routing.generate('getAllUser');
+	var profil = Routing.generate('profil');
+
+	$.ajax({data: $(this).serialize(), url: getAllUser,
+		success: function(data){
+			var usernames = new Array();
+			$.each(data.users, function(k, v) {
+				usernames.push(v.userName);
+			});
+			$("#search-query").prop('disabled', false);
+			$("#style-form-listeDJ").css('display', 'block');
+
+			$("#search-query").autocomplete({
+				source: usernames,
+				select: function(event, ui) {
+					if(ui.item){
+						$('#search-query').val(ui.item.value);
+					}
+					window.location.href =  profil + "/" + ui.item.value;
+				}
+			});
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
+}

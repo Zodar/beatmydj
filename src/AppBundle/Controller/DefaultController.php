@@ -76,6 +76,39 @@ class DefaultController extends Controller
         return strtotime($a->getAllMetadata()[0]->getLastParticipantMessageDate()) - strtotime($b->getAllMetadata()[0]->getLastParticipantMessageDate());
     }
 
+    
+
+    /**
+     *
+     * @Route("/avis",options={"expose"=true}, name="post_avis")
+     * @Method("POST")
+     *
+     * @param Request $request
+     */
+    public function sendReview(Request $request)
+    {
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){
+            $usr = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+        }
+
+        $note = $this->get('request')->get('note');
+        $text = $this->get('request')->get('text');
+        $page = $this->get('request')->get('page');
+        $message = \Swift_Message::newInstance()
+        ->setSubject('Un utilisateur a laissé un avis')
+        ->setFrom('beatmyDjSite@beatmyDj.com')
+        ->setTo('beat.my.dj@gmail.com')
+        ->setBody("Un utilisateur a laissé un avis! <br/>Page: $page <br/> note: $note <br/> avis: $text",'text/html'
+        ) ;
+        
+        
+        return new JsonResponse(array(
+            'success' => "success",
+            'mail' => $this->get('mailer')->send($message)
+        ));
+    }
     /**
      * @Route("/messages", name="messages")
      * @Method("GET")
@@ -231,7 +264,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/profil",options={"expose"=true}, name="profil")
      * @Route("/profil/{user}", name="all_profil")
      */
     public function profil(Request $request, $user = null)

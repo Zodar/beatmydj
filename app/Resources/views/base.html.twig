@@ -4,7 +4,7 @@
 
 <title>BeatMyDJ</title>
 <meta charset="utf-8">
-<link rel="icon" href="{{asset('web/images/logo.jpg')}}" />
+<link rel="icon" href="{{asset('web/images/logo.png')}}" />
 
 <!-- LIB CSS -->
 <link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}">
@@ -15,8 +15,20 @@
 <link rel="stylesheet" href="{{asset('lib/editable/css/bootstrap-editable.css')}}">
 <link rel="stylesheet" href="{{asset('lib/bootstrap/css/gallery.css')}}">
 <link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap-image-gallery.min.css')}}">
+<script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('lib/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{asset('lib/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('lib/editable/js/bootstrap-editable.js')}}"></script>
+<script src="{{asset('lib/bootbox/bootbox.min.js')}}"></script>
+<script type="text/javascript"> bootbox.setLocale("fr"); </script>
+<script src="{{asset('lib/soundclood/sc.js')}}"></script>
+<script src="{{asset('lib/soundclood/sc_widget.js')}}"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<!-- CUSTOM JS -->
+<script src="{{asset('js/script.js')}}"></script>
+<script src="{{asset('js/search.js')}}"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-
+    	<script src="{{ asset('js/main.js') }}"></script>
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <!-- CUSTOM CSS -->
@@ -33,11 +45,12 @@
 	        {% block body %}{% endblock %}
         </div>
         
-        {% include 'footer.html.twig' %}
+
         {% block javascripts %}{% endblock %}
         <div  ng-controller="ChatController">
         {% include 'discussionBox.html.twig' %}
         </div>
+                {% include 'footer.html.twig' %}
     </body>
     	<script src="{{ asset('js/chat.js') }}"></script>
 </html>

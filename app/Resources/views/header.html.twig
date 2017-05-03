@@ -7,19 +7,13 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
- 		<img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.jpg')}}" alt="LOGO" />
-        <a class="navbar-brand" href="{{path('homepage')}}">BeatMyDJ</a>
+ 		
+        <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />    <p id="logotext" >BEAT MY DJ</p></a>
+    
       </div>
       
       <ul class="nav navbar-nav pull-right">
-        <li>
-	        <a href="#">
-		      <span class="inner-addon">
-				    <i id="loupe_search_dj" class="glyphicon glyphicon-search"></i>
-				    <input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name">
-			  </span>
-			</a>
-        </li>
+       
 
         <li>
 	        <a href="{{ path('homepage') }}">
@@ -27,6 +21,14 @@
 	            <span class="glyphicon glyphicon-home"></span> Home
 	          </button>
 	        </a>
+        </li>
+         <li>
+	        <a href="#" id="search_menu">
+		      <span class="inner-addon">
+				    <span id="loupe_search_dj" class="glyphicon glyphicon-search"><input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name" disable>
+				    </span>
+			  </span>
+			</a>
         </li>
         
         <li>

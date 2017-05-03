@@ -62,12 +62,12 @@ class ListeController extends Controller
 
     /**
      *
-     * @Route("/get_all_dj",options={"expose"=true}, name="get_all_dj")
+     * @Route("/get_all_dj",options={"expose"=true}, name="getAllUser")
      * @Method("GET")
      *
      * @param Request $request            
      */
-    public function getAllDJ(Request $request)
+    public function getAllUser(Request $request)
     {
         $usr = null;
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -75,8 +75,7 @@ class ListeController extends Controller
                 ->getToken()
                 ->getUser();
         }
-//         $find = $this->getDoctrine()->getRepository('AppBundle:User');
-        $users = $this->getActive();
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $datas = [];
         
         foreach ($users as $user) {
@@ -95,6 +94,52 @@ class ListeController extends Controller
             }
         }
         
+        return new JsonResponse(array(
+            'users' => $datas,
+            'value' => "ok"
+        ));
+    }
+    
+    /**
+     *
+     * @Route("/getOnlinedj",options={"expose"=true}, name="getOnlineUser")
+     * @Method("GET")
+     *
+     * @param Request $request
+     */
+    public function getOnlineUser(Request $request)
+    {
+        $usr = null;
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $usr = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+        }
+        else 
+            return new JsonResponse(array(
+                'users' => null,
+                'value' => "ok"
+            ));
+        //         $find = $this->getDoctrine()->getRepository('AppBundle:User');
+        $users = $this->getActive();
+        $datas = [];
+    
+        foreach ($users as $user) {
+            if ($usr->getId() != $user->getId()) {
+                $data = [];
+                $data["id"] = $user->getId();
+                $data["email"] = $user->getEmail();
+                $data["firstName"] = $user->getFirstName();
+                $data["lastName"] = $user->getLastName();
+                $data["userName"] = $user->getUserName();
+                $data["presentation"] = $user->getPresentation();
+                $data["style"] = $user->getStyle();
+                $data["dispo"] = $user->getDispo();
+                $data["path"] = $user->path;
+                array_push($datas, $data);
+            }
+        }
+    
         return new JsonResponse(array(
             'users' => $datas,
             'value' => "ok"

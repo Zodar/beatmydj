@@ -1,14 +1,6 @@
 <!-- LIB JS -->
-<script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('lib/jquery-ui/jquery-ui.min.js')}}"></script>
-<script src="{{asset('lib/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('lib/editable/js/bootstrap-editable.js')}}"></script>
-<script src="{{asset('lib/bootbox/bootbox.min.js')}}"></script>
-<script type="text/javascript"> bootbox.setLocale("fr"); </script>
-<script src="{{asset('lib/soundclood/sc.js')}}"></script>
-<script src="{{asset('lib/soundclood/sc_widget.js')}}"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjRI3sxSGljeb_mtuamWHQdjQRriwYz08&amp&callback=initMap"> </script>
 
-<!-- CUSTOM JS -->
-<script src="{{asset('js/script.js')}}"></script>
-<script src="{{asset('js/search.js')}}"></script>
+<div class="tab-footer" ng-controller="FooterController">
+<button type="button" class="btn btn-secondary review" ng-click="userReview()">Ton avis</button>
+</div>
