@@ -22,6 +22,10 @@ fos_message:
     prefix: /optional_routing_prefix    
 # ROUTE POUR LES UTILISATEUR MADE BY OH
 
+
+api_login_check:
+    path: /api/login_check
+    
 login_check:
     pattern:   /login_check
     

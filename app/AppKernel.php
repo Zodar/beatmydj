@@ -26,9 +26,10 @@ class AppKernel extends Kernel
             new FOS\MessageBundle\FOSMessageBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle()
         );
-        
+
         if (in_array($this->getEnvironment(), array(
             'dev',
             'test'
@@ -38,7 +39,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
-        
+
         return $bundles;
     }
 

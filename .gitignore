@@ -421,3 +421,5 @@ logs
 /app/cache/dev/profiler/c8/4f/054fc8
 /app/cache/dev/profiler/d0/39/c439d0
 /app/cache/dev/profiler/d5/c0/a9c0d5
+dev
+prod

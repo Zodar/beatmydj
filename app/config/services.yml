@@ -7,3 +7,8 @@ services:
     service_name:
         class: AppBundle\Entity\User
         arguments: [ @doctrine.orm.entity_manager ]
+        
+    app.event.authentication_success_listener:
+        class: AppBundle\EventListener\AuthenticationSuccessListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
