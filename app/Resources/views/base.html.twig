@@ -38,10 +38,10 @@
 <link rel="stylesheet" href="{{asset('css/main.css')}}" />
 <link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
 </head>
-<body  ng-app="beatMyDj" >
+
+<body  ng-app="beatMyDj">
 		{% include 'header.html.twig' %}
-        
-        <div id="main_content" class="container well">
+        <div id="main_content" >> 
 	        {% block body %}{% endblock %}
         </div>
         
@@ -52,5 +52,26 @@
         </div>
                 {% include 'footer.html.twig' %}
     </body>
-    	<script src="{{ asset('js/chat.js') }}"></script>
+    <!-- FOOTER -->
+
+    <hr class="featurette-divider">
+    <footer>
+            <div class="col-md-2">
+        <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />
+                <p id="logotext"> BEAT MY DJ </p></a>
+                     </div>
+                         <div class="col-md-6">
+                            BeatMYDJ est une plateforme de mise en relation entre dj et des organisateurs de soirée. Il vous suffit simplement de se rendre sur notre plateforme, commander un DJ pour votre soirée, brancher vos enceintes et profiter de la musique ainsi que de vos invités.Vous l’aurez compris, BeatMYDJ propose un total accompagnements musicale de votre soirée afin que vous n’aillez qu’une seule chose à vous occuper : Vous amuser !
+                     </div>
+                     <div class="col-md-4">
+                            <ul>
+                            <li> Acceuil</li>
+                            <li> Nous contacter</li>
+                            <li> Plan du site</li>
+                            <li> Mention légales</li>
+                        </ul>
+                     </div>
+            <p>&copy; 2017 BeatMyDJ</p>
+        </footer>
+    	<script src="{{ asset('js/chat.js') }}"></script>             
 </html>

@@ -4,14 +4,15 @@
     	<input type="hidden" value="{{app.user.id}}" name="userConnected_id"/>
     	<input type="hidden" value="{{app.user.userName}}" name="user_userName"/>
     {% endif %}
-  <nav class="navbar navbar-default">
+  <nav class="nav bar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
  		
-        <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />    <p id="logotext" >BEAT MY DJ</p></a>
+        <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />    
+        	<p id="logotext" >BEAT MY DJ</p>
+        </a>
     
       </div>
-      
       <ul class="nav navbar-nav pull-right">
        
 
@@ -34,13 +35,11 @@
         <li>
 	        <a href="{{ path('search_advanced') }}">
 		      <button type="button" class="btn btn-primary btn-sm">
-	            <span class="glyphicon glyphicon-music"></span> Nos DJ
+	            <span class="glyphicon glyphicon-music"></span>
+	             Nos DJ
 	          </button>
 	        </a>
         </li>
-        
-         
-     
         <!--
         <li>
 	        <a href="#">

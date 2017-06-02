@@ -62,24 +62,25 @@ class ListeController extends Controller
 
     /**
      *
-     * @Route("/get_all_dj",options={"expose"=true}, name="getAllUser")
+     * @Route("/get_all_dj", name="getAllDjMobile")
      * @Method("GET")
      *
      * @param Request $request            
      */
     public function getAllUser(Request $request)
     {
+        header('Access-Control-Allow-Origin: *');
         $usr = null;
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $usr = $this->get('security.token_storage')
-                ->getToken()
-                ->getUser();
-        }
+        // if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        //     $usr = $this->get('security.token_storage')
+        //         ->getToken()
+        //         ->getUser();
+        // }
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $datas = [];
         
         foreach ($users as $user) {
-            if ($usr->getId() != $user->getId()) {
+           // if ($usr->getId() != $user->getId()) {
                 $data = [];
                 $data["id"] = $user->getId();
                 $data["email"] = $user->getEmail();
@@ -91,13 +92,14 @@ class ListeController extends Controller
                 $data["dispo"] = $user->getDispo();
                 $data["path"] = $user->path;
                 array_push($datas, $data);
-            }
+           // }
         }
-        
-        return new JsonResponse(array(
+        $r = new JsonResponse(array(
             'users' => $datas,
-            'value' => "ok"
-        ));
+            'value' => "ok" ));
+
+            $r->getStatusCode(200);
+        return $r;
     }
     
     /**
@@ -157,5 +159,24 @@ class ListeController extends Controller
         ->setParameter('delay', $delay);
     
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     *
+     * @Route("/dj",options={"expose"=true}, name="getAllUser")
+     * @Method("GET")
+     *
+     * @param Request $request            
+     */ 
+    public function getOneUserById(Request $request)
+    {
+        header('Access-Control-Allow-Origin: *');
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->createQueryBuilder('u')
+        ->where('u.id = $id');
+       
+        return new JsonResponse(array(
+            'users' => $user,
+            'value' => "ok" ));
+
     }
 }
