@@ -41,7 +41,7 @@
 
 <body  ng-app="beatMyDj">
 		{% include 'header.html.twig' %}
-        <div id="main_content" >> 
+        <div id="main_content" class="container" >
 	        {% block body %}{% endblock %}
         </div>
         
@@ -52,6 +52,7 @@
         </div>
                 {% include 'footer.html.twig' %}
     </body>
+    <script src="{{ asset('js/chat.js') }}"></script>
     <!-- FOOTER -->
 
     <hr class="featurette-divider">
