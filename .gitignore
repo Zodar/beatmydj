@@ -1,5 +1,6 @@
 /app/config/parameters.yml
 logs
+/app/cache/*
 /.project
 /.settings
 /vendor
