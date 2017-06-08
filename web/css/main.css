@@ -1,7 +1,7 @@
 /* Set padding to keep content from hitting the edges */
 @font-face {
     font-family: 'Montserrat-Regular';
-    src: url('/web/fonts/Montserrat-bold.ttf'); 
+    src: url('/web/fonts/Montserrat-Bold.ttf'); 
 }
 
 .body-content {
@@ -20,11 +20,10 @@
 input, select {
 	max-width: 280px;
 }
-body {
-	color: black;
-	background-color: white;
-	font-family: Montserrat-Regular;
-	margin: 0;
+
+body, html {
+    height: 100%;
+    margin: 0;
 }
 
 .font-small {
@@ -492,6 +491,7 @@ float: right;
 
 .featurette{
 	min-height: 400px;
+	padding: 20px;
 }
 
 
@@ -526,4 +526,46 @@ float: right;
 
 footer{
 min-height: 300px;
+}
+
+.HomelistDJ {
+
+	font-size: 30px;
+}
+
+.headerImage {
+    /* The image used */
+
+    background-image: url("/images/header.png");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.headerNavbar{
+	opacity: 0.3;
+}
+
+.textHeader {
+    background-color: #111;
+    color: #fff;
+    padding: 18px;
+    font-size: 25px;
+    letter-spacing: 10px;
+}
+.centerText {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #000;
+}
+
+.buttonHeader {
+	background: none;
+	font-color: white;
+	font-size : 18px;
+
 }

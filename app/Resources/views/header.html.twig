@@ -1,10 +1,8 @@
 	<input type="hidden" value="{{path('homepage')}}" name="baseurl"/>
     <input type="hidden" name="photo_path" value="{{asset('uploads/dj_photos/')}}">
-    {% if app.user and app.user.userName and app.user.id %}
-    	<input type="hidden" value="{{app.user.id}}" name="userConnected_id"/>
-    	<input type="hidden" value="{{app.user.userName}}" name="user_userName"/>
-    {% endif %}
-  <nav class="nav bar navbar-default">
+
+    	<div class="headerImage">
+    			  <nav class="nav bar navbar-default headerNavbar">
     <div class="container-fluid">
       <div class="navbar-header">
  		
@@ -14,16 +12,7 @@
     
       </div>
       <ul class="nav navbar-nav pull-right">
-       
-
         <li>
-	        <a href="{{ path('homepage') }}">
-		      <button type="button" class="btn btn-primary btn-sm">
-	            <span class="glyphicon glyphicon-home"></span> Home
-	          </button>
-	        </a>
-        </li>
-         <li>
 	        <a href="#" id="search_menu">
 		      <span class="inner-addon">
 				    <span id="loupe_search_dj" class="glyphicon glyphicon-search"><input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name" disable>
@@ -31,11 +20,18 @@
 			  </span>
 			</a>
         </li>
+        <li>
+	        <a href="{{ path('homepage') }}">
+		      <button type="button" class="btn btn-sm buttonHeader">
+		      	Home
+	          </button>
+	        </a>
+        </li>
+        
         
         <li>
 	        <a href="{{ path('search_advanced') }}">
-		      <button type="button" class="btn btn-primary btn-sm">
-	            <span class="glyphicon glyphicon-music"></span>
+		      <button type="button" class="btn btn-sm buttonHeader">
 	             Nos DJ
 	          </button>
 	        </a>
@@ -54,45 +50,58 @@
        
 	        <li>
 		        <a href="{{ path('messages') }}">
-			      <button type="button" class="btn btn-primary btn-sm">
-		            <span class="glyphicon glyphicon-inbox"></span> {{ fos_message_nb_unread() }} 
+			      <button type="button" class="btn btn-sm buttonHeader">
+		  				{{ fos_message_nb_unread() }} 
 		          </button>
 		        </a>
 	        </li>
 	        
 	        <li>
 		        <a href="{{ path('profil') }}">
-			      <button type="button" class="btn btn-success btn-sm">
-		            <span class="glyphicon glyphicon-user"></span> {{ app.user.firstName }} {{ app.user.lastName }}
+			      <button type="button" class="btn btn-sm buttonHeader">
+		         	{{ app.user.firstName }} {{ app.user.lastName }}
 		          </button>
 		        </a>
 	        </li>
 	        
 	        <li>
-	         <a href="{{ path('logout') }}">
-	          <button type="button" class="btn btn-success btn-sm"> 
-	            <span class="glyphicon glyphicon-log-out"></span> Log out
+	         <a href="{{ path('logout') }}"> 
+	          <button type="button" class="btn btn-sm buttonHeader"> 
+				 Log out
 	          </button>
 	          </a>
 	        </li> 
         {% else %}
 	        <li>
 		    	<a href="#">
-		          <button type="button" class="login-btn btn btn-success btn-sm" data-toggle="modal" data-target="#inscription_modal">
+		          <button type="button" class="btn btn-sm buttonHeader" data-toggle="modal" data-target="#inscription_modal">
 		            Inscription
 		          </button>
 		        </a>
 	        </li>
 	        <li>
 	        	<a href="{{path('login')}}">
-	  			  <button type="button" class="login-btn btn btn-success btn-sm"> Connexion </button>
+	  			  <button type="button" class="btn btn-sm buttonHeader"> Connexion </button>
 	            </a>
 	        </li> 
         {% endif %}
       </ul>
     </div>
   </nav>
+ <div class="centerText">
+    <span class="textHeader">UN DJ LIVE</span>
+    <br>
+    <br>
+    <span class="textHeader">EN QUELQUES CLICS</span>
+  </div>
 
+    	</div>
+      
+
+    {% if app.user and app.user.userName and app.user.id %}
+    	<input type="hidden" value="{{app.user.id}}" name="userConnected_id"/>
+    	<input type="hidden" value="{{app.user.userName}}" name="user_userName"/>
+    {% endif %}
   {% if app.user %} {% else %}
   <!-- POP UP INSCRIPTION -->
   <div id="inscription_modal" class="modal fade" tabindex="-1"
