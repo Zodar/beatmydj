@@ -30,14 +30,6 @@ body, html {
 	font-size: 6px;
 }
 
-/* ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	background-color: #f1f1f1;
-	height: 100%;
-	overflow: auto;
-} */
 li a {
 	display: block;
 	color: #000;
@@ -148,13 +140,14 @@ a#new_message {
 }
 
 #brand_logo {
-	height: 90px;
+	height: 130px;
 	margin: 0;
 	padding: 0;
 }
 #logolink{
 float: left;
 }
+
 #brand_logo {
   border-radius: 50%;
   -webkit-transition: -webkit-transform .8s ease-in-out;
@@ -168,11 +161,10 @@ float: left;
 	float: right;
     writing-mode: vertical-lr;
     text-orientation: sideways;
-    height: 90px;
-    font-size: 13px;
+    height: 140px;
+    font-size: 20px;
     margin: 0;
     padding: 0;
-    /* line-height: 90px; */
     text-align: center;
 	background: -webkit-linear-gradient(orange, blue);
     -webkit-background-clip: text;
@@ -187,15 +179,16 @@ float: left;
 	padding-right: 0;
     padding-left: 0;
 }
-#search_menu #loupe_search_dj{
-	font-size: 15px;
-	vertical-align: bottom;
-}
+
 #search-query{
-	display:none;
-		font-family: serif;
-    font-style: normal;
+	width: 450px;
+    height: 40px;
+    opacity: 0.3;
+    font-size: 20px; 
+    opacity: 0.3;
+	padding-left:30px;
 }
+
 #search-query:focus{
 	display: inline-block !important;	
 }
@@ -544,7 +537,7 @@ min-height: 300px;
 }
 
 .headerNavbar{
-	opacity: 0.3;
+	background-color: rgba(255, 255, 255, 0.3);
 }
 
 .textHeader {
@@ -565,7 +558,35 @@ min-height: 300px;
 
 .buttonHeader {
 	background: none;
-	font-color: white;
-	font-size : 18px;
+	color: black;
+	font-size : 24px;
+	font-weight: bold;
+	color: white;
+}
+
+.connexion{
+	background-color: transparent; 
+    background-repeat: no-repeat; 
+    background-position: 0px 0px; 
+    border: none;           
+    cursor: pointer;        
+    height: 16px;           
+    padding-left: 16px;     
+    vertical-align: middle; 
+}
+
+.btnimg {
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 38px;
+}
+
+#RechercheImg{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 38px;
 
 }

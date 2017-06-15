@@ -1,192 +1,194 @@
-	<input type="hidden" value="{{path('homepage')}}" name="baseurl"/>
-    <input type="hidden" name="photo_path" value="{{asset('uploads/dj_photos/')}}">
+<input type="hidden" value="{{path('homepage')}}" name="baseurl"/>
+<input type="hidden" name="photo_path" value="{{asset('uploads/dj_photos/')}}">
 
-    	<div class="headerImage">
-    			  <nav class="nav bar navbar-default headerNavbar">
-    <div class="container-fluid">
-      <div class="navbar-header">
- 		
-        <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />    
-        	<p id="logotext" >BEAT MY DJ</p>
-        </a>
+  <div class="navbar-header col-md-12 headerNavbar">
+<div class="container-fluid">
+   <nav class="nav bar navbar-default connexion">
+<ul class="nav navbar-nav pull-right">
+
+    {# <li>
+      <a href="{{ path('homepage') }}">
+      <button type="button" class="btn btn-sm buttonHeader"><img class="connexion">
+        Home
+        </button>
+      </a>
+    </li>    #} 
+{#     <li>
+      <a href="{{ path('search_advanced') }}">
+      <button type="button" class="btn btn-sm buttonHeader">
+           Nos DJ
+        </button>
+      </a>
+    </li> #}
     
-      </div>
-      <ul class="nav navbar-nav pull-right">
-        <li>
-	        <a href="#" id="search_menu">
-		      <span class="inner-addon">
-				    <span id="loupe_search_dj" class="glyphicon glyphicon-search"><input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name" disable>
-				    </span>
-			  </span>
-			</a>
-        </li>
-        <li>
-	        <a href="{{ path('homepage') }}">
-		      <button type="button" class="btn btn-sm buttonHeader">
-		      	Home
-	          </button>
-	        </a>
-        </li>
-        
-        
-        <li>
-	        <a href="{{ path('search_advanced') }}">
-		      <button type="button" class="btn btn-sm buttonHeader">
-	             Nos DJ
-	          </button>
-	        </a>
-        </li>
-        <!--
-        <li>
-	        <a href="#">
-		      <button type="button" class="btn btn-primary btn-sm">
-	            <span class="glyphicon glyphicon-play-circle"></span> Aperçu musical
-	          </button>
-	        </a>
-        </li>
-		-->
-		
-        {% if app.user %}
-       
-	        <li>
-		        <a href="{{ path('messages') }}">
-			      <button type="button" class="btn btn-sm buttonHeader">
-		  				{{ fos_message_nb_unread() }} 
-		          </button>
-		        </a>
-	        </li>
-	        
-	        <li>
-		        <a href="{{ path('profil') }}">
-			      <button type="button" class="btn btn-sm buttonHeader">
-		         	{{ app.user.firstName }} {{ app.user.lastName }}
-		          </button>
-		        </a>
-	        </li>
-	        
-	        <li>
-	         <a href="{{ path('logout') }}"> 
-	          <button type="button" class="btn btn-sm buttonHeader"> 
-				 Log out
-	          </button>
-	          </a>
-	        </li> 
-        {% else %}
-	        <li>
-		    	<a href="#">
-		          <button type="button" class="btn btn-sm buttonHeader" data-toggle="modal" data-target="#inscription_modal">
-		            Inscription
-		          </button>
-		        </a>
-	        </li>
-	        <li>
-	        	<a href="{{path('login')}}">
-	  			  <button type="button" class="btn btn-sm buttonHeader"> Connexion </button>
-	            </a>
-	        </li> 
-        {% endif %}
-      </ul>
-    </div>
-  </nav>
- <div class="centerText">
-    <span class="textHeader">UN DJ LIVE</span>
-    <br>
-    <br>
-    <span class="textHeader">EN QUELQUES CLICS</span>
-  </div>
-
-    	</div>
-      
-
-    {% if app.user and app.user.userName and app.user.id %}
-    	<input type="hidden" value="{{app.user.id}}" name="userConnected_id"/>
-    	<input type="hidden" value="{{app.user.userName}}" name="user_userName"/>
-    {% endif %}
-  {% if app.user %} {% else %}
-  <!-- POP UP INSCRIPTION -->
-  <div id="inscription_modal" class="modal fade" tabindex="-1"
-    role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form id="inscription_form">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"
-              aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title">Inscription</h4>
-            <span class="info"></span>
-          </div>
-          <div class="modal-body">
-	          <div style="text-align:center;">
-	          	<input type="radio" name="role" value="3">DJ
-				<input type="radio" name="role" value="4" >Client
-			  </div>
-			  <div>
-		    	<label for="firstname">Prénom :</label>		  
-	            <input class="inscription_input" type="text" name="firstname">
-			  </div>
-	  		  <div>
-		    	<label for="lastname">Nom :</label>
-	            <input class="inscription_input" type="text" name="lastname">
-			  </div>
-	        
-			  <div>    
-		    	<label for="pseudo">Pseudo :</label>
-	            <input class="inscription_input" type="text" name="pseudo">
-	          </div>
-	        
-		      <div>
-		    	<label for="mail">Mail :</label>
-	            <input class="inscription_input" type="text" name="mail">
-			  </div>
-	        
-		      <div>
-		    	<label for="password">Mot de passe :</label>
-	            <input class="inscription_input" type="password" name="password">
-	          </div>
-          </div>
-          <div class="modal-footer">
-            <input type="submit" class="btn btn-primary"
-              value="S'inscrire"/>
-          </div>
-        </form>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-  <!-- FIN POP UP INSCRIPTION -->
+    <!--<li>
+      <a href="#">
+      <button type="button" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-play-circle"></span> Aperçu musical
+        </button>
+      </a>
+    </li>-->
 
 
-  <!-- POP UP CONNEXION -->
-  <div id="connexion_modal" class="modal fade" tabindex="-1"
-    role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form id="connexion_form">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+    {% if app.user %}
+      <li>
+        <a href="{{ path('messages') }}">
+        <button type="button" class="btn btn-sm buttonHeader">
+          {{ fos_message_nb_unread() }} 
           </button>
-          <h4 class="modal-title">Connexion</h4>
-        </div>
-        <div class="modal-body">
-          <input class="inscription_input" type="text" name="_login"
-            placeholder="Mail"> <input class="inscription_input"
-            type="password" name="_password" placeholder="Mot de passe">
-        </div>
-        <div class="modal-footer">
-           <input type="submit" class="btn btn-primary" value="Connexion"/>
-        </div>
-          </form>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+        </a>
+      </li>
+      
+      <li>
+        <a href="{{ path('profil') }}">
+        <button type="button" class="btn btn-sm buttonHeader">
+          {{ app.user.firstName }} {{ app.user.lastName }}
+          </button>
+        </a>
+      </li>
+      
+      <li>
+       <a href="{{ path('logout') }}"> 
+        <button type="button" class="btn btn-sm buttonHeader"> 
+     Log out
+        </button>
+        </a>
+      </li> 
+    {% else %}
+      <li>
+      <a href="#">
+          <button type="button" class="btn btn-sm buttonHeader" data-toggle="modal" data-target="#inscription_modal">
+             <img class="btnimg" src="/images/Inscription.png" alt="" />
+            Inscription
+          </button>
+        </a>
+      </li>
+      <li>
+        <a href="{{path('login')}}">
+        <button type="button" class="btn btn-sm buttonHeader">
+        <img class="btnimg" src="/images/Connexion.png" alt="" />
+         Connexion </button>
+          </a>
+      </li> 
+    {% endif %}
+    <br/>
+    <li>
+{#       <a href="#" id="search_menu">
+      <span>
+      <input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name" disable>
+    </span>
+  </a> #}
+     <input class="" type="text" id="search-query" placeholder="Recherche par pseudo" name="name">
+      <img id="RechercheImg" src="/images/Recherche.png" alt="" />
+    </li>
+  </ul>
+    <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />    
+      <p id="logotext" >BEAT MY DJ</p>
+    </a>
+  </nav>
   </div>
-  <!-- /.modal -->
-  <!-- FIN POP UP CONNEXION -->
-  {% endif %}
+</div>
+
+
+	<div class="headerImage">
+			 
+<div class="centerText">
+<span class="textHeader">UN DJ LIVE</span>
+<br>
+<br>
+<span class="textHeader">EN QUELQUES CLICS</span>
+</div>
+
+	</div>
+{% if app.user and app.user.userName and app.user.id %}
+	<input type="hidden" value="{{app.user.id}}" name="userConnected_id"/>
+	<input type="hidden" value="{{app.user.userName}}" name="user_userName"/>
+{% endif %}
+{% if app.user %} {% else %}
+<!-- POP UP INSCRIPTION -->
+<div id="inscription_modal" class="modal fade" tabindex="-1"
+role="dialog">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <form id="inscription_form">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Inscription</h4>
+        <span class="info"></span>
+      </div>
+      <div class="modal-body">
+        <div style="text-align:center;">
+        	<input type="radio" name="role" value="3">DJ
+		<input type="radio" name="role" value="4" >Client
+	  </div>
+	  <div>
+    	<label for="firstname">Prénom :</label>		  
+          <input class="inscription_input" type="text" name="firstname">
+	  </div>
+		  <div>
+    	<label for="lastname">Nom :</label>
+          <input class="inscription_input" type="text" name="lastname">
+	  </div>
+      
+	  <div>    
+    	<label for="pseudo">Pseudo :</label>
+          <input class="inscription_input" type="text" name="pseudo">
+        </div>
+      
+      <div>
+    	<label for="mail">Mail :</label>
+          <input class="inscription_input" type="text" name="mail">
+	  </div>
+      
+      <div>
+    	<label for="password">Mot de passe :</label>
+          <input class="inscription_input" type="password" name="password">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary"
+          value="S'inscrire"/>
+      </div>
+    </form>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- FIN POP UP INSCRIPTION -->
+
+
+<!-- POP UP CONNEXION -->
+<div id="connexion_modal" class="modal fade" tabindex="-1"
+role="dialog">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <form id="connexion_form">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title">Connexion</h4>
+    </div>
+    <div class="modal-body">
+      <input class="inscription_input" type="text" name="_login"
+        placeholder="Mail"> <input class="inscription_input"
+        type="password" name="_password" placeholder="Mot de passe">
+    </div>
+    <div class="modal-footer">
+       <input type="submit" class="btn btn-primary" value="Connexion"/>
+    </div>
+      </form>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- FIN POP UP CONNEXION -->
+{% endif %}
