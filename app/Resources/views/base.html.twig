@@ -1,95 +1,78 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-    <title>BeatMyDJ</title>
-    <meta charset="utf-8">
-    <link rel="icon" href="{{asset('web/images/logo.png')}}" />
+<head>
 
-    <!-- LIB CSS -->
-    <link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('lib/bootstrap/css/boostrap-social.css')}}">
-    <link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.structure.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.theme.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('lib/editable/css/bootstrap-editable.css')}}">
-    <link rel="stylesheet" href="{{asset('lib/bootstrap/css/gallery.css')}}">
-    <link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap-image-gallery.min.css')}}">
-    <script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('lib/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('lib/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('lib/editable/js/bootstrap-editable.js')}}"></script>
-    <script src="{{asset('lib/bootbox/bootbox.min.js')}}"></script>
-    <script type="text/javascript"> bootbox.setLocale("fr"); </script>
-    <script src="{{asset('lib/soundclood/sc.js')}}"></script>
-    <script src="{{asset('lib/soundclood/sc_widget.js')}}"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<title>BeatMyDJ</title>
+<meta charset="utf-8">
+<link rel="icon" href="{{asset('web/images/logo.png')}}" />
 
-    <!-- CUSTOM JS -->
-    <script src="{{asset('js/script.js')}}"></script>
-    <script src="{{asset('js/search.js')}}"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-        	<script src="{{ asset('js/main.js') }}"></script>
-    	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<!-- LIB CSS -->
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/boostrap-social.css')}}">
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.structure.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/jquery-ui/jquery-ui.theme.min.css')}}" />
+<link rel="stylesheet" href="{{asset('lib/editable/css/bootstrap-editable.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/gallery.css')}}">
+<link rel="stylesheet" href="{{asset('lib/bootstrap/css/bootstrap-image-gallery.min.css')}}">
+<script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('lib/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{asset('lib/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('lib/editable/js/bootstrap-editable.js')}}"></script>
+<script src="{{asset('lib/bootbox/bootbox.min.js')}}"></script>
+<script type="text/javascript"> bootbox.setLocale("fr"); </script>
+<script src="{{asset('lib/soundclood/sc.js')}}"></script>
+<script src="{{asset('lib/soundclood/sc_widget.js')}}"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<!-- CUSTOM JS -->
+<script src="{{asset('js/script.js')}}"></script>
+<script src="{{asset('js/search.js')}}"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    	<script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="{{asset('css/fullcalendar.css')}}" />
+<link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
+<link rel="stylesheet" href="{{asset('css/live_tchat.css')}}" />
+<link rel="stylesheet" href="{{asset('css/main.css')}}" />
+<link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
+</head>
 
-    <!-- CUSTOM CSS -->
-    <link rel="stylesheet" href="{{asset('css/fullcalendar.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/live_tchat.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/main.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
-    </head>
+<body  ng-app="beatMyDj">
+		{% include 'header.html.twig' %}
+        <div id="main_content" class="container col-md-12"  >
+	        {% block body %}{% endblock %}
+        </div>
+        
 
-    <body  ng-app="beatMyDj">
-    		{% include 'header.html.twig' %}
-            <div id="main_content" class="container col-md-12"  >
-    	        {% block body %}{% endblock %}
-            </div>
-            
+        {% block javascripts %}{% endblock %}
+        <div  ng-controller="ChatController">
+        {% include 'discussionBox.html.twig' %}
+        </div>
+                {% include 'footer.html.twig' %}
+    </body>
+    <script src="{{ asset('js/chat.js') }}"></script>
+    <!-- FOOTER -->
 
-            {% block javascripts %}{% endblock %}
-            <div  ng-controller="ChatController">
-            {% include 'discussionBox.html.twig' %}
-            </div>
-                    {% include 'footer.html.twig' %}
-        </body>
-
-        <hr class="featurette-divider">
-        <!-- FOOTER -->
-        <footer>
-            <div class="footer">
-                <div class="col-md-2">
-                    <a id="logolink" href="{{path('homepage')}}">
-                    <img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />
-                    <p id="logotext"> BEAT MY DJ </p></a>
-                </div>
-                <div class="col-md-5">
-                    BeatMYDJ est une plateforme de mise en relation entre dj et des organisateurs de soirée. Il vous suffit simplement de se rendre sur notre plateforme, commander un DJ pour votre soirée, brancher vos enceintes et profiter de la musique ainsi que de vos invités.Vous l’aurez compris, BeatMYDJ propose un total accompagnements musicale de votre soirée afin que vous n’aillez qu’une seule chose à vous occuper : Vous amuser !
-                </div>
-                <div class="col-md-2">
-                    <span>LIENS UTILES</span>
-                    <ul>
-                        <li> Acceuil</li>
-                        <li> Nous contacter</li>
-                        <li> Plan du site</li>
-                        <li> Mention légales</li>
-                    </ul>        
-                </div>
-                <div class="col-md-3">
-                    <div class="SocialNetworkFooter pull-left">
-                        <span><img src="/images/Facebook.png" alt="" /> REJOIGNEZ NOUS ! </span>
-                    </div>
-                    <br />
-                    <br />
-                    <div class="SocialNetworkFooter pull-left">
-                          <span> <img src="/images/Twitter.png" alt="" /> SUIVEZ NOUS ! </span>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <p>&copy; 2017 BeatMyDJ</p>
-                </div>
-            </div>
+    <hr class="featurette-divider bluebkg">
+    <footer>
+            <div class="col-md-2">
+        <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />
+                <p id="logotext"> BEAT MY DJ </p></a>
+                     </div>
+                         <div class="col-md-6">
+                            BeatMYDJ est une plateforme de mise en relation entre dj et des organisateurs de soirée. Il vous suffit simplement de se rendre sur notre plateforme, commander un DJ pour votre soirée, brancher vos enceintes et profiter de la musique ainsi que de vos invités.Vous l’aurez compris, BeatMYDJ propose un total accompagnements musicale de votre soirée afin que vous n’aillez qu’une seule chose à vous occuper : Vous amuser !
+                     </div>
+                     <div class="col-md-4">
+                            <ul>
+                            <li> Acceuil</li>
+                            <li> Nous contacter</li>
+                            <li> Plan du site</li>
+                            <li> Mention légales</li>
+                        </ul>
+                     </div>
+            <p>&copy; 2017 BeatMyDJ</p>
         </footer> 
-    <script src="{{ asset('js/chat.js') }}"></script>             
+    	<script src="{{ asset('js/chat.js') }}"></script>             
 </html>
