@@ -42,31 +42,9 @@ li a.active {
 	color: white;
 }
 
-li
- 
-a
-:hover
-:not
- 
-(
-.active
- 
-)
-{
-background-color
-:
- 
-#555
-;
-
-	
-color
-:
- 
-white
-;
-
-
+li a:hover:not(.active){
+	color:white;
+	background-color: #555;
 }
 
 .inscription_input, #search-query {
@@ -144,8 +122,9 @@ a#new_message {
 	margin: 0;
 	padding: 0;
 }
+
 #logolink{
-float: left;
+	float: left;
 }
 
 #brand_logo {
@@ -157,6 +136,7 @@ float: left;
   -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
 }
+
 #logotext{
 	float: right;
     writing-mode: vertical-lr;
@@ -170,6 +150,7 @@ float: left;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 #user_image {
 	display: block;
 	margin: auto;
@@ -192,9 +173,11 @@ float: left;
 #search-query:focus{
 	display: inline-block !important;	
 }
+
 #search_menu #loupe_search_dj:HOVER #search-query{
 	display: inline-block !important;	
 }
+
 #fileToUploadValider {
 	display: block;
 	margin: auto;
@@ -426,8 +409,8 @@ label.star:before {
 }
 #textavis{
 	width:290px;
-		max-width:290px;
-		max-height:400px;
+	max-width:290px;
+	max-height:400px;
 }
 .detailRating{
 	float: right;
@@ -437,7 +420,7 @@ float: right;
     clear: both;
 }
 
-/* CUSTOMIZE THE CAROUSEL
+/* CAROUSEL
 -------------------------------------------------- */
 
 /* Carousel base class */
@@ -518,7 +501,15 @@ float: right;
 
 
 footer{
-min-height: 300px;
+	display : table-row;
+	height: 200px;
+	background-color: #3A4A6F;
+	color : white;
+	font-size: 20px;
+}
+
+.footer{
+margin-top:40px;
 }
 
 .HomelistDJ {
@@ -589,4 +580,18 @@ min-height: 300px;
   transform: translateY(-50%);
   height: 38px;
 
+}
+
+.SocialNetworkFooter{
+width: 100%;
+}
+
+
+.SocialNetworkFooter > span > img{
+height: 50px;
+}
+
+.TitreBlockBlue{
+	color : white;
+	font-weight: bold;
 }
