@@ -3,7 +3,7 @@ angular.module('beatMyDj', []).controller('FooterController', function($scope,$h
 		var dialog = bootbox.dialog({
 			title: 'Notez nous',
 			message: '<div class="formAvis" >'+
-			'<div class="starRating"><p class="detailRating"> La note de BeatMyDJ </p> <div class="divstar"> <input class="star star-5" id="star-5" type="radio" name="star"/>' +
+			'<div class="starRating"><p class="pull-right"> La note de BeatMyDJ </p> <div class="divstar"> <input class="star star-5" id="star-5" type="radio" name="star"/>' +
 			'<label class="star star-5" for="star-5"></label>' +
 			'<input class="star star-4" id="star-4" type="radio" name="star"/>' +
 			'<label class="star star-4" for="star-4"></label>' +
