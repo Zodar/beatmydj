@@ -398,17 +398,16 @@ label.star:before {
   content: '\f006';
   font-family: FontAwesome;
 }
+
 #textavis{
 	width:290px;
 	max-width:290px;
 	max-height:400px;
 }
-.detailRating{
-	float: right;
-}
+
 .divstar{
 float: right;
-    clear: both;
+	clear: both;
 }
 
 /* CAROUSEL
@@ -578,8 +577,13 @@ width: 100%;
 }
 
 
-.SocialNetworkFooter > span > img{
+.SocialNetworkFooter > a >span > img{
 height: 50px;
+}
+
+.SocialNetworkFooter > a {
+text-decoration: none;
+color : white;
 }
 
 .TitreBlockBlue{

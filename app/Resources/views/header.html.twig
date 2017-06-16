@@ -8,31 +8,6 @@
 <div class="container-fluid">
    <nav class="nav bar navbar-default connexion">
 <ul class="nav navbar-nav pull-right">
-
-    {# <li>
-      <a href="{{ path('homepage') }}">
-      <button type="button" class="btn btn-sm buttonHeader"><img class="connexion">
-        Home
-        </button>
-      </a>
-    </li>    #} 
-{#     <li>
-      <a href="{{ path('search_advanced') }}">
-      <button type="button" class="btn btn-sm buttonHeader">
-           Nos DJ
-        </button>
-      </a>
-    </li> #}
-    
-    <!--<li>
-      <a href="#">
-      <button type="button" class="btn btn-primary btn-sm">
-          <span class="glyphicon glyphicon-play-circle"></span> Aperçu musical
-        </button>
-      </a>
-    </li>-->
-
-
     {% if app.user %}
       <li>
         <a href="{{ path('messages') }}">
@@ -53,6 +28,7 @@
       <li>
        <a href="{{ path('logout') }}"> 
         <button type="button" class="btn btn-sm buttonHeader"> 
+        <img class="btnimg" src="/images/Deconnexion.png" alt="" />
      Log out
         </button>
         </a>
@@ -76,11 +52,6 @@
     {% endif %}
     <br/>
     <li>
-{#       <a href="#" id="search_menu">
-      <span>
-      <input class="StreamsTopBar-searchInput" type="text" id="search-query" placeholder="Recherche par pseudo" name="name" disable>
-    </span>
-  </a> #}
      <input class="" type="text" id="search-query" placeholder="Recherche par pseudo" name="name">
       <img id="RechercheImg" src="/images/Recherche.png" alt="" />
     </li>
