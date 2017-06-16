@@ -4,40 +4,38 @@
 
 {% block body %}
 
-	<h4 style="text-align:center;"> Connexion </h4>
+<h4 style="text-align:center;"> Connexion </h4>
 
-	<div class="row">
-		<div class="col-md-3 login_option">
-			<button type="text" class="btn btn-sm btn-success" data-toggle="modal" data-target="#inscription_modal">
-				Je ne possède pas de compte
-			</button>
-		</div>
-		<div class="col-md-1 hidden-sm hidden-xs login_option">
-			<hr id="hrLogin">
-		</div>
-		
-		<div class="col-md-7 login_option">
-		  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
-		  {% if error %}
-		    <div class="alert alert-danger">{{ error.message }}</div>
-		  {% endif %}
-		
-		  {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
-		  <form action="{{ path('login') }}" method="post">
-		    
-		    <div>
-		    	<label for="username">Login :</label>
-		    	<input type="text" id="username" name="_username" value="{{ last_username }}" class="inscription_input"/>
-			</div>
-			
-			<div>
+<div class="row">
+	<div class="col-md-3 login_option">
+		<button type="text" class="btn btn-sm btn-success" data-toggle="modal" data-target="#inscription_modal">
+			Je ne possède pas de compte
+		</button>
+	</div>
+	<div class="col-md-1 hidden-sm hidden-xs login_option">
+		<hr id="hrLogin">
+	</div>
+	
+	<div class="col-md-7 login_option">
+	  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+	  {% if error %}
+	    <div class="alert alert-danger">{{ error.message }}</div>
+	  {% endif %}
+	
+	  {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+	  <form action="{{ path('login') }}" method="post">    
+	    <div>
+	    	<label for="username">Login :</label>
+	    	<input type="text" id="username" name="_username" value="{{ last_username }}" class="inscription_input"/>
+		</div>	
+		<div>
 		    <label for="password">Mot de passe :</label>
 		    <input type="password" id="password" name="_password" class="inscription_input"/>
-		    </div>
-		    
-		    <input type="submit" value="Connexion" class="btn btn-sm btn-primary" />
-		  </form>
-		</div>
-	<div>
+	    </div>
+	    
+	    <input type="submit" value="Connexion" class="btn btn-sm btn-primary" />
+	  </form>
+	</div>
+</div>
 
 {% endblock %}

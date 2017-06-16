@@ -47,16 +47,6 @@ li a:hover:not(.active){
 	background-color: #555;
 }
 
-.inscription_input, #search-query {
-	border: 1px aliceblue solid;
-}
-
-.inscription_input {
-	margin-left: 25%;
-	margin-bottom: 2%;
-	width: 50%;
-}
-
 .ui-helper-hidden-accessible {
 	display: none;
 }
@@ -320,8 +310,9 @@ form#inscription_form label {
 	width: 700px;
 }
 
-.modal-content * {
+.modal-content {
 	-webkit-text-fill-color: inherit;
+	background-color: #ebebeb;
 }
 
 .xdsoft_ * {
