@@ -568,7 +568,8 @@ margin-top:40px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 38px;
+  height: 34px;
+  margin-left: 4px;
 
 }
 
@@ -579,6 +580,7 @@ width: 100%;
 
 .SocialNetworkFooter > a >span > img{
 height: 50px;
+margin-right: 15px;
 }
 
 .SocialNetworkFooter > a {

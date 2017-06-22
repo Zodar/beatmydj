@@ -1,23 +1,13 @@
 angular.module('beatMyDj', []).controller('FooterController', function($scope,$http) {
+	var modalDiv = $('#avis').html();
 	$scope.userReview = function(){
 		var dialog = bootbox.dialog({
 			title: 'Notez nous',
-			message: '<div class="formAvis" >'+
-			'<div class="starRating"><p class="pull-right"> La note de BeatMyDJ </p> <div class="divstar"> <input class="star star-5" id="star-5" type="radio" name="star"/>' +
-			'<label class="star star-5" for="star-5"></label>' +
-			'<input class="star star-4" id="star-4" type="radio" name="star"/>' +
-			'<label class="star star-4" for="star-4"></label>' +
-			'<input class="star star-3" id="star-3" type="radio" name="star"/>' +
-			'<label class="star star-3" for="star-3"></label>'+
-			'<input class="star star-2" id="star-2" type="radio" name="star"/>'+
-			'<label class="star star-2" for="star-2"></label>'+
-			'<input class="star star-1" id="star-1" type="radio" name="star"/>'+
-			'<label class="star star-1" for="star-1"></label> </div></div>'+
-			'<div class="avisarea"><p >Un avis ? </p> <textarea id="textavis" name="avis"/>' + 
-			'<div> <Button class="SendReview">Envoyer</button></div></div></div>' 
+			message:  modalDiv
 		});
 	}
-});;
+});
+
 $( document ).ready(function() {
 	$("body").on("click",".SendReview",function(){
 		var note = "na"
@@ -38,7 +28,6 @@ $( document ).ready(function() {
 				setTimeout(function(){
 					dialog.modal('hide')
 				}, 1500);
-
 			}
 		},
 		error: function(data){
