@@ -4,6 +4,6 @@ SC.initialize({
 
 var track_url = 'https://soundcloud.com/beat-my-dj-beat-my-dj/sets/beatmydj';
 var element_node = document.getElementById('play_sound');
-SC.oEmbed(track_url, { element: element_node, auto_play: true }).then(function(oEmbed) {
+SC.oEmbed(track_url, { element: element_node, auto_play: false }).then(function(oEmbed) {
 	
 });
