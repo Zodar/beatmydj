@@ -1,7 +1,7 @@
 /* Set padding to keep content from hitting the edges */
 @font-face {
-    font-family: 'Montserrat-Regular';
-    src: url('/web/fonts/Montserrat-Bold.ttf'); 
+    font-family: 'Montserrat-Bold.ttf';
+    src: url('/web/fonts/Montserrat-Bold'); 
 }
 
 .body-content {
@@ -24,6 +24,7 @@ input, select {
 body, html {
     height: 100%;
     margin: 0;
+    font-family: 'Montserrat-Bold';
 }
 
 .font-small {
@@ -222,10 +223,6 @@ a#new_message {
 
 .login_option input {
 	margin-top: 5%;
-}
-
-.login_option button {
-	margin-top: 35%;
 }
 
 .login_option label {
@@ -591,4 +588,28 @@ color : white;
 .TitreBlockBlue{
 	color : white;
 	font-weight: bold;
+}
+
+.MainButtonBMD{
+	width: 150px;
+	height: 60px;
+	border: none;
+	border-radius: 0.3px;
+	font-size: 24px;
+	font-style: bold; 
+	-o-transition:color .4s ease-out, background .4s ease-in;
+  -ms-transition:color .4s ease-out, background .4s ease-in;
+  -moz-transition:color .4s ease-out, background .4s ease-in;
+  -webkit-transition:color .4s ease-out, background .4s ease-in;
+ 
+  transition:color .4s ease-out, background .4s ease-in;
+}
+
+.buttonBlue{
+	background-color: #637DB1;
+	color: white;
+}
+
+.buttonBlue:hover{
+	background-color: #4b525e;
 }

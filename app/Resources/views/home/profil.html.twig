@@ -88,7 +88,7 @@
 	            		  	  {% endif %} 
 	     		   	          {% if own is null %}
 	     		   	          	<div>
-	            					<button id="prez_edit" class="btn btn-success" >Valider les modifications</button>
+	            					<button id="prez_edit" class="MainButtonBMD buttonBlue" >Valider les modifications</button>
 	            	  		  	</div>
 	            	  		  {% endif %}
 	            		</li>
@@ -132,11 +132,11 @@
 	        	{% if app.user and user.userName == app.user.userName %}
 					<h4> Live en cours ! </h4>
 					<hr>
-   		 	   		<a type="button" class="btn btn-sm btn-primary" href="{{path('streamDJ')}}"> Commencer le live </a>
+   		 	   		<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}"> Commencer le live </a>
    		 	   	{% elseif app.user and live.auteur == app.user.userName %}
  					<h4> Live en cours ! </h4>
 					<hr>
-       				<a type="button" class="btn btn-sm btn-primary" href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
+       				<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
 	        	{%endif%}
             {%endif%}
         
@@ -146,14 +146,14 @@
 			 		<hr>
 			 		<textarea id="my_comment"> </textarea maxlength="250">
 		 		 	<div>
-			 			<button id="add_comment" type="button" class="btn btn-sm btn-primary"> Poster </button>
+			 			<button id="add_comment" type="button" class="MainButtonBMD buttonBlue"> Poster </button>
 			   		</div>
 			   	</div>
 		   	{% endif %}        
             <div class="only_view">
             	<h4>Visualisation</h4>
 		 		<hr>
-	 			<a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}"> Edition </a>
+	 			<a type="button" class="MainButtonBMD buttonBlue" href="{{path('profil')}}"> Edition </a>
 		 	</div>
             <div class="only_edit"> 
             	<h4>Visualisation</h4>
@@ -163,14 +163,14 @@
 		 		{% endif %}
 		 		<h4> Mon compte </h4>
 	            <hr>
-	       		<button type="button" class="btn btn-sm btn-primary" id="remove_user">
+	       		<button type="button" class="MainButtonBMD buttonBlue" id="remove_user">
 	       			<span class="glyphicon glyphicon-remove"></span> Supprimer mon compte
 	   			</button>
    			</div>
 
    		 	{% if user.role.idRole == 3 %}
    		 	<div class="dispo">
-	            <h4>Disponibilité </h4><button class="btn btn-info" id="enlarge-calendar">Agrandir</button>
+	            <h4>Disponibilité </h4><button class="MainButtonBMD buttonBlue" id="enlarge-calendar">Agrandir</button>
 	            <hr>
 
 	            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
