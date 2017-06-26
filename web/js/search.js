@@ -34,8 +34,10 @@ function getAllUsers() {
 	var getAllUser = Routing.generate('getAllUser');
 	var profil = Routing.generate('profil');
 
+	console.log(getAllUser)
 	$.ajax({data: $(this).serialize(), url: getAllUser,
 		success: function(data){
+			console.log(data);
 			var usernames = new Array();
 			$.each(data.users, function(k, v) {
 				usernames.push(v.userName);

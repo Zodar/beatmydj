@@ -11,8 +11,6 @@ $(document).ready(function(){
 					$("#inscription_modal span.info").css("color", "red");
 					$("#inscription_modal span.info").css("font-weight", "bold");
 					$("#inscription_modal span.info").text(data.name);
-									console.log(data);
-
 				}
 				else {
 					$("#inscription_form .modal-body").prepend("<p id='dataname_result'> " + data.name + " </p>");
