@@ -7,11 +7,12 @@ $(document).ready(function(){
 		e.preventDefault();
 		$.ajax({type:"POST", data: $(this).serialize(), url: baseurl + "register",
 			success: function(data){
-				console.log(data);
 				if (data.value == "false") {
-					$("#inscription_form span.info").css("color", "red");
-					$("#inscription_form span.info").css("font-weight", "bold");
-					$("#inscription_form span.info").text(data.name);
+					$("#inscription_modal span.info").css("color", "red");
+					$("#inscription_modal span.info").css("font-weight", "bold");
+					$("#inscription_modal span.info").text(data.name);
+									console.log(data);
+
 				}
 				else {
 					$("#inscription_form .modal-body").prepend("<p id='dataname_result'> " + data.name + " </p>");
