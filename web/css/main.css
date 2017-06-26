@@ -297,6 +297,10 @@ a#new_message {
 	float: left;
 }
 
+.chat {
+	display: none;
+}
+
 .bootbox-calendar .modal-content {
 	width: 700px;
 }
@@ -501,7 +505,7 @@ margin-top:40px;
 .headerImage {
     /* The image used */
 
-    background-image: url("/images/header.png");
+    background-image: url("../images/header.png");
     height: 100%; 
     background-position: center;
     background-repeat: no-repeat;

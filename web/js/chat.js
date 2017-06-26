@@ -5,6 +5,8 @@ var app = angular.module('beatMyDj').config(function($interpolateProvider){
 		return new Date(input);
 	};
 }).controller('ChatController', function($scope,$http) {
+	$scope.showme = false;
+
 	$scope.canchat = function(){
 		var ownUserName = document.getElementsByName("user_userName")[0];
 		if (ownUserName != null && ownUserName != "") {
@@ -17,8 +19,8 @@ var app = angular.module('beatMyDj').config(function($interpolateProvider){
 	var getOnlineUser = Routing.generate('getOnlineUser');
 	
 	$http.get(getOnlineUser).then(function(response) {
-		console.log(response.data);
 		$scope.useronline = response.data.users;
+		$(".chat").css("display", "block");
 	});	
 });
 
