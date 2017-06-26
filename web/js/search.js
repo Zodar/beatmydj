@@ -17,7 +17,7 @@ $(document).ready(function(){
 					test += "<img src=\"" + photoPath + this.path + "\"  alt=\"" + this.userName + "\" />";
 					test += "</a>";
 					test += "<div class=\"liste_dj_desc_div\">";
-					test += "<a href=\"profil\\" + this.userName + "\"type=\"button\" class=\"btn btn-primary\">";
+					test += "<a href=\"profil\\" + this.userName + "\"type=\"button\" class=\"MainButtonBMD buttonBlue\">";
 					test += this.userName;
 					test += "</a></div></div>";
 					$("#dj_links").append(test);

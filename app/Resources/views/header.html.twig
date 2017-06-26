@@ -28,7 +28,7 @@
       <li>
        <a href="{{ path('logout') }}"> 
         <button type="button" class="btn btn-sm buttonHeader"> 
-        <img class="btnimg" src="/images/Deconnexion.png" alt="" />
+        <img class="btnimg" src="{{asset('images/Deconnexion.png')}}" alt="" />
      Log out
         </button>
         </a>
@@ -37,7 +37,7 @@
       <li>
       <a href="#">
           <button type="button" class="btn btn-sm buttonHeader" data-toggle="modal" data-target="#inscription_modal">
-             <img class="btnimg" src="/images/Inscription.png" alt="" />
+             <img class="btnimg" src="{{asset('images/Inscription.png')}}" alt="" />
             Inscription
           </button>
         </a>
@@ -45,7 +45,7 @@
       <li>
         <a href="{{path('login')}}">
         <button type="button" class="btn btn-sm buttonHeader">
-        <img class="btnimg" src="/images/Connexion.png" alt="" />
+        <img class="btnimg" src="{{asset('images/Connexion.png')}}" alt="" />
          Connexion </button>
           </a>
       </li> 
@@ -53,7 +53,7 @@
     <br/>
     <li>
      <input class="" type="text" id="search-query" placeholder="Recherche par pseudo" name="name">
-      <img id="RechercheImg" src="/images/Recherche.png" alt="" />
+      <img id="RechercheImg" src="{{asset('images/Recherche.png')}}" alt="" />
     </li>
   </ul>
     <a id="logolink" href="{{path('homepage')}}"><img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />    
@@ -80,64 +80,56 @@
 {% endif %}
 {% if app.user %} {% else %}
 <!-- POP UP INSCRIPTION -->
-<div id="inscription_modal" class="modal fade" tabindex="-1"
-role="dialog">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <!-- Modal Header -->
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-      </button>
-      <h4 class="modal-title" >Inscription</h4>
+  <div id="inscription_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" >Inscription</h4>
+        </div>
+        <div class="modal-body row">
+          <form id="inscription_form"> 
+              <div class="form-group col-md-12 col-md-offset-4">
+                <label class="radio-inline">
+                  <input type="radio"  name="role" value="3" checked>DJ
+                </label>            
+                <label class="radio-inline">
+                  <input type="radio"  name="role" value="4">Client
+                </label>
+              </div>
+              <hr>
+        <!-- /.modal-content -->
+              <div class="form-group col-md-12 col-md-offset-3">
+                <label class="labelBMD" for="lastname"><i class="fa fa-user" aria-hidden="true"></i></label>
+                <input  class="inputBMD" placeholder="Nom" name="lastname"/>
+              </div>
+              <div class="form-group col-md-12 col-md-offset-3">
+                <label class="labelBMD" for="firstname"><i class="fa fa-user" aria-hidden="true"></i></label>
+                <input  class="inputBMD" placeholder="Prénom" name="firstname"/>
+              </div>
+              <div class="form-group col-md-12 col-md-offset-3">
+                <label class="labelBMD" for="pseudo"><i class="fa fa-user" aria-hidden="true"></i></label>
+                <input  class="inputBMD" placeholder="Pseudo" name="pseudo"/>
+              </div>
+              <div class="form-group col-md-12 col-md-offset-3">
+                <label class="labelBMD" for="mail"><i class="fa fa-envelope-o" aria-hidden="true"></i></label>
+                <input  class="inputBMD" placeholder="E-mail" name="mail"/>
+              </div>
+              <div class="form-group col-md-12 col-md-offset-3">
+                <label class="labelBMD" for="password"><i class="fa fa-lock" aria-hidden="true"></i></label>
+                <input  class="inputBMD" placeholder="Mot de passe" name="password"/>
+              </div>
+               <button type="submit" class="MainButtonBMD buttonBlue col-md-12 col-md-offset-4">Valider</button>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <!-- Modal Body -->
-    <div class="modal-body">
-      <form id="inscription_form">
-        <div class="form-group col-md-12 col-md-offset-3">
-          <label class="radio-inline">
-            <input type="radio"  name="role" value="3" checked>DJ
-          </label>            
-          <label class="radio-inline">
-            <input type="radio"  name="role" value="4">Client
-          </label>
-        </div>
-        <hr>
-        <div class="form-group">
-          <label class="col-md-3" for="firstname">Prénom</label>
-          <input  class="form-control" placeholder="" name="firstname"/>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3" for="lastname">Nom</label>
-          <input  class="form-control" placeholder="" name="lastname"/>
-          </div>
-        <div class="form-group">
-          <label class="col-md-3" for="pseudo">Pseudo</label>
-          <input  class="form-control" placeholder="" name="pseudo"/>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3" for="mail">E-mail</label>
-          <input  class="form-control" placeholder="" name="mail"/>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3" for="password">Mot de passe</label>
-          <input  class="form-control" placeholder="" name="password" type="password"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Valider</button>
-      </form>
-
-      <!-- /.modal-content -->
-    </div>
-  <!-- /.modal-dialog -->
   </div>
-</div>
-
-</div>
-<!-- /.modal -->
 <!-- FIN POP UP INSCRIPTION -->
-
 
 <!-- POP UP CONNEXION -->
 <div id="connexion_modal" class="modal fade" tabindex="-1"

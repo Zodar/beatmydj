@@ -37,54 +37,88 @@
     <link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
     <link rel="stylesheet" href="{{asset('css/live_tchat.css')}}" />
     <link rel="stylesheet" href="{{asset('css/main.css')}}" />
+
     <link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
     </head>
 
     <body ng-app="beatMyDj">
-    		{% include 'header.html.twig' %}
-            <div id="main_content" class="container col-md-12">
-    	        {% block body %}{% endblock %}
-            </div>     
-            <div  ng-controller="ChatController">
-                {% include 'discussionBox.html.twig' %}
-            </div>        
-    </body>
-    <hr class="featurette-divider">
-    <footer>
-        <div class="footer">
-            <div class="col-md-2">
-                <a id="logolink" href="{{path('homepage')}}">
-                <img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />
-                <p id="logotext"> BEAT MY DJ </p></a>
-            </div>
-            <div class="col-md-5">
-                BeatMYDJ est une plateforme de mise en relation entre dj et des organisateurs de soirée. Il vous suffit simplement de se rendre sur notre plateforme, commander un DJ pour votre soirée, brancher vos enceintes et profiter de la musique ainsi que de vos invités.Vous l’aurez compris, BeatMYDJ propose un total accompagnements musicale de votre soirée afin que vous n’aillez qu’une seule chose à vous occuper : Vous amuser !
-            </div>
-            <div class="col-md-2">
-                <span>LIENS UTILES</span>
-                <ul>
-                    <li> Acceuil</li>
-                    <li> Nous contacter</li>
-                    <li> Plan du site</li>
-                    <li> Mention légales</li>
-                </ul>        
-            </div>
-            <div class="col-md-3">
-                <div class="SocialNetworkFooter pull-left">
-                    <a target="_blank" href="https://www.facebook.com/Beatmydj/"><span><img src="/images/Facebook.png" alt="" /> REJOIGNEZ NOUS ! </span></a>
+		{% include 'header.html.twig' %}
+        <div id="main_content" class="container col-md-12">
+	        {% block body %}{% endblock %}
+        </div>     
+        <div  ng-controller="ChatController">
+            {% include 'discussionBox.html.twig' %}
+        </div>        
+
+        <hr class="featurette-divider">
+
+
+        <div class="formAvis" id="avis" hidden>
+            <div class="starRating" >
+                <p class="pull-right"> La note de BeatMyDJ </p> 
+                <div class="divstar"> 
+                    <input class="star star-5" id="star-5" type="radio" name="star"/>
+                    <label class="star star-5" for="star-5"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="star"/>
+                    <label class="star star-4" for="star-4"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="star"/>
+                    <label class="star star-3" for="star-3"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="star"/>
+                    <label class="star star-2" for="star-2"></label>
+                    <input class="star star-1" id="star-1" type="radio" name="star"/>
+                    <label class="star star-1" for="star-1"></label> 
                 </div>
-                <br />
-                <br />
-                <div class="SocialNetworkFooter pull-left">
-                    <a target="_blank"  href="https://www.twitter.com/Beatmydj/">  <span> <img src="/images/Twitter.png" alt="" /> SUIVEZ NOUS ! </span></a>
+            </div>
+            <div class="avisarea">
+                <p >Un avis ? </p>
+                 <textarea id="textavis" name="avis"> </textarea>
+                 <div>
+                    <button class="SendReview MainButtonBMD buttonBlue">Envoyer</button>
                 </div>
-                <br />
-                <br />
-                <br />
-                <p>&copy; 2017 BeatMyDJ</p>
             </div>
         </div>
-    </footer> 
+        <footer>
+            <div class="footer">
+                <div class="col-md-2">
+                    <a id="logolink" href="{{path('homepage')}}">
+                      <img id="brand_logo" class="navbar-brand" src="{{asset('images/logo.png')}}" alt="LOGO" />
+                      <p id="logotext">BEAT MY DJ</p>
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    BeatMYDJ est une plateforme de mise en relation entre dj et des organisateurs de soirée. Il vous suffit simplement de se rendre sur notre plateforme, commander un DJ pour votre soirée, brancher vos enceintes et profiter de la musique ainsi que de vos invités.Vous l’aurez compris, BeatMYDJ propose un total accompagnements musicale de votre soirée afin que vous n’aillez qu’une seule chose à vous occuper : Vous amuser !
+                </div>
+                <div class="col-md-2">
+                    <span>LIENS UTILES</span>
+                    <ul>
+                        <li> Accueil</li>
+                        <li> Nous contacter</li>
+                        <li> Plan du site</li>
+                        <li> Mention légales</li>
+                    </ul>        
+                </div>
+                <div class="col-md-3">
+                    <div class="SocialNetworkFooter pull-left">
+                        <a target="_blank" href="https://www.facebook.com/Beatmydj/">
+                            <span>
+                            <img src="{{asset('images/Facebook.png')}}" alt="" />REJOIGNEZ NOUS !</span>
+                        </a>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="SocialNetworkFooter pull-left">
+                        <a target="_blank"  href="https://www.twitter.com/Beatmydj/">
+                             <span><img src="{{asset('images/Twitter.png')}}" alt="" />SUIVEZ NOUS !</span>
+                        </a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <p>&copy; 2017 BeatMyDJ</p>
+                </div>
+            </div>
+        </footer> 
+    </body>
     {% include 'footer.html.twig' %}
     <script src="{{ asset('js/chat.js') }}"></script>  
     {% block javascripts %}{% endblock %}           

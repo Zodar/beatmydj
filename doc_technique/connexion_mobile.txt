@@ -1,0 +1,5 @@
+https://www.beatmydj.com/api/login_check
+_username   Zodar
+_password   Zodar
+
+{"token":"eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJab2RhciIsImlhdCI6MTQ5ODE0MTQ2NSwiZXhwIjoxNDk4MTQ1MDY1fQ.rqGkExDItk-eIXv2CzJ2OYhryr8pH87Fp_PLcBSw893nOH-7eGGOdNr_bmBV8KJsG-h0IVwI8THKHmmTaNVBbq6T0tODhYwtzodiU85gv_JWpFQOp3yPQxGkwQBQVTVnZ4XjNk4n_z6rNEEHPViucH4J7fWXzBZ3ZF5OECm8rfjfeN2W3y6es_eVtJaC9CRs4F8dOpOfSPYA2xKKPKoxEdajgrW6kRiDfpLtgpCpflkP7weWBmP6FUHKVZIv5Z3jbMW44cZNCnbnG84HIE8OIS4Jg91PMvQAXzCTFfjaVIoJYXyYTgYa5lilkisW_V8dp7FEKhjmY7LqZ1eRKCTTwbv-dWdKPd15ad0tcW8CMqFoOq3PbksmOLIu7mycb3eZDfIt9MQF25Qi4ysCSVRDwuXNs3caN177NMw1t2Y0jR74GoFhO0P6jwZQcvCYk-gj5dU8qsl0vgwXjxUT927MQLFgpjhVD0ez1vDa8P8hPy5zOZ_ZdM-TX879wDrQWzIjxcsXpp1YNAFsJb04NN5gKjsqrg5s59DNIpkk3EdKy3JChmeUjQGL2NLqtqtgAGL3ThK8TSSZFeJ2EF3XoQRI_Q4VxqG-jHnhxMWYD17KNqn9jAVfCbMANZsjIdBpC2QyIaWrmpEVm1NoB3xLSxrVz8AUSolsjmX8C1b89nFo0wM","user":{"id":10,"email":"zodar@live.fr","firstName":"Zodar","lastName":"Zodar","userName":"Zodar","presentation":"Hello, I\u0027m a new user of BEAT MY DJ ! :)","style":{"__initializer__":{},"__cloner__":{},"__isInitialized__":false},"dispo":null,"path":"default.png"}}

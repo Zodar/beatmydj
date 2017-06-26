@@ -1,7 +1,7 @@
 /* Set padding to keep content from hitting the edges */
 @font-face {
-    font-family: 'Montserrat-Regular';
-    src: url('/web/fonts/Montserrat-Bold.ttf'); 
+    font-family: 'Montserrat-Bold.ttf';
+    src: url('/web/fonts/Montserrat-Bold'); 
 }
 
 .body-content {
@@ -24,6 +24,7 @@ input, select {
 body, html {
     height: 100%;
     margin: 0;
+    font-family: 'Montserrat-Bold';
 }
 
 .font-small {
@@ -207,7 +208,6 @@ a#new_message {
 
 .form-horizontal div label {
 	padding-right: 10px;
-	width: 90%;
 }
 
 #hrLogin {
@@ -224,18 +224,9 @@ a#new_message {
 	margin-top: 5%;
 }
 
-.login_option button {
-	margin-top: 35%;
-}
-
 .login_option label {
 	font-weight: normal;
 	width: 100px;
-}
-
-form#inscription_form label {
-	font-weight: normal;
-	width: 150px;
 }
 
 .dj_links_advanced {
@@ -304,6 +295,10 @@ form#inscription_form label {
 	height: 40px;
 	display: none;
 	float: left;
+}
+
+.chat {
+	display: none;
 }
 
 .bootbox-calendar .modal-content {
@@ -510,7 +505,7 @@ margin-top:40px;
 .headerImage {
     /* The image used */
 
-    background-image: url("/images/header.png");
+    background-image: url("../images/header.png");
     height: 100%; 
     background-position: center;
     background-repeat: no-repeat;
@@ -568,7 +563,8 @@ margin-top:40px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 38px;
+  height: 34px;
+  margin-left: 4px;
 
 }
 
@@ -579,6 +575,7 @@ width: 100%;
 
 .SocialNetworkFooter > a >span > img{
 height: 50px;
+margin-right: 15px;
 }
 
 .SocialNetworkFooter > a {
@@ -589,4 +586,44 @@ color : white;
 .TitreBlockBlue{
 	color : white;
 	font-weight: bold;
+}
+
+.MainButtonBMD{
+	width: 150px;
+	height: 60px;
+	border: none;
+	border-radius: 0.3px;
+	font-size: 24px;
+	font-style: bold; 
+	-o-transition:color .4s ease-out, background .4s ease-in;
+  -ms-transition:color .4s ease-out, background .4s ease-in;
+  -moz-transition:color .4s ease-out, background .4s ease-in;
+  -webkit-transition:color .4s ease-out, background .4s ease-in;
+ 
+  transition:color .4s ease-out, background .4s ease-in;
+}
+
+.buttonBlue{
+	background-color: #637DB1;
+	color: white;
+}
+
+.buttonBlue:hover{
+	background-color: #4b525e;
+}
+
+.labelBMD{
+	width: 30px;
+	background-color: #637DB1;
+	padding: 8px 0px 8px 11px;
+	margin-right: -4px;
+	-webkit-border-radius: 4px 0px 0px 4px; 
+	-moz-border-radius: 4px 0px 0px 4px; 
+	border-radius: 4px 0px 0px 4px;
+	color: white;
+	border: solid 0px #cbc9c9;
+}
+
+.inputBMD{
+		padding: 8px 0px 8px 11px;
 }
