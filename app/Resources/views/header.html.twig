@@ -43,8 +43,8 @@
         </a>
       </li>
       <li>
-        <a href="{{path('login')}}">
-        <button type="button" class="btn btn-sm buttonHeader">
+        <a href="#">
+        <button type="button" class="btn btn-sm buttonHeader" data-toggle="modal" data-target="#connexion_modal">
         <img class="btnimg" src="{{asset('images/Connexion.png')}}" alt="" />
          Connexion </button>
           </a>
@@ -133,27 +133,43 @@
 <!-- FIN POP UP INSCRIPTION -->
 
 <!-- POP UP CONNEXION -->
-<div id="connexion_modal" class="modal fade" tabindex="-1"
-role="dialog">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <form id="connexion_form">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"
-        aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4 class="modal-title">Connexion</h4>
-    </div>
-    <div class="modal-body">
-      <input class="inscription_input" type="text" name="_login"
-        placeholder="Mail"> <input class="inscription_input"
-        type="password" name="_password" placeholder="Mot de passe">
-    </div>
-    <div class="modal-footer">
-       <input type="submit" class="btn btn-primary" value="Connexion"/>
-    </div>
-      </form>
+<div id="connexion_modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+          <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title">Connexion</h4>
+          <span class="info"></span>
+        </div>
+
+
+        <div class="modal-body row">
+            <div class="col-md-3 col-md-offset-1  login_option">
+              {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+              {% if error is defined %}
+                <span class="alert alert-danger">{{ error is defined ? error.message : "" }}</span>
+              {% endif %}
+
+              {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+              <form action="{{ path('login') }}" method="post">     
+                <div>
+                  <label for="username">Login :</label>
+                  <input type="text" id="username" name="_username" class="inscription_input"/>
+                </div>    
+                <div>
+                  <label for="password">Mot de passe :</label>
+                  <input type="password" id="password" name="_password" class="inscription_input"/>
+                </div>
+
+                <input type="submit" value="Connexion" class="MainButtonBMD buttonBlue" />
+              </form>
+          </div>
+        </div>
   </div>
   <!-- /.modal-content -->
 </div>
