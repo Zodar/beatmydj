@@ -27,7 +27,8 @@ class AppKernel extends Kernel
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
-            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle()
+            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
+            new ApiBundle\ApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array(
