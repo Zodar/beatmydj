@@ -58,6 +58,9 @@ $(document).ready(function(){
     	$('#changePlaylist').editable({type: 'text', pk: 1, url: finalURL, title: 'Lien de la playlist SoundClood', validate: requiered});
 	}
 	
+	/*
+		Fonction de validation du formulaire
+	*/
 	function requiered(value) {
 		if ($.trim(value) == '') {
 	        return 'Le champ est vide';
@@ -66,13 +69,11 @@ $(document).ready(function(){
 		    return 'Le champ dépasse le nombre de caractères autorisé';	
 	    }
 	}
-	
+	/*
+		Fonction d'édition de profil
+	*/	
 	$("#prez_edit").click(function(e){
-//		var prez = prezTest = $.trim($('#presentation').val());
 		var form = $("#style-form").serialize();
-//		if (prezTest.length == 0){
-//			return;
-//		}
 		$.ajax({type:"POST", data: {name : "style",value : form}, url: baseurl + "profil/edit",
 			success: function(data){
 				console.log(data.responseText);
@@ -87,9 +88,11 @@ $(document).ready(function(){
 				console.log(data.responseText);
 			}
 		});
-//		return false;
 	});
 
+	/*
+		Fonction d'import de fichier
+	*/
 	$('#fileToUpload').change(function(){
 		var file = this.files[0];
 		var name = file.name;
@@ -101,16 +104,15 @@ $(document).ready(function(){
 			$('#user_image').attr('src', e.target.result);
 		}
 		reader.readAsDataURL($('#fileToUpload')[0].files[0]);
-		//Your validation
 	});
+
 	$("#formImgUpld").submit(function(event ){
 		event.preventDefault();
 		var formData = new FormData($('#formImgUpld')[0]);
 		$.ajax({
-			url: baseurl + 'profil/edit/picture',  //Server script to process data
+			url: baseurl + 'profil/edit/picture',
 			type: 'POST',
 			dataType: 'json',
-			//Ajax events
 			success: function(data){
 				if (data.success == "true"){
 					var dialog = bootbox.dialog({
@@ -122,17 +124,18 @@ $(document).ready(function(){
 			error: function(data){
 				console.log(data.responseText);
 			},
-			// Form data
 			data:new FormData(this),
-			//Options to tell jQuery not to process data or worry about content-type.
 			cache: false,
 			contentType: false,
 			processData: false
 		});
 	});
 
+	/*
+		Fonction de Suppression d'utilisateur
+	*/
 	$("#remove_user").click(function(e){
-		bootbox.confirm("Etes vous sur de vouloir supprimer votre compte?", function(result) {
+		bootbox.confirm("Etes vous sur de vouloir supprimer votre compte ?", function(result) {
 			if (result) {
 				$.ajax({type:"POST", url: baseurl + "profil/remove",
 					success: function(data){
@@ -150,6 +153,9 @@ $(document).ready(function(){
 		});
 	});
 	
+	/*
+		Fonction d'ajout de commentaire
+	*/
 	$("#add_comment").click(function(e){
 		var comment = $.trim($('#my_comment').val());
 		if (comment.length == 0){
@@ -182,7 +188,9 @@ $(document).ready(function(){
 
 	});
 
-	/* envoyer un message */
+	/*
+		Fonction d'envoi de message
+	 */
 	$("#new_message").click(function(){
 		bootbox.prompt({
 			title : "Message privé a : " + $(".username").html(), 
@@ -199,9 +207,7 @@ $(document).ready(function(){
 					error: function(data){
 						console.log(data.responseText);
 					}
-				});
-				
-				
+				});		
 			}
 		})
 	})
