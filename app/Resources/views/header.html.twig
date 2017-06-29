@@ -64,7 +64,7 @@
 </div>
 
 
-	<div class="headerImage">
+	<div class="headerImage {{ app.request.attributes.get('_route') == 'homepage' ? '' : 'headerImageMedium'}}">
 			 
 <div class="centerText">
 <span class="textHeader">UN DJ LIVE</span>

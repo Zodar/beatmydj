@@ -481,13 +481,15 @@ margin-top:40px;
 }
 
 .headerImage {
-    /* The image used */
-
     background-image: url("../images/header.png");
     height: 100%; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.headerImageMedium {
+    height: 40%; 
 }
 
 .headerNavbar{
