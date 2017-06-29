@@ -465,14 +465,14 @@ float: right;
 
 footer{
 	display : table-row;
-	height: 200px;
+	height: 170px;
 	background-color: #3A4A6F;
 	color : white;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .footer{
-margin-top:40px;
+margin-top:20px;
 }
 
 .HomelistDJ {
@@ -547,14 +547,10 @@ margin-top:40px;
 
 }
 
-.SocialNetworkFooter{
-width: 100%;
-}
-
-
 .SocialNetworkFooter > a >span > img{
 height: 50px;
 margin-right: 15px;
+margin-bottom: 5px;
 }
 
 .SocialNetworkFooter > a {
