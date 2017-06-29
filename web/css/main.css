@@ -1,7 +1,7 @@
 /* Set padding to keep content from hitting the edges */
 @font-face {
-    font-family: 'Montserrat-Bold.ttf';
-    src: url('/web/fonts/Montserrat-Bold'); 
+    font-family: 'Montserrat-Regular.ttf';
+    src: url('/web/fonts/Montserrat-Regular'); 
 }
 
 .body-content {
@@ -24,7 +24,7 @@ input, select {
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'Montserrat-Bold';
+    font-family: 'Montserrat-Regular';
 }
 
 .font-small {
@@ -530,7 +530,7 @@ margin-top:40px;
 .buttonHeader {
 	background: none;
 	color: black;
-	font-size : 24px;
+	font-size : 18px;
 	font-weight: bold;
 	color: white;
 }
