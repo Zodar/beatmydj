@@ -21,6 +21,8 @@ class DefaultController extends Controller
 {
 
     /**
+     * Point d'entrée de l'index
+     * Récupère  certains users selon plusieurs critères puis les renvoient à la vu afin d'y être affiché
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
@@ -71,6 +73,7 @@ class DefaultController extends Controller
         ));
     }
 
+    /* Méthode trie */
     function sortFunction($a, $b)
     {
         return strtotime($a->getAllMetadata()[0]->getLastParticipantMessageDate()) - strtotime($b->getAllMetadata()[0]->getLastParticipantMessageDate());
@@ -244,6 +247,7 @@ class DefaultController extends Controller
         }
     }
 
+    /* Vérifie si l'existence de steam en cours */
     public function check_stream($uid)
     {
         $date = new DateTime();
