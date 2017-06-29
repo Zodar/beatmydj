@@ -10,8 +10,7 @@
         {% endif %}
 <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
 <div class="tab-content" ng-controller="ProfilController">
- <div id="home" class="tab-pane fade in active">
-                        
+ <div id="home" class="tab-pane fade in active">                        
 	<div class="row">
         <div class="col-md-4">
             <div>
@@ -28,7 +27,7 @@
             		<input type="hidden" value="unsigned" name="page_type"/>
 		 	   	{% endif %}
             
-            	<h4 class="username" > {{user.userName | capitalize }}  </h4>  
+            	<h4 class="username titleBMD" > {{user.userName | capitalize }}  </h4>  
             	{% if app.user and own is not null %}
             	<a id="new_message" href="#"> <span class="glyphicon glyphicon-envelope"></span>
         		</a>
@@ -38,8 +37,10 @@
                 
                 <div class="only_edit">
                 	<form id="formImgUpld" enctype="multipart/form-data">
-                		<input type="file" class="btn btn-sm" name="photo" id="fileToUpload"/>
-                    	<input type="submit" class="btn btn-sm btn-primary" value="Valider" id="fileToUploadValider" />
+        				<br>
+                		<input type="file" class="" name="photo" id="fileToUpload"/>
+        				<br>
+                    	<input type="submit" class="MainButtonBMD buttonBlue" value="Valider" id="fileToUploadValider" />
                    	</form>
                 </div>
             </div>
@@ -51,25 +52,7 @@
                     	<span id="userFirstName">{{user.firstname}}</span>
                     	<span id="userLastName">{{user.lastname}}</span>
                 	</li>
-                    <!--
-                    <li class="list-group-item list-group-item-info">
-                    	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>  
-                		<span class="to_edit"> Paris, France </span> 
-                	</li>
-                    <li class="list-group-item list-group-item-info">
-                    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
-                		<span id="userEmail"> {{ user.email }} </span> 
-                	</li>
-                	-->
-                	
 				 	{% if user.role.idRole == 3 %}
- 	                    <!--
-		                <li class="list-group-item list-group-item-info">
-		                	<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>  
-	                		<span id="userTarif"> 15 </span> € l'heure 
-	            		</li> 
-	                	-->
-	            		
 		                <li class="list-group-item list-group-item-info style">
 		                	<span class="glyphicon glyphicon-music" aria-hidden="true"></span>
 	                		<span class="to_edit"> 		{% if own is null %}
@@ -88,22 +71,21 @@
 	            		  	  {% endif %} 
 	     		   	          {% if own is null %}
 	     		   	          	<div>
-	            					<button id="prez_edit" class="MainButtonBMD buttonBlue" >Valider les modifications</button>
+	            					<button id="prez_edit" class="MainButtonBMD buttonBlue" >Valider</button>
 	            	  		  	</div>
 	            	  		  {% endif %}
 	            		</li>
 	                {% endif %}	            		            	                           
                 </ul>
-            </div>
-		   	
+            </div>   	
 	   	</div>
         <div class="col-md-4">
-            <h4> Présentation </h4>
+            <h4 class="titleBMD"> Présentation </h4>
             <hr>
             <span id="userPresentation"> {{user.presentation | nl2br}} </span>
         	
 		 	{% if user.role.idRole == 3 %}	
-		        	<h4> Ma playlist </h4>
+		        	<h4 class="titleBMD"> Ma playlist </h4>
 					<hr>
 		            {% if user.soundcloodlink is null %}
 						<p class="basik_text"> Aucune playlist pour le moment. </p>
@@ -113,7 +95,7 @@
 			        {% endif %}
 			        <span id="changePlaylist" class="only_edit"> {{user.soundcloodlink}} </span>
 					
-		            <h4> Avis </h4>
+		            <h4 class="titleBMD">Avis</h4>
 					<hr>
 		            {% if Allcomment is empty %}
 						<p class="basik_text"> Aucun commentaire pour le moment. </p>
@@ -130,19 +112,19 @@
         <div class="col-md-4">
 	        {% if live is not null %}
 	        	{% if app.user and user.userName == app.user.userName %}
-					<h4> Live en cours ! </h4>
+					<h4 class="titleBMD"> Live en cours ! </h4>
 					<hr>
    		 	   		<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}"> Commencer le live </a>
    		 	   	{% elseif app.user and live.auteur == app.user.userName %}
- 					<h4> Live en cours ! </h4>
+ 					<h4 class="titleBMD"> Live en cours ! </h4>
 					<hr>
        				<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
-	        	{%endif%}
-            {%endif%}
+	        	{% endif %}
+            {% endif %}
         
 		 	{% if user.role.idRole == 3 %}	 	
 		  		<div class="only_other_profil">
-			 		<h4>Poster un avis</h4>
+			 		<h4 class="titleBMD">Poster un avis</h4>
 			 		<hr>
 			 		<textarea id="my_comment"> </textarea maxlength="250">
 		 		 	<div>
@@ -151,31 +133,36 @@
 			   	</div>
 		   	{% endif %}        
             <div class="only_view">
-            	<h4>Visualisation</h4>
+            	<h4 class="titleBMD">Profil</h4>
 		 		<hr>
-	 			<a type="button" class="MainButtonBMD buttonBlue" href="{{path('profil')}}"> Edition </a>
+			<form action="{{path('profil')}}">
+			    <input class="MainButtonBMD buttonBlue" type="submit" value="Éditer" />
+			</form>
 		 	</div>
             <div class="only_edit"> 
-            	<h4>Visualisation</h4>
+            	<h4 class="titleBMD">Mon compte</h4>
 		 		<hr>
 		 		{% if app.user %}
-	 				<a type="button" class="btn btn-sm btn-primary" href="{{path('profil')}}/{{app.user.userName}}"> Aperçu </a>
-		 		{% endif %}
-		 		<h4> Mon compte </h4>
-	            <hr>
-	       		<button type="button" class="MainButtonBMD buttonBlue" id="remove_user">
-	       			<span class="glyphicon glyphicon-remove"></span> Supprimer mon compte
-	   			</button>
+					<div class="form-group inline">
+						<form action="{{path('profil')}}/{{app.user.userName}}">
+							<input class="MainButtonBMD buttonBlue" type="submit" value="Aperçu" />
+						</form>
+					</div>
+					{% endif %}
+					<div class="form-group">
+						<button type="button" class="MainButtonBMD buttonRed" id="remove_user">Clôturer</button>
+					</div>
    			</div>
-
+	 		<hr>
    		 	{% if user.role.idRole == 3 %}
    		 	<div class="dispo">
-	            <h4>Disponibilité </h4><button class="MainButtonBMD buttonBlue" id="enlarge-calendar">Agrandir</button>
+	            <h4 class="titleBMD">Calendrier</h4>
+	            <button class="MainButtonBMD buttonBlue" id="enlarge-calendar">Agrandir</button>
 	            <hr>
 
 	            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 	            </div>
-        	{%endif%}
+        	{% endif %}
 
         </div>
 	</div>

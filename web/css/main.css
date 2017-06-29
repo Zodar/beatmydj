@@ -1,7 +1,7 @@
 /* Set padding to keep content from hitting the edges */
 @font-face {
-    font-family: 'Montserrat-Regular.ttf';
-    src: url('/web/fonts/Montserrat-Regular'); 
+    font-family: 'Montserrat-Black.ttf';
+    src: url('/web/fonts/Montserrat-Black'); 
 }
 
 .body-content {
@@ -24,7 +24,7 @@ input, select {
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'Montserrat-Regular';
+    font-family: 'Montserrat-Black';
 }
 
 .font-small {
@@ -95,14 +95,6 @@ a#new_message {
 	padding-left: 10px;
 }
 
-.navbar-brand, h4 {
-	background: -webkit-gradient(linear, left top, left bottom, from(#0a1d7b),
-		to(#9dc0ec));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	font-size: 200%;
-}
-
 #main_content {
 	min-height: 700px;
 	background-color: #f8f8f8;
@@ -169,11 +161,6 @@ a#new_message {
 	display: inline-block !important;	
 }
 
-#fileToUploadValider {
-	display: block;
-	margin: auto;
-}
-
 .for_prez {
 	width: 200% !important;
 	resize: none;
@@ -195,10 +182,6 @@ a#new_message {
 .only_edit, .only_view, .only_other_profil, .only_unsigned {
 	visibility: hidden;
 	display: none;
-}
-
-#fileToUpload {
-	margin: auto;
 }
 
 /* Style formulaire*/
@@ -529,7 +512,6 @@ margin-top:40px;
 
 .buttonHeader {
 	background: none;
-	color: black;
 	font-size : 18px;
 	font-weight: bold;
 	color: white;
@@ -607,6 +589,15 @@ color : white;
 	background-color: #4b525e;
 }
 
+.buttonRed{
+	background-color: #c8505a;	
+	color: white;
+}
+
+.buttonRed:hover{
+	background-color: #b16363;
+}
+
 .labelBMD{
 	width: 30px;
 	background-color: #637DB1;
@@ -621,4 +612,11 @@ color : white;
 
 .inputBMD{
 		padding: 8px 0px 8px 11px;
+}
+
+.titleBMD{
+	font-family: 'Montserrat-Black';
+	font-size: 26px;
+	font-weight: bold;
+	color: #222;
 }
