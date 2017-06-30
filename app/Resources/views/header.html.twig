@@ -11,6 +11,7 @@
     {% if app.user %}
       <li>
         <a href="{{ path('messages') }}">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
         <button type="button" class="btn btn-sm buttonHeader">
           {{ fos_message_nb_unread() }} 
           </button>
@@ -20,7 +21,9 @@
       <li>
         <a href="{{ path('profil') }}">
         <button type="button" class="btn btn-sm buttonHeader">
+        <img class="btnimg" src="{{asset('images/Deconnexion.png')}}" alt="" />
           {{ app.user.firstName }} {{ app.user.lastName }}
+
           </button>
         </a>
       </li>
@@ -28,7 +31,7 @@
       <li>
        <a href="{{ path('logout') }}"> 
         <button type="button" class="btn btn-sm buttonHeader"> 
-        <img class="btnimg" src="{{asset('images/Deconnexion.png')}}" alt="" />
+        <img class="btnimg" src="{{asset('images/Connexion.png')}}" alt="" />
      Log out
         </button>
         </a>

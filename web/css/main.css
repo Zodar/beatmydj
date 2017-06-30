@@ -558,6 +558,12 @@ text-decoration: none;
 color : white;
 }
 
+#copyright{
+	text-decoration: none;
+	color : white;
+	margin-top: 60px;
+}
+
 .TitreBlockBlue{
 	color : white;
 	font-weight: bold;
