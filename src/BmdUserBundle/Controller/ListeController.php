@@ -79,21 +79,17 @@ class ListeController extends Controller
         $datas = [];
         
         foreach ($users as $user) {
-            if ($usr && ($usr->getId() != $user->getId())) {
-                continue;
-            } else {
-                $data = [];
-                $data["id"] = $user->getId();
-                $data["email"] = $user->getEmail();
-                $data["firstName"] = $user->getFirstName();
-                $data["lastName"] = $user->getLastName();
-                $data["userName"] = $user->getUserName();
-                $data["presentation"] = $user->getPresentation();
-                $data["style"] = $user->getStyle();
-                $data["dispo"] = $user->getDispo();
-                $data["path"] = $user->path;
-                array_push($datas, $data);
-            }
+			$data = [];
+			$data["id"] = $user->getId();
+			$data["email"] = $user->getEmail();
+			$data["firstName"] = $user->getFirstName();
+			$data["lastName"] = $user->getLastName();
+			$data["userName"] = $user->getUserName();
+			$data["presentation"] = $user->getPresentation();
+			$data["style"] = $user->getStyle();
+			$data["dispo"] = $user->getDispo();
+			$data["path"] = $user->path;
+			array_push($datas, $data);
         }
         
         return new JsonResponse(array(
