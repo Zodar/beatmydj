@@ -539,11 +539,7 @@ margin-top:20px;
 }
 
 #RechercheImg{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 34px;
-  margin-left: 4px;
+left: 2px;
 
 }
 
