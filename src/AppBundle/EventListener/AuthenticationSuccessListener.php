@@ -4,10 +4,13 @@ namespace AppBundle\EventListener;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+* Évenement appéle lors de la connexion 
+**/ 
 class AuthenticationSuccessListener {
 
   /**
-   *
+   * Renvoi un tableau avec des informations sur l'utilisateurs
    * @param AuthenticationSuccessEvent $event
    */
   public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event) {

@@ -15,7 +15,7 @@ class ListeController extends Controller
 {
 
     /**
-     *
+     * Récupera les utilisateur qui sont des djs
      * @Route("/liste_dj", name="liste_dj")
      * @Method("GET")
      *
@@ -23,10 +23,9 @@ class ListeController extends Controller
      */
     public function DJ_listing(Request $request)
     {
+		/* @TODO Actuellement il y a deux requete voir si possible d'en faire qu'une seul */
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
-        $finduser = $this->getDoctrine()->getRepository('AppBundle:User');
         $findDjRole = $this->getDoctrine()->getRepository('AppBundle:RoleAssociative');
-        // $users = $find->findAll(Query::HYDRATE_ARRAY);
         $djs = $findDjRole->findBy(array(
             "idRole" => 3
         ));
@@ -40,6 +39,7 @@ class ListeController extends Controller
         ));
         $datas = [];
         
+		/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
         foreach ($pseudo as $user) {
             $data = [];
             $data["id"] = $user->getId();
@@ -78,6 +78,8 @@ class ListeController extends Controller
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $datas = [];
         
+				/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
+
         foreach ($users as $user) {
 			$data = [];
 			$data["id"] = $user->getId();
@@ -99,7 +101,7 @@ class ListeController extends Controller
     }
 
     /**
-     *
+     * @TODO C'est vraiment moche header en dur commentaires a changgeeeeeeer 
      * @Route("/get_all_dj", name="getAllDjMobile")
      * @Method("GET")
      *
@@ -116,7 +118,9 @@ class ListeController extends Controller
         // }
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $datas = [];
-        
+       
+	   /* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
+
         foreach ($users as $user) {
            // if ($usr->getId() != $user->getId()) {
                 $data = [];
@@ -141,7 +145,7 @@ class ListeController extends Controller
     }
     
     /**
-     *
+     * Récuperations des utilisateurs en lignes
      * @Route("/getOnlinedj",options={"expose"=true}, name="getOnlineUser")
      * @Method("GET")
      *
@@ -160,10 +164,12 @@ class ListeController extends Controller
                 'users' => null,
                 'value' => "ok"
             ));
-        //         $find = $this->getDoctrine()->getRepository('AppBundle:User');
-        $users = $this->getActive();
+			
+			$users = $this->getActive();
         $datas = [];
     
+			/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
+
         foreach ($users as $user) {
             if ($usr->getId() != $user->getId()) {
                 $data = [];
@@ -186,9 +192,9 @@ class ListeController extends Controller
         ));
     }
     
+	/* Récupere les utilisateur ayant fais une action il y a moins de 5 minutes */
     public function getActive()
     {
-        // Comme vous le voyez, le délais est redondant ici, l'idéale serait de le rendre configurable via votre bundle
         $delay = new \DateTime();
         $delay->setTimestamp(strtotime('5 minutes ago'));
     
@@ -203,7 +209,7 @@ class ListeController extends Controller
      *
      * @Route("/dj",options={"expose"=true}, name="getOneUserById")
      * @Method("GET")
-     *
+     * @TODO Virér se header en duuuuuuuuur 
      * @param Request $request            
      */ 
     public function getOneUserById(Request $request)

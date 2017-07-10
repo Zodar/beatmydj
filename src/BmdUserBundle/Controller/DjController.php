@@ -13,13 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class DjController extends Controller{
 
     /**
-     *
+     * @TODO a commenté 
      * @Route("/DjPanel/streams",options={"expose"=true}, name="djPanel_streams")
      * @Method("GET")
      *
      * @param Request $request
      */
-    public function AdminEventsAction(Request $request)
+    public function DjPanelsStreams(Request $request)
     {
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){
             $usr = $this->get('security.token_storage')
@@ -50,7 +50,7 @@ class DjController extends Controller{
     }
     
     /**
-     *
+     * Action lorsque le DJ accepte le stream
      * @Route("/DjPanel/acceptStreams",options={"expose"=true}, name="djPanel_acceptstreams")
      * @Method("POST")
      *
@@ -58,6 +58,9 @@ class DjController extends Controller{
      */
     public function AcceptsStreamAction(Request $request)
     {
+		/* Si l'utilisateur connecté 
+			@TODO verifié que l'évenement qui va etre accepté est bien lié a l'utilisateur courant
+		*/
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){
             $usr = $this->get('security.token_storage')
             ->getToken()

@@ -18,7 +18,7 @@ class ProfilController extends Controller
 {
 
     /**
-     *
+     * Récupere les evenement du calendrier
      * @Route("/profil/userEvent", name="user_event")
      * @Method("Post")
      *
@@ -26,15 +26,13 @@ class ProfilController extends Controller
      */
     public function loadCalendarAction(Request $request)
     {
+		/* Préparation de la fourchette de date */
         $startDatetime = new \DateTime();
         $startDatetime->setTimestamp(strtotime($request->get('start')));
 
         $endDatetime = new \DateTime();
         $endDatetime->setTimestamp(strtotime($request->get('end')));
 
-//         $events = $this->container->get('event_dispatcher')
-//             ->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime, $request))
-//             ->getEvents();
 
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
@@ -61,7 +59,7 @@ class ProfilController extends Controller
     }
 
     /**
-     *
+     * INFO pour l'instant ce code n'est pas utilisé il s'agisait d'heberger le stream directement sur le server
      * @Route("/video", name="video")
      * @Method("GET")
      *
@@ -80,29 +78,7 @@ class ProfilController extends Controller
 
 
     /**
-     *
-     * @Route("/api/testmobile", name="testmobile")
-     * @Method("POST")
-     *
-     * @param Request $request
-     */
-    public function testMobile(Request $request)
-    {
-      if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-        $usr = $this->get('security.token_storage')
-        ->getToken()
-        ->getUser();
-
-        return new JsonResponse(array(
-            'success' => "true"
-        ));
-      }
-      return new JsonResponse(array(
-          'success' => "false"
-      ));
-    }
-    /**
-     *
+     * Ajout d'évenement 
      * @Route("/profil/add_event", name="ajout_evenement")
      * @Method("POST")
      *
@@ -110,7 +86,10 @@ class ProfilController extends Controller
      */
     public function AddEventAction(Request $request)
     {
+		/* Si l'utilisateur est connecté */
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			
+			/* Préparation de l'entitié event et test de l'existance d'un évenelebt sur cette periode */ 
             $duree = $this->get('request')->get('duree') != null ? $this->get('request')->get('duree') : "1";
             $timestamp = $this->get('request')->get('date') / 1000;
             $date = new DateTime();
@@ -119,6 +98,7 @@ class ProfilController extends Controller
             $dateend->add(new DateInterval("PT{$duree}H"));
             $date->setTimestamp($timestamp);
             $uid = $this->get('request')->get('user');
+			
             if ($this->checkEventAvailable($date, $dateend, $uid) == false)
                 return new JsonResponse(array(
                     'success' => "false",
@@ -147,6 +127,7 @@ class ProfilController extends Controller
         }
     }
 
+	/* Test si un évenement existe aprés la date de début et avant la date de fin */
     private function checkEventAvailable($datestart, $dateend, $userid)
     {
         $Events = $this->getDoctrine()
@@ -177,7 +158,7 @@ class ProfilController extends Controller
     }
 
     /**
-     *
+     * Page appelé quand l'utilisateur modifie son profils 
      * @Route("/profil/edit", name="edit_profil_POST")
      * @Method("POST")
      *
@@ -190,7 +171,7 @@ class ProfilController extends Controller
             $usr = $this->get('security.token_storage')
                 ->getToken()
                 ->getUser();
-
+			
             if ($this->get('request')->get('name') != null) {
                 if ($this->get('request')->get('name') == "userFirstName") {
                     $usr->setfirstname($this->get('request')
@@ -240,7 +221,7 @@ class ProfilController extends Controller
     }
 
     /**
-     *
+     * Page appélé quand l'utilisateur supprime son profil
      * @Route("/profil/remove", name="remove_POST")
      * @Method("POST")
      *
@@ -272,7 +253,7 @@ class ProfilController extends Controller
     }
 
     /**
-     *
+     * Ajout d'un commentaires 
      * @Route("/profil/addcomment", name="comment_POST")
      * @Method("POST")
      *
@@ -285,6 +266,7 @@ class ProfilController extends Controller
                 ->getToken()
                 ->getUser();
 
+				/* Préparation de l'entité */
             $comment = new Comment();
 
             $comment->content = $this->get('request')->get('content');
@@ -307,7 +289,7 @@ class ProfilController extends Controller
     }
 
     /**
-     *
+     * Changement de l'image
      * @Route("/profil/edit/picture", name="edit_profil_image_POST")
      * @Method("POST")
      *

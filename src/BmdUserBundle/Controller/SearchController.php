@@ -20,7 +20,7 @@ class SearchController extends Controller
 {
 
     /**
-     *
+     * Suggestion de recherche par pseudo
      * @Route("/search", name="search_POST")
      * @Method("POST")
      * 
@@ -45,7 +45,7 @@ class SearchController extends Controller
     
     
     /**
-     *
+     * Page de rechrche de dj
      * @Route("/search", name="search_advanced")
      * @Method("GET")
      *
@@ -54,9 +54,7 @@ class SearchController extends Controller
     public function SearchAdvancedAction(Request $request)
     {
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
-        $finduser = $this->getDoctrine()->getRepository('AppBundle:User');
         $findDjRole = $this->getDoctrine()->getRepository('AppBundle:RoleAssociative');
-        //$users = $find->findAll(Query::HYDRATE_ARRAY);
         $djs =  $findDjRole->findBy(array(
             "idRole" => 3
         ));
@@ -96,7 +94,7 @@ class SearchController extends Controller
     }
     
     /**
-     *
+     * Recherche avancé par style de musique 
      * @Route("/search_advanced", name="search_advancedPost")
      * @Method("POST")
      *
@@ -106,6 +104,7 @@ class SearchController extends Controller
     {
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
         
+		/* Récuperation de le requete */
         $style = $this->get('request')->get('value');
         $params = array();
         parse_str($style, $params);
@@ -141,7 +140,8 @@ class SearchController extends Controller
         ));
         
         $datas = [];
-         
+         		/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
+
         foreach ($pseudo as $user) {
             $data = [];
             $data["id"] = $user->getId();

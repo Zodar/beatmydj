@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Cunningsoft\ChatBundle\Entity\AuthorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 /**
+ * Clas qui definit l'entité Comment contiens les commentaires sur les pages profils
  * @ORM\Entity
  */
 class Comment extends Controller

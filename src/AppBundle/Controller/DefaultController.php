@@ -30,7 +30,6 @@ class DefaultController extends Controller
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
         $finduser = $this->getDoctrine()->getRepository('AppBundle:User');
         $findDjRole = $this->getDoctrine()->getRepository('AppBundle:RoleAssociative');
-        // $users = $find->findAll(Query::HYDRATE_ARRAY);
         $djs = $findDjRole->findBy(array(
             "idRole" => 3
         ));
@@ -82,7 +81,7 @@ class DefaultController extends Controller
     
 
     /**
-     *
+     * URL pour poster un avis
      * @Route("/avis",options={"expose"=true}, name="post_avis")
      * @Method("POST")
      *
@@ -112,7 +111,11 @@ class DefaultController extends Controller
             'mail' => $this->get('mailer')->send($message)
         ));
     }
+	
+	
+	
     /**
+	 * URL d'affichaes de la page messages 
      * @Route("/messages", name="messages")
      * @Method("GET")
      *
@@ -123,12 +126,15 @@ class DefaultController extends Controller
     {
         $provider = $this->get('fos_message.provider');
         
+		/* Récuperations des messages recus et envoyés */
         $threads = $provider->getInboxThreads();
         $threads_sent = $provider->getSentThreads();
         
         $thread = [];
         $inbox_ids = [];
         
+		
+		/* traitement des tables pour le rassemblement par conversations */
         foreach ($threads as $t) {
             $t2 = $provider->getThread($t->getid());
             $inbox_ids[] = $t->getid();
@@ -154,6 +160,7 @@ class DefaultController extends Controller
     }
 
     /**
+	 * Methode pour poster un messages
      * @Route("/messages", name="messages_post")
      * @Method("POST")
      *
@@ -162,11 +169,13 @@ class DefaultController extends Controller
      */
     public function messagesActionPost(Request $request)
     {
+		/* Récuperation des variables*/
         $composer = $this->get('fos_message.composer');
         $provider = $this->get('fos_message.provider');
         $thread = $provider->getThread($this->get('request')
             ->get('id'));
         
+		/* Sauvegarde du messages en base */
         $message = $composer->reply($thread)
             ->setSender($this->get('security.token_storage')
             ->getToken()
@@ -185,14 +194,16 @@ class DefaultController extends Controller
     }
 
     /**
+	 * Methode pour poster un messages
      * @Route("/messages_new", name="messages_new")
      * @Method("POST")
-     *
+     * 
      * @param Request $request            
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function messagesActionPostNew(Request $request)
     {
+		/* Récupération des variables */ 
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
         $usr = $find->find($this->get('request')
             ->get('userId'));
@@ -206,6 +217,7 @@ class DefaultController extends Controller
         
         $alreadyHave = DefaultController::alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider);
         
+		/* Si une discussion existe deja */
         if (! $alreadyHave) {
             $message = $composer->newThread()
                 ->setSender($currentUsr)
@@ -229,6 +241,9 @@ class DefaultController extends Controller
         ));
     }
 
+	/**
+	Regarde en base si une discussion existe dèjà 
+	**/
     public static function alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider)
     {
         $threads = $provider->getSentThreads();
@@ -268,16 +283,24 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/profil",options={"expose"=true}, name="profil")
+	 * Page de profil 
+	 * /profil corresponds a sa page personnel 
+	 * /profil/{user} visite d'un profil 
+     * @Route("/profil",options={"expose"=true}, name="profil") 
      * @Route("/profil/{user}", name="all_profil")
      */
     public function profil(Request $request, $user = null)
     {
+		/* Si l'utilisateur n'est pas connécté on le renvoi sur la page d'accueil*/
         if (! $this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('homepage');
         }
-        $form = "rien";
+		
+        $form = "";
+		
+		/* Si on visite une page ou si on est sur sa propre page*/
         if ($user != null) {
+			/* Récuperation du profi a visiter */ 
             $find = $this->getDoctrine()->getRepository('AppBundle:User');
             $pseudo = $find->findBy(array(
                 "username" => $user
@@ -317,7 +340,11 @@ class DefaultController extends Controller
             "live" => $this->check_stream($usr->getId())
         ));
     }
-
+	
+	/** 
+	* Insértion des infos en bases 
+	* Dates des visites etc 
+	**/
     private function generateClientView($username)
     {
         $usr = $this->get('security.token_storage')

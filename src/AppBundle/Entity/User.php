@@ -14,6 +14,7 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 /**
  * @ORM\Entity
+ * Définition de l'entité USER et du role (voir plus bas)
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
