@@ -44,11 +44,13 @@ class RegistrationController extends Controller
                 'name' => "L'email est déja utilisé",
                 'value' => "false"
             ));
-        if (! empty($pseudo))
+        if (! empty($pseudo)) {
+            $lsPseudo = $this->addPseudoRandom();
             return new JsonResponse(array(
-                'name' => "Le pseudo est déja utilisé",
+                'name' => "Le pseudo est déja utilisé Suggestion de pseudo ".$lsPseudo,
                 'value' => "false"
             ));
+        }
 
         $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($password);
@@ -123,5 +125,20 @@ class RegistrationController extends Controller
             'last_username' => $authenticationUtils->getLastUsername(),
             'error'         => $authenticationUtils->getLastAuthenticationError(),
         ));
+    }
+    /**
+     *
+     */
+    protected function addPseudoRandom(){
+        $lsUrl = 'https://randomuser.me/api/?key=42PY-2LAL-HFCP-27HC&ref=onws1zax';
+        $loCurl = curl_init();
+        curl_setopt($loCurl, CURLOPT_URL, $lsUrl);
+        curl_setopt($loCurl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($loCurl, CURLOPT_HTTPGET, 1);
+        curl_setopt($loCurl, CURLOPT_RETURNTRANSFER, true);
+        $lsResponse = curl_exec($loCurl);
+        curl_close($loCurl);
+        $lsResponse = json_decode($lsResponse);
+        return ($lsResponse->results[0]->login->username);
     }
 }
