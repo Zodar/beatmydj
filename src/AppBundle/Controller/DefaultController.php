@@ -27,6 +27,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $randomUsers = array();
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
         $finduser = $this->getDoctrine()->getRepository('AppBundle:User');
         $findDjRole = $this->getDoctrine()->getRepository('AppBundle:RoleAssociative');
@@ -59,15 +60,18 @@ class DefaultController extends Controller
         
         $lastUser = array_pop($datas);
         $firstUser = array_shift($datas);
-        $randomUser = null;
-        if (! empty($datas)) {
-            $randomUser = $datas[array_rand($datas)];
+
+        for($i = 0; $i < 5; $i++)
+        {
+            if (!empty($datas)) {
+            array_push($randomUsers,$datas[array_rand($datas)]);
+        }    
         }
         
         return $this->render('home/home.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
             'firstUser' => $firstUser,
-            'randomUser' => $randomUser,
+            'randomUsers' => $randomUsers,
             'lastUser' => $lastUser
         ));
     }

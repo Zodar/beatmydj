@@ -1,194 +1,192 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-      {% if app.user and app.user.role.idRole == 3 and own is null %}
-<ul class="profil-header nav nav-tabs">
-  <li class="active"><a href="#home">Accueil</a></li>
-  <li><a href="#vues">Vus de profil</a></li>
-  <li><a href="#streams">Demande de stream</a></li>
-</ul>
-        {% endif %}
-<link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
-<div class="tab-content" ng-controller="ProfilController">
- <div id="home" class="tab-pane fade in active">                        
-	<div class="row">
-        <div class="col-md-4">
-            <div>
-            	<input type="hidden" value="{{user.id}}" name="user_id"/>
-            	<input type="hidden" value="{{path('messages')}}" name="path_messages"/>
-            	
-            	{% if app.user and user.userName == app.user.userName and own is null %}
-            		<input type="hidden" value="own_profil_edit" name="page_type"/>
-			 	{% elseif app.user and user.userName == app.user.userName and own is not null %} 
-            		<input type="hidden" value="own_profil_view" name="page_type"/>
-			 	{% elseif app.user and user.userName != app.user.userName %} 
-            		<input type="hidden" value="other_profil" name="page_type"/>	 	
-            	{% else %}	
-            		<input type="hidden" value="unsigned" name="page_type"/>
-		 	   	{% endif %}
-            
-            	<h4 class="username titleBMD" > {{user.userName | capitalize }}  </h4>  
-            	{% if app.user and own is not null %}
-            	<a id="new_message" href="#"> <span class="glyphicon glyphicon-envelope"></span>
-        		</a>
-        		{% endif %}
-				<hr>
-                <img id="user_image" class="img-responsive" src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />
-                
-                <div class="only_edit">
-                	<form id="formImgUpld" enctype="multipart/form-data">
-        				<br>
-                		<input type="file" class="" name="photo" id="fileToUpload"/>
-        				<br>
-                    	<input type="submit" class="MainButtonBMD buttonBlue" value="Valider" id="fileToUploadValider" />
-                   	</form>
-                </div>
-            </div>
-            <br>
-            <div>
-                <ul class="list-group profil_edition">
-                    <li class="list-group-item list-group-item-info">
-                    	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    	<span id="userFirstName">{{user.firstname}}</span>
-                    	<span id="userLastName">{{user.lastname}}</span>
-                	</li>
-				 	{% if user.role.idRole == 3 %}
-		                <li class="list-group-item list-group-item-info style">
-		                	<span class="glyphicon glyphicon-music" aria-hidden="true"></span>
-	                		<span class="to_edit"> 		{% if own is null %}
-	                		 {{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form'}}) }}
-	                		
-	                		  {{ form_rest(form) }} 
-	                		  
-	                		    {{ form_end(form) }}
-	                		  {% else %}
-	                		 	 Style : 
-		                		  {% if user.getStyleText is not null %}
-		                		   		{% for style in user.getStyleText %}
-								        	{{ style|trans  }}{% if not loop.last%},{% endif %}
-							        	{% endfor %}
-	                		  	  {% endif %} 
-	            		  	  {% endif %} 
-	     		   	          {% if own is null %}
-	     		   	          	<div>
-	            					<button id="prez_edit" class="MainButtonBMD buttonBlue" >Valider</button>
-	            	  		  	</div>
-	            	  		  {% endif %}
-	            		</li>
-	                {% endif %}	            		            	                           
-                </ul>
-            </div>   	
-	   	</div>
-        <div class="col-md-4">
-            <h4 class="titleBMD"> Présentation </h4>
-            <hr>
-            <span id="userPresentation"> {{user.presentation | nl2br}} </span>
-        	
-		 	{% if user.role.idRole == 3 %}	
-		        	<h4 class="titleBMD"> Ma playlist </h4>
-					<hr>
-		            {% if user.soundcloodlink is null %}
-						<p class="basik_text"> Aucune playlist pour le moment. </p>
-		            {% else %}
-			        	<input type="hidden" name="user_playlist_link" value="{{user.soundcloodlink}}">
-			        	<div id="user_playlist"> </div>
-			        {% endif %}
-			        <span id="changePlaylist" class="only_edit"> {{user.soundcloodlink}} </span>
-					
-		            <h4 class="titleBMD">Avis</h4>
-					<hr>
-		            {% if Allcomment is empty %}
-						<p class="basik_text"> Aucun commentaire pour le moment. </p>
-					{% else %}
-			            {% for comment in Allcomment %}
-			            	 <fieldset>
-								<legend>{{comment.pseudo}}, le {{comment.date|date('d/m/Y à H:i') }}</legend>
-								<p>{{comment.content}}</p>
-						    </fieldset>
-						{% endfor %}
-					{% endif %}
-		   	{% endif %}
-        </div>
-        <div class="col-md-4">
-	        {% if live is not null %}
-	        	{% if app.user and user.userName == app.user.userName %}
-					<h4 class="titleBMD"> Live en cours ! </h4>
-					<hr>
-   		 	   		<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}"> Commencer le live </a>
-   		 	   	{% elseif app.user and live.auteur == app.user.userName %}
- 					<h4 class="titleBMD"> Live en cours ! </h4>
-					<hr>
-       				<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
-	        	{% endif %}
-            {% endif %}
-        
-		 	{% if user.role.idRole == 3 %}	 	
-		  		<div class="only_other_profil">
-			 		<h4 class="titleBMD">Poster un avis</h4>
-			 		<hr>
-			 		<textarea id="my_comment"> </textarea maxlength="250">
-		 		 	<div>
-			 			<button id="add_comment" type="button" class="MainButtonBMD buttonBlue"> Poster </button>
-			   		</div>
-			   	</div>
-		   	{% endif %}        
-            <div class="only_view">
-            	<h4 class="titleBMD">Profil</h4>
-		 		<hr>
-			<form action="{{path('profil')}}">
-			    <input class="MainButtonBMD buttonBlue" type="submit" value="Éditer" />
-			</form>
-		 	</div>
-            <div class="only_edit"> 
-            	<h4 class="titleBMD">Mon compte</h4>
-		 		<hr>
-		 		{% if app.user %}
-					<div class="form-group inline">
-						<form action="{{path('profil')}}/{{app.user.userName}}">
-							<input class="MainButtonBMD buttonBlue" type="submit" value="Aperçu" />
-						</form>
-					</div>
-					{% endif %}
-					<div class="form-group">
-						<button type="button" class="MainButtonBMD buttonRed" id="remove_user">Clôturer</button>
-					</div>
-   			</div>
-	 		<hr>
-   		 	{% if user.role.idRole == 3 %}
-   		 	<div class="dispo">
-	            <h4 class="titleBMD">Calendrier</h4>
-	            <button class="MainButtonBMD buttonBlue" id="enlarge-calendar">Agrandir</button>
-	            <hr>
-
-	            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-	            </div>
-        	{% endif %}
-
-        </div>
-	</div>
-		</div>
 	{% if app.user and app.user.role.idRole == 3 and own is null %}
-	{% include 'home/djPanel.html.twig' %}
+		<ul class="profil-header nav nav-tabs">
+			<li class="active"><a href="#home">Accueil</a></li>
+			<li><a href="#vues">Vue de profil</a></li>
+			<li><a href="#streams">Demande de streaming</a></li>
+		</ul>
+	{% endif %}
+	<link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+	<div class="tab-content" ng-controller="ProfilController">
+		<div id="home" class="tab-pane fade in active">                        
+			<div class="row featurette">
+			    <div class="col-md-5">
+			        <div>
+			            <input type="hidden" value="{{user.id}}" name="user_id" />
+			            <input type="hidden" value="{{path('messages')}}" name="path_messages" />
 
-   {%endif%}
+			            {% if app.user and user.userName == app.user.userName and own is null %}
+			            	<input type="hidden" value="own_profil_edit" name="page_type" />
+			            {% elseif app.user and user.userName == app.user.userName and own is not null %}
+			            	<input type="hidden" value="own_profil_view" name="page_type" />
+			            {% elseif app.user and user.userName != app.user.userName %}
+			            	<input type="hidden" value="other_profil" name="page_type" />
+			            {% else %}
+			            	<input type="hidden" value="unsigned" name="page_type" />
+			            {% endif %}
 
-</div>
+			        	<h4 class="username titleBMD"> {{user.userName | capitalize }}  </h4>
+			            {% if app.user and own is not null %}
+			        	    <a id="new_message" href="#">
+			            	    <span class="glyphicon glyphicon-envelope"></span>
+			            	</a>
+			            {% endif %}
+			            <hr>
+			            <img id="user_image" class="img-responsive" src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />
+			            <div class="only_edit">
+			                <form id="formImgUpld" enctype="multipart/form-data">
+			                    <br>
+			                    <input type="file" class="" name="photo" id="fileToUpload" />
+			                    <br>
+			                    <input type="submit" class="MainButtonBMD buttonBlue" value="Valider" id="fileToUploadValider" />
+			                </form>
+			            </div>
+			        </div>
+			    </div>
+
+			    <div class="col-md-3">
+			        <h4 class="titleBMD"> Style </h4>
+			        <hr>
+			        <div>
+			            <ul class="list-group profil_edition">
+			                {% if user.role.idRole == 3 %}
+			                <li class="list-group-item list-group-item style">
+			                    <span class="to_edit">
+			                        {% if own is null %}
+			                        	{{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form'}}) }}
+
+			                        	{{ form_rest(form) }}
+
+			                        	{{ form_end(form) }}
+			                        {% else %}
+			                        	Style :
+		                       			{% if user.getStyleText is not null %}
+			                        		{% for style in user.getStyleText %}
+			                        			{{ style|trans  }}{% if not loop.last%},{% endif %}
+			                        		{% endfor %}
+			                        	{% endif %}
+			                        {% endif %}
+			                        {% if own is null %}
+			                        	<div>
+			                            	<button id="prez_edit" class="MainButtonBMD buttonBlue">Valider</button>
+			                        	</div>
+			                        {% endif %}
+			                    </span>
+			                </li>
+			                {% endif %}
+			            </ul>
+			        </div>
+			    </div>
+
+			    <div class="col-md-4">
+			        <h4 class="titleBMD"> Expérience </h4>
+			        <hr>
+			        <ul>
+			            <li>J'ai</li>
+			            <li>Des envies</li>
+			            <li>de meutres</li>
+			        </ul>
+			        <div class="only_view">
+			            <form action="{{path('profil')}}">
+			                <input class="MainButtonBMD buttonBlue" type="submit" value="Éditer" />
+			            </form>
+			        </div>
+
+			        <div class="only_edit">
+			            <h4 class="titleBMD">Mon compte</h4>
+			            <hr>
+			            {% if app.user %}
+			            <div class="form-group inline">
+			                <form action="{{path('profil')}}/{{app.user.userName}}">
+			                    <input class="MainButtonBMD buttonBlue" type="submit" value="Aperçu" />
+			                </form>
+			            </div>
+			            {% endif %}
+			            <div class="form-group">
+			                <button type="button" class="MainButtonBMD buttonRed" id="remove_user">Clôturer</button>
+			            </div>
+			        </div>
+					{% if live is not null %}
+						{% if app.user and user.userName == app.user.userName %}
+							<h4 class="titleBMD"> Live en cours ! </h4>
+							<hr>
+							<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}"> Commencer le live </a>
+						{% elseif app.user and live.auteur == app.user.userName %}
+							<h4 class="titleBMD"> Live en cours ! </h4>
+							<hr>
+							<a type="button" class="MainButtonBMD buttonBlue" href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
+						{% endif %}
+					{% endif %}
+			    </div>
+			</div>
+
+			<div class="row featurette">
+			    <h4 class="titleBMD"> Mon Profil</h4>
+			    <div class="col-md-6">
+			        <h3 class=""> Présentation</h3>
+			        <span id="userPresentation"> {{user.presentation | nl2br}} </span>
+			    </div>
+
+			    <div class="col-md-6">
+			        <h3 class=""> Commentaires </h3>
+			        {% if Allcomment is empty %}
+			        <p class="basik_text"> Aucun commentaire pour le moment. </p>
+			        {% else %}
+			        {% for comment in Allcomment %}
+			        <fieldset>
+			            <legend>{{comment.pseudo}}, le {{comment.date|date('d/m/Y à H:i') }}</legend>
+			            <p>{{comment.content}}</p>
+			        </fieldset>
+			        {% endfor %}
+			        {% endif %}
+			    </div>
+			</div>
+
+			<div class="row featurette">
+			    {% if user.role.idRole == 3 %}
+				    <h4 class="titleBMD"> Ma playlist </h4>
+				    <hr>
+				    {% if user.soundcloodlink is null %}
+				    	<p class="basik_text"> Aucune playlist pour le moment. </p>
+		    		{% else %}
+					    <input type="hidden" name="user_playlist_link" value="{{user.soundcloodlink}}">
+					    <div id="user_playlist" class="col-md-10 col-md-offset-1"> </div>
+				    {% endif %}
+			    {# <span id="changePlaylist" class="only_edit"> {{user.soundcloodlink}} </span> #}
+			    {% endif %}
+			</div>
+
+			<div class="row">
+			    {% if user.role.idRole == 3 %}
+				    <div class="dispo">
+				        <h4 class="titleBMD">Mes disponibilités</h4>
+				        <hr>
+				        <button class="MainButtonBMD buttonBlue" id="enlarge-calendar">Agrandir</button>
+				        <hr>
+			            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+				    </div>
+			    {% endif %}
+			</div>
+		</div><!-- END #HOME -->
+
+		{% if app.user and app.user.role.idRole == 3 and own is null %}
+			{% include 'home/djPanel.html.twig' %}
+		{%endif%}
+	</div>
 {% endblock %}
 
-
-
 {% block javascripts %}
-
-<script>
-$(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
-});
-</script>
-
-<script type="text/javascript" src="{{ asset('js/calendar-settings.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
+	<script>
+		$(document).ready(function(){
+			$(".nav-tabs a").click(function(){
+				$(this).tab('show');
+			});
+		});
+	</script>
+	<script type="text/javascript" src="{{ asset('js/calendar-settings.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('js/djpanelController.js') }}"></script>
 	<script src="{{ asset('js/moment.js') }}"></script>

@@ -116,9 +116,17 @@ class User extends Controller implements UserInterface, ParticipantInterface
     public function setLastActivity($la){
         return $this->lastActivity = $la;
     }
+
+    /*
+    * Définit si l'user est actif
+    */
     public function isActiveNow(){
         $this->setLastActivity(new \DateTime());
     }
+
+    /*
+    * Récupère le lien SoundCloud d'un DJ
+    */
     public function getSoundCloodLink() {
         return $this->soundCloodLink;
     }
@@ -126,7 +134,9 @@ class User extends Controller implements UserInterface, ParticipantInterface
     public function setSoundCloodLink($soundcloodLink) {
         $this->soundCloodLink = $soundcloodLink;
     }
-
+    /*
+    * Récupère le role d'un DJ
+    */
     public function  getRole(){
         return ($this->role);
     }
@@ -174,11 +184,16 @@ class User extends Controller implements UserInterface, ParticipantInterface
         return $user;
     }
 
+    /*
+    * Récupère l'adresse mail d'un DJ
+    */
     public function getEmail()
     {
         return $this->email;
     }
-
+    /*
+    * Récupère l'id d'un DJ
+    */
     public function getId()
     {
         return ($this->id);
@@ -188,17 +203,23 @@ class User extends Controller implements UserInterface, ParticipantInterface
     {
         $this->email = $email;
     }
-
+    /*
+    * Récupère le login d'un DJ
+    */
     public function getUsername()
     {
         return $this->username;
     }
-
+    /*
+    * Récupère le prénom d'un DJ
+    */
     public function getfirstname()
     {
         return $this->firstname;
     }
-
+    /*
+    * Récupère le nom de famille d'un DJ
+    */
     public function getlastname()
     {
         return $this->lastname;
@@ -233,7 +254,9 @@ class User extends Controller implements UserInterface, ParticipantInterface
     {
         $this->password = $password;
     }
-
+    /*
+    * Récupère le mot de passe d'un DJ
+    */
     public function getPassword()
     {
         return ($this->password);
@@ -280,16 +303,27 @@ class User extends Controller implements UserInterface, ParticipantInterface
         $this->presentation = $presentation;
     }
 
+    /*
+    * Récupère la présentation d'un DJ
+    */
     public function getPresentation()
     {
         return ($this->presentation);
     }
 
+    /*
+    * Récupère les id style d'un DJ
+    */
     public function getStyle()
     {
         return ($this->style);
     }
+
     public $translator;
+
+    /*
+    *  Récupère la liste des style de musique d'une Dj
+    */
     public function getStyleText()
     {
         if($this->style == null) return(""); 
@@ -304,10 +338,26 @@ class User extends Controller implements UserInterface, ParticipantInterface
                $text[] = $value;
             }
         }
-//         $text = substr($text, 0, -1);
         return ($text);
     }
-    
+
+    /*
+    * @Todo Récupère la liste des style de musique
+    */
+        public function getAllStyleText()
+        {
+            if($this->style == null) return(""); 
+            $array = array("Dance","deep","disco","electro","funk","hiphop","house",
+                "latino","reggae","rnb","rock","years80","years90"
+            );
+            $text = array();
+            foreach ($array as $value){
+                $mth = "get".$value;
+                $stl = $this->style->{$mth}();
+                   $text[] = $value;
+            }
+            return ($text);
+        }
 
 //     public function getRole()
 //     {
@@ -344,6 +394,9 @@ class User extends Controller implements UserInterface, ParticipantInterface
         }
     }
 
+    /*
+    * Récupère la photo d'un DJ
+    */
     public function getFile()
     {
         return $this->file;
@@ -361,12 +414,10 @@ class User extends Controller implements UserInterface, ParticipantInterface
 
     public function getSalt()
     {
-        // The bcrypt algorithm doesn't require a separate salt.
-        // You *may* need a real salt if you choose a different encoder.
+        // @Todo Méthode de salage du mot de passe
         return null;
     }
 
-    /* */
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDirPath() . '/' . $this->path;

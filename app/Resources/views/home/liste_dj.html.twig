@@ -2,30 +2,59 @@
 
 {% block body %}
    	
-   	<h4> Liste des DJ </h4>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1>Liste des DJs</h1>
+        </div>
 	<hr>
 	   	
 	<div class="row">
-	   	<div id="advanced_search" class="col-md-3">
+
+
+		{% if form is defined %}
+    <div id="advanced_search" class="col-md-3">
+	   		{{ form(form, {'method': 'GET'}) }}
 			{{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form-listeDJ'}}) }}                		  
 			{{ form_end(form) }}        		    
 	    </div>
+{% endif %}
 	   	
-	   	<div id="dj_links" class="col-md-9">
+		 <div class="container">
+        
+        <div align="center">
+
+
+<input type="checkbox" name="Tous" id="Tous" data-filter="Tous" class="css-checkbox filter-button" />
+        			<label for="Tous" class="css-label">Tous</label>
+            			
+        	{% if listeStyle is not null %}
+        		{% for style in listeStyle %}
+        			<input type="checkbox" name="{{ style|trans|replace({' ':''})|replace({'é':'e'})}}{% if not loop.last%}{% endif %}" id="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" class="css-checkbox filter-button"   data-filter="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" />
+        			<label for="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" class="css-label">{{ style|trans }}{% if not loop.last%}{% endif %}</label>
+            			
+        		{% endfor %}
+        	{% endif %}
+
+            </div>
+        <br/>
+
+<div class="row">
 	   		{% for user in users %}
-				<div class="liste_dj_img_div">
-					<a href="{{asset('uploads/dj_photos/')}}{{user['path']}}" title="{{user['userName'] | capitalize }}" data-gallery>
-						<img src="{{asset('uploads/dj_photos/')}}{{user['path']}}" alt="{{user['userName'] | capitalize }}" />
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 filter all {% for style in user.styleText %} {{ style|trans|replace({' ':''})|replace({'é':'e'})}}{% if not loop.last%}{% endif %}{% if not loop.last%}{% endif %} {% endfor %}">
+               <a href="{{asset('uploads/dj_photos/')}}{{user['path']}}" title="{{user['userName'] | capitalize }}">
+						<img src="{{asset('uploads/dj_photos/')}}{{user['path']}}" alt="{{user['userName'] | capitalize }}" class="img-gallery " />
 					</a>
 					<div class="liste_dj_desc_div">
-						<a href="{{path('profil')}}/{{user['userName']}}" type="button" class="btn btn-primary">
-							{{user['userName'] | capitalize }}
-						</a>
+						<form action="{{path('profil')}}/{{user['userName']}}">
+    						<input type="submit" value="{{user['userName'] | capitalize }}" class="MainButtonBMD buttonBlue"/>
+						</form>
+						
 					</div>
-				</div>
-	        {% endfor %}
-			<!-- Liste de dj recupp en js -->
-		</div>
+            </div>
+             {% endfor %}
+        </div>
+    </div>
+
 	</div>
     
     
@@ -67,7 +96,27 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script type="text/javascript">
+    $("{% if listeStyle is not null %}{% for style in listeStyle %} #{{ style|trans|replace({' ':''})|replace({'é':'e'})}},{% if not loop.last%}{% endif %} {% endfor %}{% endif %} #Tous").click(function(){
+ 		 $('input:checkbox').attr('checked',false);
+ 		 $(this).prop('checked',true);
+        let value = $(this).attr('data-filter');
+        if(value == "Tous")
+            $('.filter').show('1000');
+        else
+        {
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');          
+        }
+    });
+    
+    if ($(".filter-button").removeClass("active")) {
+$(this).removeClass("active");
+}
+$(this).addClass("active");
+
+</script>
+
 	<script src="{{asset('lib/jquery/gallery.js')}}"></script>
 	<script src="{{asset('lib/jquery/bootstrap-image-gallery.min.js')}}"></script>
 {% endblock %}
-
