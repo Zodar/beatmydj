@@ -98,11 +98,11 @@
         <div class="modal-body row">
           <form id="inscription_form"> 
               <div class="form-group col-md-12 col-md-offset-4">
-                <label class="radio-inline">
-                  <input type="radio"  name="role" value="3" checked>DJ
+                <label class="radio-inline radio-label">
+                  <input type="radio"  name="role" value="3" class="BMDradio"  checked>DJ
                 </label>            
-                <label class="radio-inline">
-                  <input type="radio"  name="role" value="4">Client
+                <label class="radio-inline radio-label">
+                  <input type="radio"  name="role" value="4" class="BMDradio">Client
                 </label>
               </div>
               <hr>
@@ -127,7 +127,9 @@
                 <label class="labelBMD" for="password"><i class="fa fa-lock" aria-hidden="true"></i></label>
                 <input type="password" class="inputBMD" placeholder="Mot de passe" name="password"/>
               </div>
-               <button type="submit" class="MainButtonBMD buttonBlue col-md-12 col-md-offset-4">Valider</button>
+              <div class="form-group col-md-12 col-md-offset-3">
+                <button type="submit" class="MainButtonBMD buttonBlue col-md-12 col-md-offset-4">Valider</button>
+              </div>
           </form>
         </div>
       </div>
@@ -152,24 +154,25 @@
 
 
         <div class="modal-body row">
-            <div class="col-md-3 col-md-offset-1  login_option">
+            <div class="col-md-9 col-md-offset-1">
               {# S'il y a une erreur, on l'affiche dans un joli cadre #}
               {% if error is defined %}
-                <span class="alert alert-danger">{{ error is defined ? error.message : "" }}</span>
+                <span class="alert alert-danger">{{ error is not null ? error.message : "" }}</span>
               {% endif %}
 
-              {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
-              <form action="{{ path('login') }}" method="post">     
-                <div>
-                  <label for="username">Login :</label>
-                  <input type="text" id="username" name="_username" class="inscription_input"/>
+              {# Le formulaire, avec URL de soumission vers la route « login_check » #}
+              <form action="{{ path('login') }}" method="post" width="500">     
+                 <div class="form-group col-md-12 col-md-offset-3">
+                  <label class="labelBMD" for="username"><i class="fa fa-user" aria-hidden="true"></i></label>
+                  <input type="text"  placeholder="Login" id="username" name="_username" class=" inputBMD"/>
                 </div>    
-                <div>
-                  <label for="password">Mot de passe :</label>
-                  <input type="password" id="password" name="_password" class="inscription_input"/>
+                 <div class="form-group col-md-12 col-md-offset-3">
+                  <label for="password" class="labelBMD"><i class="fa fa-lock" aria-hidden="true"></i></label>
+                  <input type="password" id="password"  placeholder="Mot de passe" name="_password" class=" inputBMD"/>
                 </div>
-
-                <input type="submit" value="Connexion" class="MainButtonBMD buttonBlue" />
+                <div class="form-group col-md-12 col-md-offset-3">
+                  <input type="submit" value="Connexion" class="MainButtonBMD buttonBlue" />
+                </div>
               </form>
           </div>
         </div>

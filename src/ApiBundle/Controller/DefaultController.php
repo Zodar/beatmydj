@@ -19,19 +19,19 @@ class DefaultController extends Controller
      *
      * @param Request $request
      */
-    public function testMobile(Request $request)
-    {
-      if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-        $usr = $this->get('security.token_storage')
-        ->getToken()
-        ->getUser();
+    // public function testMobile(Request $request)
+    // {
+    //   if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+    //     $usr = $this->get('security.token_storage')
+    //     ->getToken()
+    //     ->getUser();
 
-        return new JsonResponse(array(
-            'success' => "true"
-        ));
-      }
-      return new JsonResponse(array(
-          'success' => "false"
-      ));
-    }
+    //     return new JsonResponse(array(
+    //         'success' => "true"
+    //     ));
+    //   }
+    //   return new JsonResponse(array(
+    //       'success' => "false"
+    //   ));
+    // }
 }

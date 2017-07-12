@@ -1,6 +1,6 @@
 /* Set padding to keep content from hitting the edges */
 @font-face {
-    font-family: 'Montserrat-Black.ttf';
+    font-family: 'Montserrat.ttf';
     src: url('/web/fonts/Montserrat-Black'); 
 }
 
@@ -9,14 +9,10 @@
 	padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
 	white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input, select {
 	max-width: 280px;
 }
@@ -43,10 +39,10 @@ li a.active {
 	color: white;
 }
 
-li a:hover:not(.active){
+/*li a:hover:not(.active){
 	color:white;
 	background-color: #555;
-}
+}*/
 
 .ui-helper-hidden-accessible {
 	display: none;
@@ -60,9 +56,11 @@ li a:hover:not(.active){
 	margin-right: -15px;
 }
 
-#dj_links img {
-	height: 100px;
-	max-width: 178px;
+.img-gallery {
+	height: 265px;
+	max-width: 365px;
+	padding: 15px;
+	text-align: center
 }
 
 .liste_dj_img_div {
@@ -197,19 +195,6 @@ a#new_message {
 	background: linear-gradient(#0a1d7b, #9dc0ec);
 	width: 1px;
 	height: 200px;
-}
-
-.login_option {
-	text-align: center;
-}
-
-.login_option input {
-	margin-top: 5%;
-}
-
-.login_option label {
-	font-weight: normal;
-	width: 100px;
 }
 
 .dj_links_advanced {
@@ -434,9 +419,6 @@ float: right;
 }
 
 
-/* RESPONSIVE CSS
--------------------------------------------------- */
-
 @media (min-width: 768px) {
   /* Navbar positioning foo */
   .navbar-wrapper {
@@ -473,11 +455,6 @@ footer{
 
 .footer{
 margin-top:20px;
-}
-
-.HomelistDJ {
-
-	font-size: 30px;
 }
 
 .headerImage {
@@ -619,4 +596,107 @@ color : white;
 	font-size: 26px;
 	font-weight: bold;
 	color: #222;
+}
+
+/* ==== CheckBox ==== */
+
+input[type=checkbox].css-checkbox {
+	position:absolute;
+	z-index:-1000;
+	left:-1000px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	height:1px;
+	width:1px; 
+	margin:-1px;
+	padding:0; 
+	border:0;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+	padding-left:50px;
+	height:50px; 
+	display:inline-block;
+	line-height:50px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:20px;
+	vertical-align:middle;
+	cursor:pointer;
+
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+	background-position: 0 -50px;
+}
+label.css-label {
+	background-image: url("../images/checkbox.png");		
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* ==== Liste ==== */
+
+.list-BMD{
+width:410px;
+margin:0 auto;
+}
+.list-BMD ul {
+list-style-type: none;
+list-style-type: decimal !ie; /*IE 7- hack*/
+margin: 0;
+margin-left: 1em;
+padding: 0;
+counter-reset: li-counter;
+}
+.list-BMD ul li{
+position: relative;
+margin-bottom: 1.5em;
+padding: 0.5em;
+background-color: #c3cad8;
+padding-left: 58px;
+}
+
+.list-BMD p{
+text-decoration:none;
+color:black;
+font-size:20px;
+}
+
+.list-BMD a{
+	margin-left: 20%;
+text-decoration:none;
+color:black;
+font-size:25px;
+}
+
+.list-BMD li:hover{
+box-shadow:inset -1em 0 #6CD6CC;
+-webkit-transition: box-shadow 0.5s;
+transition: box-shadow 0.5s;
+}
+
+.list-BMD ul li:before {
+position: absolute;
+top: -0.3em;
+left: -0.5em;
+width: 1.8em;
+height: 1.2em;
+font-size: 2em;
+line-height: 1.2;
+font-weight: bold;
+text-align: center;
+color: white;
+background-color: #6CD6CC;
+transform: rotate(-20deg);
+-ms-transform: rotate(-20deg);
+-webkit-transform: rotate(-20deg);
+z-index: 99;
+overflow: hidden;
+content: counter(li-counter);
+counter-increment: li-counter;
 }

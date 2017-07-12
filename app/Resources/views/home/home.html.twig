@@ -4,21 +4,30 @@
 
 <div class=" featurette">
 	<!-- BALISE SOUNDCLOOD -->
+    <h2 class="titleBMD">Notre playlist</h2>
       		 <div class="col-md-10 col-md-offset-1" id="play_sound"> </div>
 </div>
     <hr class="featurette-divider">
 
 
 <div class="row featurette bluebkg"> 
-		<h2 class="titleBMD">Nos DJs
-</h2>
+		<h2 class="titleBMD">Nos DJs</h2>
 	<div class="col-md-6">  
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
     <!-- CARROUSSEL -->
     <div class="carousel-inner">
 
-      {% if lastUser %}
+       {% for user in randomUsers %}
+       <div class="item">
+          <img src="{{asset('uploads/dj_photos/')}}{{user.path}}">
+          <div class="carousel-caption">
+            <h3>{{user.userName}}</h3>
+            <p>{{user.presentation}}</p>
+          </div>
+        </div>
+    {% endfor %} 
+          {% if lastUser %}
         <div class="item active">
           <img src="{{asset('uploads/dj_photos/')}}{{lastUser.path}}">
           <div class="carousel-caption">
@@ -27,37 +36,26 @@
           </div>
         </div>
       {% endif %}
-
-      {% if randomUser %}
-        <div class="item">
-          <img src="{{asset('uploads/dj_photos/')}}{{randomUser.path}}">
-          <div class="carousel-caption">
-            <h3>{{randomUser.userName}}</h3>
-            <p>{{randomUser.presentation}}</p>
-          </div>
-        </div>
-      {% endif %}    
-
-      {% if firstUser %}
-      <div class="item">
-        <img src="{{asset('uploads/dj_photos/')}}{{firstUser.path}}">
-        <div class="carousel-caption">
-          <h3>{{firstUser.userName}}</h3>
-          <p>{{firstUser.presentation}}</p>
-        </div>
-      </div>
-      {% endif %}
     </div>
   </div>
 	</div>
 	<div class="col-md-6">
-		<div class="centerText">
-				<p class="HomelistDJ" data-target="#myCarousel" data-slide-to="0">{{lastUser.userName}}</p>
-        <p class="HomelistDJ" data-target="#myCarousel" data-slide-to="1">{{randomUser.userName}}</p>
-        <p class="HomelistDJ" data-target="#myCarousel" data-slide-to="2">{{firstUser.userName}}</p>
-			<br/>
-			<br/>
-			<a class="HomelistDJ center">Plus de DJ</a>
+    <div class="list-BMD">
+<ul>
+<li><p class="" data-target="#myCarousel" data-slide-to="8">{{lastUser.userName}}</p></li>
+
+    {% for key,user in randomUsers %}
+        <li><p class="" data-target="#myCarousel" data-slide-to="{{key}}">{{user.userName}}</p></li>
+    {% endfor %}
+
+<li><a href="{{ url('liste_dj') }}">Plus de DJ</a></li>
+</ul>
+</div>
+		
+
+
+
+			
 		</div>	
 	</div>
 </div>

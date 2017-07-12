@@ -49,14 +49,18 @@ class ListeController extends Controller
             $data["userName"] = $user->getUserName();
             $data["presentation"] = $user->getPresentation();
             $data["style"] = $user->getStyle();
+            $data["styleText"] = $user->getStyleText();
             $data["dispo"] = $user->getDispo();
             $data["path"] = $user->path;
             array_push($datas, $data);
         }
         
+        $listeStyle = $user->getAllStyleText();
+
         return $this->render('home/liste_dj.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
-            'users' => $datas
+            'users' => $datas,
+            'listeStyle' => $listeStyle
         ));
     }
 
