@@ -1,75 +1,67 @@
-	{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-	{% block body %}
-
-<div class=" featurette">
-	<!-- BALISE SOUNDCLOOD -->
+{% block body %}
+<div class="row featurette">
+  <!-- BALISE SOUNDCLOOD -->
     <h2 class="titleBMD">Notre playlist</h2>
-      		 <div class="col-md-10 col-md-offset-1" id="play_sound"> </div>
+    <div class="col-md-10 col-md-offset-1" id="play_sound"> </div>
 </div>
-    <hr class="featurette-divider">
 
+
+
+<hr class="featurette-divider">
 
 <div class="row featurette bluebkg"> 
-		<h2 class="titleBMD">Nos DJs</h2>
-	<div class="col-md-6">  
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-    <!-- CARROUSSEL -->
-    <div class="carousel-inner">
-
-       {% for user in randomUsers %}
-       <div class="item">
-          <img src="{{asset('uploads/dj_photos/')}}{{user.path}}">
-          <div class="carousel-caption">
-            <h3>{{user.userName}}</h3>
-            <p>{{user.presentation}}</p>
+  <h2 class="titleBMD">Nos DJs</h2>
+  <div class="col-md-6">  
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- CARROUSSEL -->
+      <div class="carousel-inner">
+         {% for user in randomUsers %}
+         <div class="item">
+            <img src="{{asset('uploads/dj_photos/')}}{{user.path}}">
+            <div class="carousel-caption">
+              <h3>{{user.userName}}</h3>
+              <p>{{user.presentation}}</p>
+            </div>
           </div>
-        </div>
-    {% endfor %} 
+          {% endfor %} 
           {% if lastUser %}
-        <div class="item active">
-          <img src="{{asset('uploads/dj_photos/')}}{{lastUser.path}}">
-          <div class="carousel-caption">
-            <h3>{{lastUser.userName}}</h3>
-            <p>{{lastUser.presentation}}</p>
+          <div class="item active">
+            <img src="{{asset('uploads/dj_photos/')}}{{lastUser.path}}">
+            <div class="carousel-caption">
+              <h3>{{lastUser.userName}}</h3>
+              <p>{{lastUser.presentation}}</p>
+            </div>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
   </div>
-	</div>
-	<div class="col-md-6">
-    <div class="list-BMD">
-<ul>
-<li><p class="" data-target="#myCarousel" data-slide-to="8">{{lastUser.userName}}</p></li>
+    <div class="col-md-6">
+      <div class="list-BMD">
+        <ul>
+          <li><p class="" data-target="#myCarousel" data-slide-to="8">{{lastUser.userName}}</p></li>
+          {% for key,user in randomUsers %}
+              <li><p class="" data-target="#myCarousel" data-slide-to="{{key}}">{{user.userName}}</p></li>
+          {% endfor %}
+          <li><a href="{{ url('liste_dj') }}">Plus de DJ</a></li>
+        </ul>
+      </div>
+    </div>  
+  </div>
 
-    {% for key,user in randomUsers %}
-        <li><p class="" data-target="#myCarousel" data-slide-to="{{key}}">{{user.userName}}</p></li>
-    {% endfor %}
+  <div class="row featurette">
+    <div class="col-md-6">
+      <img class="featurette-image img-responsive center-block" src="{{asset('images/disque.png')}}" style="opacity: 0.5;">
+    </div>
+      <div class="col-md-6">
+        <h4 class="col-md-6 col-md-offset-1 titleBMD">Soirée dans votre région</h4>
+        <div id="googleMap" class="col-md-10 col-md-offset-1" style="height: 400px;">
+        </div>
+      </div>     
+  </div>
 
-<li><a href="{{ url('liste_dj') }}">Plus de DJ</a></li>
-</ul>
-</div>
-		
-
-
-
-			
-		</div>	
-	</div>
-</div>
-
-<div class="row featurette">
-
-<div class="col-md-6">
-  <img class="featurette-image img-responsive center-block" src="{{asset('images/disque.png')}}" style="opacity: 0.5;">
-</div>
-	<div class="col-md-6">
-		<h4 class="col-md-6 col-md-offset-1 titleBMD">Soirée dans votre région</h4>
-		<div id="googleMap" class="col-md-10 col-md-offset-1" style="height: 400px;"></div>
-	</div>     
-</div>
 
 {% endblock %}
 
@@ -78,4 +70,5 @@
 	<script src="{{asset('js/soundclood_accueil.js')}}"></script>
 	<script src="{{asset('js/map_evenements.js')}}"></script>	
 	<script src="{{asset('js/map_home.js')}}"></script>
+
 {% endblock %}
