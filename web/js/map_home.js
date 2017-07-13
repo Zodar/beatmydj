@@ -57,8 +57,7 @@ function setInfoWindow(place, name, map) {
 			} 
 		    else
 		    {
-		            console.log(data);
-
+	            console.log(data);
 		    }				
 		}
 	});
