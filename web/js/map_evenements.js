@@ -7,7 +7,7 @@
 	{name: "concrete", place: "69 quai de la rapée, 75012, Paris, France"},
 	{name: "dream nations", place: "50 avenue du Président Wilson, 93200, La Plaine Saint-Denis, France"},
 	{name: "zone records", place: "5 boulevard Poissonnière, 75002, Paris, France"},
-	{name: "Pearson Sound b2b Call Super/ Matrixxman/Ben Vedren /Alice Revel", place: "69 quai de la rapée, 75012, Paris, France"}
+	{name: "Pearson Sound b2b Call Super/ Matrixxman/Ben Vedren /Alice Revel", place: "69 quai de la rapée, 75012, Paris, France"},
 	{name: "IPN-CLUB", place: "23 rue Mouffetard, 750005, Paris, France"},
 	{name: "Le Wanderlust-bar musique", place: "32 quai d’Austerlitz, 75013, Paris, France"},
 	{name: "Rosa Bonheur-Bar", place: "Parc des buttes chaumont, 75019, Paris, France"},
