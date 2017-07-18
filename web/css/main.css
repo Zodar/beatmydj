@@ -120,16 +120,17 @@ a#new_message {
 
 #logotext{
 	float: right;
-    writing-mode: vertical-lr;
-    text-orientation: sideways;
-    height: 140px;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+	writing-mode: vertical-lr;
+	text-orientation: sideways;
+	height: 140px;
+	font-size: 20px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
 	background: -webkit-linear-gradient(orange, blue);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    	-webkit-background-clip: text;
+    	-webkit-text-fill-color: transparent;
+    	display: inline;
 }
 
 #user_image {
