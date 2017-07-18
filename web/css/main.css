@@ -427,6 +427,7 @@ float: right;
   .navbar-wrapper .container {
     padding-right: 15px;
     padding-left: 15px;
+
   }
   .navbar-wrapper .navbar {
     padding-right: 0;
@@ -466,7 +467,7 @@ margin-top:20px;
 }
 
 .headerImageMedium {
-    height: 40%; 
+    height: 18%; 
 }
 
 .headerNavbar{
@@ -646,57 +647,58 @@ width:410px;
 margin:0 auto;
 }
 .list-BMD ul {
-list-style-type: none;
-list-style-type: decimal !ie; /*IE 7- hack*/
-margin: 0;
-margin-left: 1em;
-padding: 0;
-counter-reset: li-counter;
+	list-style-type: none;
+	list-style-type: decimal !ie; /*IE 7- hack*/
+	margin: 0;
+	margin-left: 1em;
+	padding: 0;
+	counter-reset: li-counter;
 }
 .list-BMD ul li{
-position: relative;
-margin-bottom: 1.5em;
-padding: 0.5em;
-background-color: #c3cad8;
-padding-left: 58px;
+	position: relative;
+	margin-bottom: 1.5em;
+	padding: 0.5em;
+	background-color: #c3cad8;
+	padding-left: 58px;
 }
 
 .list-BMD p{
-text-decoration:none;
-color:black;
-font-size:20px;
+	text-decoration:none;
+	color:black;
+	font-size:20px;
 }
 
 .list-BMD a{
 	margin-left: 20%;
-text-decoration:none;
-color:black;
-font-size:25px;
+	text-decoration:none;
+	color:black;
+	font-size:25px;
 }
 
 .list-BMD li:hover{
-box-shadow:inset -1em 0 #6CD6CC;
--webkit-transition: box-shadow 0.5s;
-transition: box-shadow 0.5s;
+	box-shadow:inset -1em 0 #6CD6CC;
+	-webkit-transition: box-shadow 0.5s;
+	transition: box-shadow 0.5s;
+	cursor: pointer;
 }
 
 .list-BMD ul li:before {
-position: absolute;
-top: -0.3em;
-left: -0.5em;
-width: 1.8em;
-height: 1.2em;
-font-size: 2em;
-line-height: 1.2;
-font-weight: bold;
-text-align: center;
-color: white;
-background-color: #6CD6CC;
-transform: rotate(-20deg);
--ms-transform: rotate(-20deg);
--webkit-transform: rotate(-20deg);
-z-index: 99;
-overflow: hidden;
-content: counter(li-counter);
-counter-increment: li-counter;
+	position: absolute;
+	top: -0.3em;
+	left: -0.5em;
+	width: 1.8em;
+	height: 1.2em;
+	font-size: 2em;
+	line-height: 1.2;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	background-color: #6CD6CC;
+	transform: rotate(-20deg);
+	-ms-transform: rotate(-20deg);
+	-webkit-transform: rotate(-20deg);
+	z-index: 99;
+	overflow: hidden;
+	content: counter(li-counter);
+	counter-increment: li-counter;
 }

@@ -43,7 +43,7 @@
 
     <body ng-app="beatMyDj">
 		{% include 'header.html.twig' %}
-        <div id="main_content" class="container col-md-12">
+        <div id="main_content" class="container-fluid col-md-12">
 	        {% block body %}{% endblock %}
         </div>     
         <div  ng-controller="ChatController">
@@ -78,7 +78,8 @@
             </div>
         </div>
     </body>
+    {% block javascripts %}{% endblock %}   
     {% include 'footer.html.twig' %}
     <script src="{{ asset('js/chat.js') }}"></script>  
-    {% block javascripts %}{% endblock %}           
+            
 </html>

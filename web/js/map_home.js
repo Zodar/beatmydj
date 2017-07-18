@@ -28,22 +28,37 @@ function initMap() {
 	}
 	
     for (var i = 0; i < events.length; i++) {
-		setInfoWindow(events[i].place, events[i].name, map);
-    }
+    	var place = events[i].place;
+    	var name = events[i].name;
+		setInfoWindow(place, name, map);
+	}
 }
 
 function setInfoWindow(place, name, map) {
 	$.ajax({data: {address:  place}, url: "https://maps.google.com/maps/api/geocode/json",
 		success: function(data) {
-			var infowindow = new google.maps.InfoWindow({});
-	        			
-			var marker = new google.maps.Marker({
-	        	position: data.results[0].geometry.location,
-	        	map: map,
-	        	title: name
-	        });
-			
-			bindInfoWindow(marker, infowindow, name, map);
+			if (data.status === google.maps.GeocoderStatus.OK)
+			{
+				var infowindow = new google.maps.InfoWindow({});
+				var marker = new google.maps.Marker(
+				{
+			    	position: data.results[0].geometry.location,
+			    	map: map,
+			    	title: name
+		    	});
+				bindInfoWindow(marker, infowindow, name, map);
+		   	} 
+		    else if (data.status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) 
+		    {    
+		        setTimeout(function()
+			    {
+		            setInfoWindow(place, name, map);
+		        }, 100);
+			} 
+		    else
+		    {
+	            console.log(data);
+		    }				
 		}
 	});
 }
