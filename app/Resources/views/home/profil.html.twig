@@ -153,13 +153,10 @@
 			    {% endif %}
 			</div>
 
-			<div class="row">
+			<div class="row featurette">
 			    {% if user.role.idRole == 3 %}
 				    <div class="dispo">
 				        <h4 class="titleBMD">Mes disponibilités</h4>
-				        <hr>
-				        <button class="MainButtonBMD buttonBlue" id="enlarge-calendar">Agrandir</button>
-				        <hr>
 			            {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 				    </div>
 			    {% endif %}

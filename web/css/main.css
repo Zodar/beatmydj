@@ -415,7 +415,6 @@ float: right;
 }
 
 .featurette{
-	min-height: 400px;
 	padding: 20px;
 }
 
@@ -704,3 +703,10 @@ margin:0 auto;
 	content: counter(li-counter);
 	counter-increment: li-counter;
 }
+
+#calendar-holder{
+	    width: 100%;
+    padding: 50px 200px;
+}
+
+.fc-body .fc-row { min-height: 45px; }

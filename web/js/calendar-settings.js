@@ -11,7 +11,8 @@ $(function () {
 			left: 'prev',
 			right: 'month, agendaWeek, agendaDay, next,resize'
 		},
-		defaultView : "agendaWeek",
+		  aspectRatio: 4.09,
+		defaultView : "month",
 		eventClick: function(calEvent, jsEvent, view) {
 
 			console.log(calEvent);
