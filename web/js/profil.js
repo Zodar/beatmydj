@@ -89,6 +89,24 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	  $('input[type=radio][name=experiences]').change(function() {
+		 var value = this.value;
+		$.ajax({type:"POST", data: {name : "experience",value : value}, url: baseurl + "profil/edit",
+			success: function(data){
+				console.log(data.responseText);
+				var dialog = bootbox.dialog({
+					message: 'Vos informations ont bien été enregistré'
+				});
+				setTimeout(function(){
+					dialog.modal('hide')
+				}, 1500);
+			},
+			error: function(data){
+				console.log(data.responseText);
+			}
+		});
+	});
 
 	/*
 		Fonction d'import de fichier

@@ -545,11 +545,11 @@ color : white;
 }
 
 .MainButtonBMD{
-	width: 150px;
-	height: 60px;
+	min-width: 50px;
+
 	border: none;
 	border-radius: 0.3px;
-	font-size: 24px;
+	font-size: 17px;
 	font-style: bold; 
 	-o-transition:color .4s ease-out, background .4s ease-in;
   -ms-transition:color .4s ease-out, background .4s ease-in;
@@ -710,3 +710,39 @@ margin:0 auto;
 }
 
 .fc-body .fc-row { min-height: 45px; }
+
+.style{
+	background: none;
+	border: none;
+}
+.newStyle{
+	display: block;
+}
+.newStyle:not(:first-child){
+	margin-top:30px;
+	
+}
+.newStyle .styleText{
+	margin-left: 10px;
+}
+.newStyle .style-check{
+	width: 30px;
+}
+
+.experience{
+	display: block;
+}
+.experience .experience-Text{
+	margin-left: 15px;
+	font-style: italic;
+	font-size: 18px;
+}
+
+
+.experience:not(:first-child){
+	margin-top:30px;
+	
+}
+.experience img{
+width:30px;	
+}

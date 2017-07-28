@@ -68,6 +68,12 @@ class User extends Controller implements UserInterface, ParticipantInterface
      */
     private $dispo;
     
+    
+    /**
+     * @ORM\Column(type="string", length=4096, nullable=true)
+     */
+    private $experience;
+    
     /**
      * @ORM\Column(type="datetime",nullable=true)
      */
@@ -267,6 +273,11 @@ class User extends Controller implements UserInterface, ParticipantInterface
         $this->dispo = $dispo;
     }
 
+    public function setExperience($experience)
+    {
+    	$this->experience = $experience;
+    }
+    
     public function setStyle($style)
     {
         $params = array();
@@ -372,7 +383,12 @@ class User extends Controller implements UserInterface, ParticipantInterface
     {
         return ($this->dispo);
     }
-
+    
+    public function getExperience()
+    {
+    	return ($this->experience);
+    }
+    
     public function getComment()
     {
         $find = $this->getDoctrine()->getRepository('AppBundle:Comment');
