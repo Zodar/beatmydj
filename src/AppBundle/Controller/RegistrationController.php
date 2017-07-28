@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\RoleAssociative;
 use AppBundle\Entity\AppBundle\Entity;
 use AppBundle\Entity\Style;
-
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class RegistrationController extends Controller
 {
 
@@ -92,6 +92,10 @@ class RegistrationController extends Controller
         // 4) save the User!
         $em->persist($user);
         $em->flush();
+        
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->get('security.context')->setToken($token);
+        $this->get('session')->set('_security_main', serialize($token));
         return new JsonResponse(array(
             'name' => "Utilisateur enregistré",
             'value' => "true"
