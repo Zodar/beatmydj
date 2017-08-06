@@ -1,3 +1,4 @@
+	 {% if app.user and app.user.isDj() and own is null %}
 	 <div id="vues" class="tab-pane fade">
 	 <p>Les clients qui ont vus mon profil</p>
 	 
@@ -9,7 +10,8 @@
 			</tr>
 		</table>
     </div>
-    <div id="streams" class="tab-pane fade">
+
+     <div id="streams" class="tab-pane fade">
          <h4>Mes demandes de streams</h4>
     	<table class="mystream">
 	 	<tr> <th data-checkbox="true"></th> <th> Auteur </th> <th> Date de debut </th> <th> Date de fin </th> </tr>
@@ -26,3 +28,11 @@
 		<button type="button" class="btn btn-danger"  ng-click="refusestream()">Refuser</button>
 		</div>
     </div>
+        {%endif%}
+     <div id="calendrier" class="tab-pane fade">
+		<div class="dispo">
+			<h4 class="titleBMD"><span class="glyphicon glyphicon-calendar "></span> Mes disponibilités</h4>
+			{% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+		</div>
+    </div>
+   

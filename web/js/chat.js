@@ -1,4 +1,4 @@
-var app = angular.module('beatMyDj').config(function($interpolateProvider){
+var app = angular.module('beatMyDj' ).config(function($interpolateProvider){
 	$interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 }).filter('parseDate', function() {
 	return function(input) {

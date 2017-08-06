@@ -1,4 +1,21 @@
-angular.module('beatMyDj', []).controller('FooterController', function($scope,$http) {
+
+
+angular.module('beatMyDj', []).filter('secondsToDateTime', [function() {
+	return function(seconds) {
+		return new Date(1970, 0, 1).setSeconds(seconds);
+	};
+}]).controller('HeaderController', function($scope,$http) {
+	var getStreamAvaible = Routing.generate('streamavailable');
+
+	$http.get(getStreamAvaible).then(function(response) {
+		$scope.nextlive = new Date(response.data["events"] * 1000);
+		document.getElementById("voirLive").href = document.getElementById("voirLive").href + response.data["id"];
+		CountDownTimer($scope.nextlive, 'remainig');
+
+	});	
+});
+
+angular.module('beatMyDj').controller('FooterController', function($scope,$http) {
 	var modalDiv = $('#avis').html();
 	$scope.userReview = function(){
 		var dialog = bootbox.dialog({
@@ -7,7 +24,6 @@ angular.module('beatMyDj', []).controller('FooterController', function($scope,$h
 		});
 	}
 });
-
 $( document ).ready(function() {
 	$("body").on("click",".SendReview",function(){
 		var note = "na"
@@ -36,3 +52,46 @@ $( document ).ready(function() {
 		});
 	});
 });
+
+function CountDownTimer(dt, id)
+{
+	var end = dt;
+
+	var _second = 1000;
+	var _minute = _second * 60;
+	var _hour = _minute * 60;
+	var _day = _hour * 24;
+	var timer;
+
+	function showRemaining() {
+		var now = new Date();
+		var distance = end - now;
+		if (distance < 0) {
+			$("#gotolive").show();
+			return;
+		}
+		var days = Math.floor(distance / _day);
+		var hours = Math.floor((distance % _day) / _hour);
+		var minutes = Math.floor((distance % _hour) / _minute);
+		var seconds = Math.floor((distance % _minute) / _second);
+
+		if (days >= 2)
+		{
+			document.getElementById(id).innerHTML = " + de " +  days + ' jours ';        	
+		}
+		else{
+			if (days == 0)
+				document.getElementById(id).innerHTML = "";
+			else
+				document.getElementById(id).innerHTML = days + ' jours ';
+			document.getElementById(id).innerHTML += hours + ' hrs ';
+			document.getElementById(id).innerHTML += minutes + ' mins ';
+			document.getElementById(id).innerHTML += seconds + ' secs';
+		}
+
+		if (days == 0 && hours == 0 && minutes < 15)
+			$("#gotolive").show();
+	}
+
+	timer = setInterval(showRemaining, 1000);
+}

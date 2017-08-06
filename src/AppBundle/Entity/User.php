@@ -12,6 +12,7 @@ use Cunningsoft\ChatBundle\Entity\AuthorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\MessageBundle\Model\ParticipantInterface;
 use FOS\UserBundle\Model\User as BaseUser;
+use AppBundle\Constant\BMDJConstant;
 /**
  * @ORM\Entity
  * Définition de l'entité USER et du role (voir plus bas)
@@ -27,6 +28,7 @@ class User extends Controller implements UserInterface, ParticipantInterface
      */
     protected $id;
 
+    
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
@@ -116,6 +118,36 @@ class User extends Controller implements UserInterface, ParticipantInterface
      */
     private $soundCloodLink;
     
+    
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $nbevents = 0;
+    
+    /**
+     * @return the $nbevents
+     */
+    public function getNbevents()
+    {
+        return $this->nbevents;
+    }
+
+    public function isDj(){
+        return $this->role->getidRole() == BMDJConstant::ROLE_DJ;
+    }
+    
+    public function isClient(){
+        return $this->role->getidRole() == BMDJConstant::ROLE_CLIENT;
+    }
+    /**
+     * @param field_type $nbevents
+     */
+    public function setNbevents($nbevents)
+    {
+        $this->nbevents = $nbevents;
+    }
+
     public function getLastActivity(){
         return $this->lastActivity;
     }

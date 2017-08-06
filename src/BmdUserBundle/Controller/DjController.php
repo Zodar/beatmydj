@@ -72,10 +72,16 @@ class DjController extends Controller{
             $qb = $repo->createQueryBuilder('e');
             $qb->update()
                 ->set('e.accept', 'true')
-                ->where('e.id = :ids')
-                ->setParameter('ids', $eventids);
+                ->where('e.id IN (:ids)')
+                ->setParameter('ids', array_values($eventids));
             $qb->getQuery()->execute();
  
+            $usr->setNbevents($usr->getNbevents() + count($eventids));
+            
+            $em = $this->getDoctrine ()->getManager ();
+            $em->persist ( $usr );
+            $em->flush ();
+            
             return new JsonResponse(array(
                 'info' => "Les Evenements ont bien été accépté",
             ));

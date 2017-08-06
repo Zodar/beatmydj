@@ -54,6 +54,7 @@ li a.active {
 
 .nav.navbar-nav.pull-right {
 	margin-right: -15px;
+	margin-top: 16px;
 }
 
 .img-gallery {
@@ -82,10 +83,6 @@ li a.active {
 .liste_dj_desc_div {
 	padding: 15px;
 	text-align: center;
-}
-
-h4.username, a.new_message {
-	display: inline;
 }
 
 a#new_message {
@@ -467,12 +464,12 @@ margin-top:20px;
 }
 
 .headerImageMedium {
-    height: 18%; 
+    height: 22%; 
 }
 
 .headerNavbar{
 	background-color: rgba(255, 255, 255, 0.3);
-	height: 18%;
+	height: 22%;
 }
 
 .textHeader {
@@ -745,4 +742,62 @@ margin:0 auto;
 }
 .experience img{
 width:30px;	
+}
+
+.nbEvents .nbs{
+    padding: 2px 8px;
+    font-size: 30px;
+    border-radius: 30px;
+}
+
+#user_playlist{
+	margin:0;
+	padding:0;
+	width: 100%;
+	
+}
+
+.to_edit form div{
+	display: inline-block;
+    width: 50%;
+}
+
+.to_edit form div label{
+    min-width: 80px;
+}
+
+.titleBMD{
+	color: #8686b9;
+}
+.titleBMD .glyphicon{
+	margin-right: 20px;
+	    top: 5px;
+	
+}
+#formImgUpld{
+	font-size: 13px;
+}
+.headerBlocks{
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+#gotolive{
+	display: none;
+	
+}
+
+#nextLive{
+font-size: 15px;
+margin-top: 20px;
+}
+
+#nextLive .glyphicon{
+	font-size: 20px;
+}
+
+.fa.fa-envelope{
+	color: black;
+	
 }

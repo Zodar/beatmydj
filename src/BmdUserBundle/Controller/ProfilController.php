@@ -47,23 +47,6 @@ class ProfilController extends Controller {
 		return $response;
 	}
 	
-	/**
-	 * INFO pour l'instant ce code n'est pas utilisé il s'agisait d'heberger le stream directement sur le server
-	 * @Route("/video", name="video")
-	 * 
-	 * @method ("GET")
-	 *        
-	 * @param Request $request        	
-	 */
-	public function VideoAction(Request $request) {
-		$filename = "C:\\Users\\ohandoura\\ETNA\\PROJET-ETNA\\GPE\\beatmydj\\web\\uploads\\videos\\Wildlife.wmv";
-		$handle = fopen ( $filename, "r" );
-		$contents = fread ( $handle, filesize ( $filename ) );
-		fclose ( $handle );
-		return new Response ( $contents, 200, array (
-				'Content-Type' => 'video/wmv' 
-		) );
-	}
 	
 	/**
 	 * Ajout d'évenement

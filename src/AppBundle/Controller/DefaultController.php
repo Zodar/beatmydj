@@ -22,7 +22,7 @@ class DefaultController extends Controller
 
     /**
      * Point d'entrée de l'index
-     * Récupère  certains users selon plusieurs critères puis les renvoient à la vu afin d'y être affiché
+     * Récupère certains users selon plusieurs critères puis les renvoient à la vu afin d'y être affiché
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
@@ -60,12 +60,11 @@ class DefaultController extends Controller
         
         $lastUser = array_pop($datas);
         $firstUser = array_shift($datas);
-
-        for($i = 0; $i < 5; $i++)
-        {
-            if (!empty($datas)) {
-            array_push($randomUsers,$datas[array_rand($datas)]);
-        }    
+        
+        for ($i = 0; $i < 5; $i ++) {
+            if (! empty($datas)) {
+                array_push($randomUsers, $datas[array_rand($datas)]);
+            }
         }
         
         return $this->render('home/home.html.twig', array(
@@ -82,63 +81,57 @@ class DefaultController extends Controller
         return strtotime($a->getAllMetadata()[0]->getLastParticipantMessageDate()) - strtotime($b->getAllMetadata()[0]->getLastParticipantMessageDate());
     }
 
-    
-
     /**
      * URL pour poster un avis
      * @Route("/avis",options={"expose"=true}, name="post_avis")
-     * @Method("POST")
      *
+     * @method ("POST")
+     *        
      * @param Request $request
      */
     public function sendReview(Request $request)
     {
-        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $usr = $this->get('security.token_storage')
-            ->getToken()
-            ->getUser();
+                ->getToken()
+                ->getUser();
         }
-
+        
         $note = $this->get('request')->get('note');
         $text = $this->get('request')->get('text');
         $page = $this->get('request')->get('page');
-        $message = \Swift_Message::newInstance()
-        ->setSubject('Un utilisateur a laissé un avis')
-        ->setFrom('website@beatmydj.com')
-        ->setTo('beat.my.dj@gmail.com')
-        ->setBody("Un utilisateur a laissé un avis! <br/>Page: $page <br/> note: $note <br/> avis: $text",'text/html'
-        ) ;
-        
+        $message = \Swift_Message::newInstance()->setSubject('Un utilisateur a laissé un avis')
+            ->setFrom('website@beatmydj.com')
+            ->setTo('beat.my.dj@gmail.com')
+            ->setBody("Un utilisateur a laissé un avis! <br/>Page: $page <br/> note: $note <br/> avis: $text", 'text/html');
         
         return new JsonResponse(array(
             'success' => "success",
             'mail' => $this->get('mailer')->send($message)
         ));
     }
-	
-	
-	
+
     /**
-	 * URL d'affichaes de la page messages 
+     * URL d'affichaes de la page messages
      * @Route("/messages", name="messages")
-     * @Method("GET")
      *
-     * @param Request $request            
+     * @method ("GET")
+     *        
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function messagesActionGet(Request $request)
     {
         $provider = $this->get('fos_message.provider');
         
-		/* Récuperations des messages recus et envoyés */
+        /* Récuperations des messages recus et envoyés */
         $threads = $provider->getInboxThreads();
         $threads_sent = $provider->getSentThreads();
         
         $thread = [];
         $inbox_ids = [];
         
-		
-		/* traitement des tables pour le rassemblement par conversations */
+        /* traitement des tables pour le rassemblement par conversations */
         foreach ($threads as $t) {
             $t2 = $provider->getThread($t->getid());
             $inbox_ids[] = $t->getid();
@@ -164,22 +157,23 @@ class DefaultController extends Controller
     }
 
     /**
-	 * Methode pour poster un messages
+     * Methode pour poster un messages
      * @Route("/messages", name="messages_post")
-     * @Method("POST")
      *
-     * @param Request $request            
+     * @method ("POST")
+     *        
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function messagesActionPost(Request $request)
     {
-		/* Récuperation des variables*/
+        /* Récuperation des variables */
         $composer = $this->get('fos_message.composer');
         $provider = $this->get('fos_message.provider');
         $thread = $provider->getThread($this->get('request')
             ->get('id'));
         
-		/* Sauvegarde du messages en base */
+        /* Sauvegarde du messages en base */
         $message = $composer->reply($thread)
             ->setSender($this->get('security.token_storage')
             ->getToken()
@@ -197,17 +191,58 @@ class DefaultController extends Controller
         ));
     }
 
+    /* Vérifie si l'existence de steam en cours */
     /**
-	 * Methode pour poster un messages
+     * URL d'affichaes de la page messages
+     * @Route("/is_stream",options={"expose"=true}, name="streamavailable")
+     *
+     * @method ("GET")
+     *        
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function check_stream()
+    {
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $usr = $this->get('security.token_storage')
+                ->getToken()
+                ->getUser();
+            
+            $date = new DateTime();
+            $Events = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('BmdUserBundle:UserAvailability')
+                ->createQueryBuilder('e')
+                ->where('e.dateEnd >= :date')
+                ->setParameter('date', $date->format('Y-m-d H:i:s'));
+            if (! $usr->isDj()) {
+                $Events = $Events->andWhere(' e.auteur = :auteur')->setParameter('auteur', $usr->getUsername());
+            } else {
+                $Events->andWhere(" e.userid = :uid")->setParameter('uid', $usr->getId());
+            }
+            
+            $Events = $Events->getQuery()->getResult();
+            if (empty($Events))
+                return new JsonResponse($Events);
+            return new JsonResponse(array(
+                'events' => $Events[0]->getdateStart()->getTimestamp(),
+                'id' => $Events[0]->getuserid()
+            ));
+        }
+    }
+
+    /**
+     * Methode pour poster un messages
      * @Route("/messages_new", name="messages_new")
-     * @Method("POST")
-     * 
-     * @param Request $request            
+     *
+     * @method ("POST")
+     *        
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function messagesActionPostNew(Request $request)
     {
-		/* Récupération des variables */ 
+        /* Récupération des variables */
         $find = $this->getDoctrine()->getRepository('AppBundle:User');
         $usr = $find->find($this->get('request')
             ->get('userId'));
@@ -221,7 +256,7 @@ class DefaultController extends Controller
         
         $alreadyHave = DefaultController::alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider);
         
-		/* Si une discussion existe deja */
+        /* Si une discussion existe deja */
         if (! $alreadyHave) {
             $message = $composer->newThread()
                 ->setSender($currentUsr)
@@ -245,9 +280,9 @@ class DefaultController extends Controller
         ));
     }
 
-	/**
-	Regarde en base si une discussion existe dèjà 
-	**/
+    /**
+     * Regarde en base si une discussion existe dèjà
+     */
     public static function alreadyHaveDiscuss($usr, $currentUsr, $composer, $provider)
     {
         $threads = $provider->getSentThreads();
@@ -266,45 +301,25 @@ class DefaultController extends Controller
         }
     }
 
-    /* Vérifie si l'existence de steam en cours */
-    public function check_stream($uid)
-    {
-        $date = new DateTime();
-        ;
-        $Events = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('BmdUserBundle:UserAvailability')
-            ->createQueryBuilder('e')
-            ->where('e.dateStart <= :date AND e.dateEnd >= :date AND e.userid = :userId')
-            ->setParameter('date', $date->format('Y-m-d H:i:s'))
-            ->setParameter('userId', $uid)
-            ->getQuery()
-            ->getResult();
-        if (empty($Events))
-            return null;
-        
-        return $Events[0];
-    }
-
     /**
-	 * Page de profil 
-	 * /profil corresponds a sa page personnel 
-	 * /profil/{user} visite d'un profil 
-     * @Route("/profil",options={"expose"=true}, name="profil") 
+     * Page de profil
+     * /profil corresponds a sa page personnel
+     * /profil/{user} visite d'un profil
+     * @Route("/profil",options={"expose"=true}, name="profil")
      * @Route("/profil/{user}", name="all_profil")
      */
     public function profil(Request $request, $user = null)
     {
-		/* Si l'utilisateur n'est pas connécté on le renvoi sur la page d'accueil*/
+        /* Si l'utilisateur n'est pas connécté on le renvoi sur la page d'accueil */
         if (! $this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('homepage');
         }
-		
+        
         $form = "";
-		
-		/* Si on visite une page ou si on est sur sa propre page*/
+        
+        /* Si on visite une page ou si on est sur sa propre page */
         if ($user != null) {
-			/* Récuperation du profi a visiter */ 
+            /* Récuperation du profi a visiter */
             $find = $this->getDoctrine()->getRepository('AppBundle:User');
             $pseudo = $find->findBy(array(
                 "username" => $user
@@ -340,15 +355,14 @@ class DefaultController extends Controller
             "user" => $usr,
             "own" => $user,
             "Allcomment" => $comment,
-            "form" => $form,
-            "live" => $this->check_stream($usr->getId())
+            "form" => $form
         ));
     }
-	
-	/** 
-	* Insértion des infos en bases 
-	* Dates des visites etc 
-	**/
+
+    /**
+     * Insértion des infos en bases
+     * Dates des visites etc
+     */
     private function generateClientView($username)
     {
         $usr = $this->get('security.token_storage')

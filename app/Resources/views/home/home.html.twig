@@ -41,7 +41,9 @@
     <div class="col-md-6">
       <div class="list-BMD">
         <ul>
+		          {% if lastUser %}
           <li><p class="" data-target="#myCarousel" data-slide-to="8">{{lastUser.userName}}</p></li>
+		  {% endif %}
           {% for key,user in randomUsers %}
               <li><p class="" data-target="#myCarousel" data-slide-to="{{key}}">{{user.userName}}</p></li>
           {% endfor %}

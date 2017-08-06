@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% if app.user and app.user.role.idRole == 3 and own is null %}
+{% if app.user and user.isDj() %}
 <ul class="profil-header nav nav-tabs">
 	<li class="active"><a href="#home">Accueil</a></li>
+		<li><a href="#calendrier" id="calendrierTab">Calendrier</a></li>
+	{% if  own is null  %}
 	<li><a href="#vues">Vue de profil</a></li>
 	<li><a href="#streams">Demande de streaming</a></li>
+	<li><a href="{{path('profil')}}/{{app.user.userName}}">Aperçu</a></li>
+	{% endif %}
 </ul>
 {% endif %}
 <link rel="stylesheet"
@@ -29,12 +33,16 @@
 					{% endif %}
 
 					<h4 class="username titleBMD">
-						{{user.userName | capitalize }}
-					</h4>
-					{% if app.user and own is not null %}
+					
+					<span class="glyphicon glyphicon-user "></span>
+						
+						{{user.userName | capitalize }} 
+							{% if app.user and own is not null %}
 					<a id="new_message" href="#"> <span
 						class="glyphicon glyphicon-envelope"></span>
 					</a>
+					</h4>
+				
 					{% endif %}
 					<hr>
 					<img id="user_image" class="img-responsive"
@@ -53,11 +61,13 @@
 			</div>
 
 			<div class="col-md-3">
-				<h4 class="titleBMD">Style</h4>
+				<h4 class="titleBMD">
+					<span class="glyphicon glyphicon-music "></span>Style
+				</h4>
 				<hr>
 				<div>
 					<ul class="list-group profil_edition">
-						{% if user.role.idRole == 3 %}
+						{% if user.isDj() %}
 						<li class="list-group-item list-group-item style"><span
 							class="to_edit"> {% if own is null %} {{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form'}}) }}
 
@@ -77,113 +87,73 @@
 			</div>
 
 			<div class="col-md-4">
-				<h4 class="titleBMD">Expérience</h4>
+				<h4 class="titleBMD">
+					<span class=" glyphicon glyphicon-signal" aria-hidden="true"></span>Expèriences
+				</h4>
 				<hr>
 				<div>
-				{% if own is null %}
-				<div class="only_edit">
-					<form id="formExperience" enctype="multipart/form-data">
-						{% for key , experience in constant('BmdUserBundle\\Entity\\Experience::USER_EXPERIENCE') %}
+					{% if own is null %}
+					<div class="only_edit">
+						<form id="formExperience" enctype="multipart/form-data">
+							{% for key , experience in constant('AppBundle\\Constant\\BMDJConstant::USER_EXPERIENCE') %}
+							<span class="experience"> <label> <img
+									class="image-experience"
+									src="{{ asset('images/experiences/')}}{{ key}}.png" /> <span
+									class="experience-Text"> {{ experience | convert_encoding('UTF-8', 'ISO-8859-1') }}
+								</span> <input type="radio" name="experiences" value="{{ key}}"
+									{% if user.getExperience == key %} checked {% endif %}>
+							</label>
+							</span>
+							{% endfor %}
+						</form>
+					</div>
+
+					{% else %}
+					<div>
+						{% if user.getExperience is not null %}
 						<span class="experience"> <label> <img
 								class="image-experience"
-								src="{{ asset('images/experiences/')}}{{ key}}.png" /> 	<span class="experience-Text"> {{ experience | convert_encoding('UTF-8', 'ISO-8859-1') }}
-</span>
-								<input type="radio" name="experiences" value="{{ key}}"
-								{% if user.getExperience == key %} checked {% endif %}>
+								src="{{ asset('images/experiences/')}}{{ user.getExperience}}.png" />
+								<span class="experience-Text">{{constant('AppBundle\\Constant\\BMDJConstant::USER_EXPERIENCE')[user.getExperience] | convert_encoding('UTF-8', 'ISO-8859-1') }}
+							</span>
 						</label>
-						</span>
-						{% endfor %}
-					</form>
-				</div>
-
-				{% else %}
-				<div class="only_view">
-					{% if user.getExperience is not null %}
-					<span class="experience"> <label> <img
-							class="image-experience"
-							src="{{ asset('images/experiences/')}}{{ user.getExperience}}.png" />
-							<span class="experience-Text">{{constant('BmdUserBundle\\Entity\\Experience::USER_EXPERIENCE')[user.getExperience] | convert_encoding('UTF-8', 'ISO-8859-1') }}
-						</span>
-					</label>
+							<div class="nbEvents">
+								<span class="nbs"
+									style="background:rgb(255,{{ user.nbevents * 30 }},{{ user.nbevents * 50}})">{{ user.nbevents }}</span><span
+									class="experience-Text"> Streams </span></span>
+					</div>
 					</span>
 					{% endif %}
 				</div>
 				{% endif %}
-					</div>
-				<hr>
-
-				<div class="only_view">
-					<form action="{{path('profil')}}">
-						<input class="MainButtonBMD buttonBlue" type="submit"
-							value="Éditer" />
-					</form>
-				</div>
-				{% if own is null %}
-				<div class="only_edit">
-					<h4 class="titleBMD">Mon compte</h4>
-					<hr>
-					{% if app.user %}
-					<div class="form-group inline">
-						<form action="{{path('profil')}}/{{app.user.userName}}">
-							<input class="MainButtonBMD buttonBlue" type="submit"
-								value="Aperçu" />
-						</form>
-					</div>
-					{% endif %}
-					<div class="form-group">
-						<button type="button" class="MainButtonBMD buttonRed"
-							id="remove_user">Clôturer</button>
-					</div>
-				</div>
-				{% endif %}
-				{% if live is not null %}
-				{% if app.user and user.userName == app.user.userName %}
-				<h4 class="titleBMD">Live en cours !</h4>
-				<hr>
-				<a type="button" class="MainButtonBMD buttonBlue"
-					href="{{path('streamDJ')}}"> Commencer le live </a>
-				{% elseif app.user and live.auteur == app.user.userName %}
-				<h4 class="titleBMD">Live en cours !</h4>
-				<hr>
-				<a type="button" class="MainButtonBMD buttonBlue"
-					href="{{path('streamDJ')}}/{{user.id}}"> Voir le live </a>
-				{% endif %}
-				{% endif %}
 			</div>
+			<hr>
+
+			<div class="only_view">
+				<form action="{{path('profil')}}">
+					<input class="MainButtonBMD buttonBlue" type="submit"
+						value="Éditer" />
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="row featurette">
+		<div class="col-md-6">
+		<h4 class="titleBMD"> <span class="glyphicon glyphicon-align-justify "></span>Présentation</h4>
+				<hr>
+			<span id="userPresentation"> {{user.presentation | nl2br}}
+			</span>
 		</div>
 
-		<div class="row featurette">
-			<h4 class="titleBMD">Mon Profil</h4>
-			<div class="col-md-6">
-				<h3 class="">Présentation</h3>
-				<span id="userPresentation"> {{user.presentation | nl2br}}
-				</span>
-			</div>
 
-			<div class="col-md-6">
-				<h3 class="">Commentaires</h3>
-				{% if Allcomment is empty %}
-				<p class="basik_text">Aucun commentaire pour le moment.</p>
-				{% else %}
-				{% for comment in Allcomment %}
-				<fieldset>
-					<legend>
-						{{comment.pseudo}}
-						, le
-						{{comment.date|date('d/m/Y à H:i') }}
-					</legend>
-					<p>
-						{{comment.content}}
-					</p>
-				</fieldset>
-				{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-
-		<div class="row featurette">
-			{% if user.role.idRole == 3 %}
-			<h4 class="titleBMD">Ma playlist</h4>
+		<div class="col-md-6">
+			{% if user.isDj() %}
+			<h4 class="titleBMD">
+				<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+				Ma playlist
+			</h4>
 			<hr>
 			{% if user.soundcloodlink is null %}
 			<p class="basik_text">Aucune playlist pour le moment.</p>
@@ -196,21 +166,40 @@
 			{{user.soundcloodlink}} </span> #}
 			{% endif %}
 		</div>
-
-		<div class="row featurette">
-			{% if user.role.idRole == 3 %}
-			<div class="dispo">
-				<h4 class="titleBMD">Mes disponibilités</h4>
-				{% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-			</div>
+		<div class="col-md-6">
+			<h3 class="">Commentaires</h3>
+			{% if Allcomment is empty %}
+			<p class="basik_text">Aucun commentaire pour le moment.</p>
+			{% else %}
+			{% for comment in Allcomment %}
+			<fieldset>
+				<legend>
+					{{comment.pseudo}}
+					, le
+					{{comment.date|date('d/m/Y Ã  H:i') }}
+				</legend>
+				<p>
+					{{comment.content}}
+				</p>
+			</fieldset>
+			{% endfor %}
 			{% endif %}
 		</div>
 	</div>
-	<!-- END #HOME -->
 
-	{% if app.user and app.user.role.idRole == 3 and own is null %}
-	{% include 'home/djPanel.html.twig' %}
-	{%endif%}
+	{% if own is null %}
+	<div class="only_edit">
+		<h4 class="titleBMD">Mon compte</h4>
+		<hr>
+		<div class="form-group">
+			<button type="button" class="MainButtonBMD buttonRed"
+				id="remove_user">Clôturer</button>
+		</div>
+	</div>
+	{% endif %}
+</div>
+<!-- END #HOME -->
+{% include 'home/djPanel.html.twig' %}
 </div>
 {% endblock %}
 

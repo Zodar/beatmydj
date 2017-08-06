@@ -11,7 +11,7 @@ $(function () {
 			left: 'prev',
 			right: 'month, agendaWeek, agendaDay, next,resize'
 		},
-		  aspectRatio: 4.09,
+		aspectRatio: 4.09,
 		defaultView : "month",
 		eventClick: function(calEvent, jsEvent, view) {
 
@@ -19,15 +19,16 @@ $(function () {
 			$(this).css('border-color', 'red');
 		},allDaySlot : false,
 		dayClick: function(date, allDay, jsEvent, view) {
-			moment.locale('fr');
-			bootbox.confirm("Quand aura lieu l'evenement ? <br/>" + '<input id="eventdatepicker" type="text" ></input>' + "</br>" + get_selects_hours(), function(result) {
-				if (result != null)
-					if (result != ""){
-						$.ajax({type:"POST", data: {
-							date : $('#eventdatepicker').datetimepicker('getValue').getTime(),
-							titre : result,
-							user : $("input[name='user_id']").val(),
-							duree : $("#hourseventdatepicker").val()
+			if ($( "input[name=user_isdj]" ).val() == 0){
+				moment.locale('fr');
+				bootbox.confirm("Quand aura lieu l'evenement ? <br/>" + '<input id="eventdatepicker" type="text" ></input>' + "</br>" + get_selects_hours(), function(result) {
+					if (result != null)
+						if (result != ""){
+							$.ajax({type:"POST", data: {
+								date : $('#eventdatepicker').datetimepicker('getValue').getTime(),
+								titre : result,
+								user : $("input[name='user_id']").val(),
+								duree : $("#hourseventdatepicker").val()
 							}, url: baseurl + "profil/add_event",
 							success: function(data){
 								if (data.success == "false"){
@@ -42,7 +43,7 @@ $(function () {
 								else{
 									console.log(data.responseText);
 									var dialog = bootbox.dialog({
-										message: 'L\'evenement a bien été créé'
+										message: 'L\'evenement est en attente de validation du DJ'
 									});
 									$('#calendar-holder').fullCalendar( 'refetchEvents' );
 									setTimeout(function(){
@@ -53,33 +54,44 @@ $(function () {
 							error: function(data){
 								console.log(data.responseText);
 							}
-						});
+							});
 
 
 
-					}
-			});
-			console.log(date._d);
-			  $( "#eventdatepicker" ).datetimepicker({
-				  format:'d/m/Y H:00',
-				  defaultDate: date._d,
-				  inline:true,
-			  });
+
+						}
+				});
+				console.log(date._d);
+				$( "#eventdatepicker" ).datetimepicker({
+					format:'d/m/Y H:00',
+					defaultDate: date._d,
+					inline:true,
+				});
+			}
+			else{
+				var dialog = bootbox.dialog({
+					message: 'Seul un client peux reserver un créneau'
+				});
+				$('#calendar-holder').fullCalendar( 'refetchEvents' );
+				setTimeout(function(){
+					dialog.modal('hide')
+				}, 1500);
+			}
 		},
 		eventSources: [
-		               {
-		            	   url: baseurl + "profil/userEvent",
-		            	   type: 'POST',
-		            	   // A way to add custom filters to your event listeners
-		            	   data: {
-		            		   filter: 'my_custom_filter_param',
-		            		   userid : $("input[name='user_id']").val(),
-		            	   },
-		            	   error: function() {
-		            		   //alert('There was an error while fetching Google Calendar!');
-		            	   }
-		               }
-		               ]
+			{
+				url: baseurl + "profil/userEvent",
+				type: 'POST',
+				// A way to add custom filters to your event listeners
+				data: {
+					filter: 'my_custom_filter_param',
+					userid : $("input[name='user_id']").val(),
+				},
+				error: function() {
+					//alert('There was an error while fetching Google Calendar!');
+				}
+			}
+			]
 	});
 
 	function get_selects_hours(){
@@ -91,29 +103,32 @@ $(function () {
 		html += "</select>"
 			return html;
 	}
-	
+
 	$("#enlarge-calendar").click(function(){
 		$("#calendar-holder").fullCalendar('option', 'height', 900);
 		$('#calendar-holder').fullCalendar('option', 'aspectRatio', 10);
 		var t = $("#calendar-holder").attr("id","calendar-holderbig");
 //		$(".dispo #calendar-holder").hide();
-		
+
 		var dialog = bootbox.dialog({
 			message: t,
 			className: "bootbox-calendar",
-			  onEscape: function() {
-				  $(".dispo").append($("#calendar-holderbig"))
-				 $("#calendar-holderbig").attr("id","calendar-holder");
-					$('#calendar-holder').fullCalendar('option', 'aspectRatio', 1);
-					$("#calendar-holder").fullCalendar('option', 'height', 300);
-					$(window).trigger('resize');
-					console.log("show");
-			        // you can do anything here you want when the user dismisses dialog
-			    }
+			onEscape: function() {
+				$(".dispo").append($("#calendar-holderbig"))
+				$("#calendar-holderbig").attr("id","calendar-holder");
+				$('#calendar-holder').fullCalendar('option', 'aspectRatio', 1);
+				$("#calendar-holder").fullCalendar('option', 'height', 300);
+				$(window).trigger('resize');
+				console.log("show");
+				// you can do anything here you want when the user dismisses dialog
+			}
 		});
-		
+
 		$(window).trigger('resize');
 		console.log("hide");
-		
+
 	})
+$('.nav-tabs #calendrierTab').on('shown.bs.tab', function(event){
+	$('#calendar-holder').fullCalendar('render');
+	    });
 });
