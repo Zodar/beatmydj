@@ -4,7 +4,7 @@
 {% if app.user and user.isDj() %}
 <ul class="profil-header nav nav-tabs">
 	<li class="active"><a href="#home">Accueil</a></li>
-		<li><a href="#calendrier" id="calendrierTab">Calendrier</a></li>
+	<li><a href="#calendrier" id="calendrierTab">Calendrier</a></li>
 	{% if  own is null  %}
 	<li><a href="#vues">Vue de profil</a></li>
 	<li><a href="#streams">Demande de streaming</a></li>
@@ -33,16 +33,16 @@
 					{% endif %}
 
 					<h4 class="username titleBMD">
-					
-					<span class="glyphicon glyphicon-user "></span>
-						
-						{{user.userName | capitalize }} 
-							{% if app.user and own is not null %}
-					<a id="new_message" href="#"> <span
-						class="glyphicon glyphicon-envelope"></span>
-					</a>
+
+						<span class="glyphicon glyphicon-user "></span>
+
+						{{user.userName | capitalize }}
+						{% if app.user and own is not null %}
+						<a id="new_message" href="#"> <span
+							class="glyphicon glyphicon-envelope"></span>
+						</a>
 					</h4>
-				
+
 					{% endif %}
 					<hr>
 					<img id="user_image" class="img-responsive"
@@ -85,14 +85,14 @@
 					</ul>
 				</div>
 			</div>
-
+			{% if user.isDj() %}
 			<div class="col-md-4">
 				<h4 class="titleBMD">
 					<span class=" glyphicon glyphicon-signal" aria-hidden="true"></span>Expèriences
 				</h4>
 				<hr>
 				<div>
-					{% if own is null %}
+					{% if own is null and user.isDj() %}
 					<div class="only_edit">
 						<form id="formExperience" enctype="multipart/form-data">
 							{% for key , experience in constant('AppBundle\\Constant\\BMDJConstant::USER_EXPERIENCE') %}
@@ -128,7 +128,7 @@
 				{% endif %}
 			</div>
 			<hr>
-
+	{% endif %}
 			<div class="only_view">
 				<form action="{{path('profil')}}">
 					<input class="MainButtonBMD buttonBlue" type="submit"
@@ -141,8 +141,10 @@
 
 	<div class="row featurette">
 		<div class="col-md-6">
-		<h4 class="titleBMD"> <span class="glyphicon glyphicon-align-justify "></span>Présentation</h4>
-				<hr>
+			<h4 class="titleBMD">
+				<span class="glyphicon glyphicon-align-justify "></span>Présentation
+			</h4>
+			<hr>
 			<span id="userPresentation"> {{user.presentation | nl2br}}
 			</span>
 		</div>

@@ -26,7 +26,6 @@
 
     <!-- CUSTOM JS -->
     <script src="{{asset('js/script.js')}}"></script>
-    <script src="{{asset('js/search.js')}}"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
         	<script src="{{ asset('js/main.js') }}"></script>
     	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -37,15 +36,27 @@
     <link rel="stylesheet" href="{{asset('css/tchat.css')}}" />
     <link rel="stylesheet" href="{{asset('css/live_tchat.css')}}" />
     <link rel="stylesheet" href="{{asset('css/main.css')}}" />
-
+    	<link
+		href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600'
+		rel='stylesheet' type='text/css'>
+	<link
+		href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css"
+		rel="stylesheet">
+     {% if Streaming is defined %}
+    <link rel="stylesheet" href="{{asset('css/stream.css')}}" />
+	{% endif %}
     <link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
     </head>
 
     <body ng-app="beatMyDj">
+    {% if Streaming is not defined %}
 		{% include 'header.html.twig' %}
+	{% endif %}
         <div id="main_content" class="container-fluid col-md-12">
 	        {% block body %}{% endblock %}
         </div>     
+        
+         {% if Streaming is not defined %}
         <div  ng-controller="ChatController">
             {% include 'discussionBox.html.twig' %}
         </div>        
@@ -77,9 +88,15 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </body>
     {% block javascripts %}{% endblock %}   
+        {% if Streaming is not defined %}
     {% include 'footer.html.twig' %}
+        <script src="{{asset('js/search.js')}}"></script>
     <script src="{{ asset('js/chat.js') }}"></script>  
+    
+                        {% endif %}
+    
             
 </html>

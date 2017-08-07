@@ -8,9 +8,13 @@ angular.module('beatMyDj', []).filter('secondsToDateTime', [function() {
 	var getStreamAvaible = Routing.generate('streamavailable');
 
 	$http.get(getStreamAvaible).then(function(response) {
-		$scope.nextlive = new Date(response.data["events"] * 1000);
-		document.getElementById("voirLive").href = document.getElementById("voirLive").href + response.data["id"];
-		CountDownTimer($scope.nextlive, 'remainig');
+		if (response.data["events"] != null){
+			$scope.nextlive = new Date(response.data["events"] * 1000);
+			if (document.getElementById("voirLive") != null)
+				document.getElementById("voirLive").href = document.getElementById("voirLive").href + response.data["id"];
+
+			CountDownTimer($scope.nextlive, 'remainig');
+		}
 
 	});	
 });
@@ -67,6 +71,7 @@ function CountDownTimer(dt, id)
 		var now = new Date();
 		var distance = end - now;
 		if (distance < 0) {
+			$("#beforeLive").hide();
 			$("#gotolive").show();
 			return;
 		}
@@ -89,9 +94,12 @@ function CountDownTimer(dt, id)
 			document.getElementById(id).innerHTML += seconds + ' secs';
 		}
 
-		if (days == 0 && hours == 0 && minutes < 15)
-			$("#gotolive").show();
-	}
+		if (days == 0 && hours == 0 && minutes < 15){
+		$("#liveEnCours").show();
+		$("#beforeLive").hide();
+		
+		}
+}
 
-	timer = setInterval(showRemaining, 1000);
+timer = setInterval(showRemaining, 1000);
 }
