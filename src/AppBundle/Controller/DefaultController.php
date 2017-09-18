@@ -214,6 +214,7 @@ class DefaultController extends Controller
                 ->getRepository('BmdUserBundle:UserAvailability')
                 ->createQueryBuilder('e')
                 ->where('e.dateEnd >= :date')
+                ->andWhere('e.accept = 1')
                 ->setParameter('date', $date->format('Y-m-d H:i:s'));
             if (! $usr->isDj()) {
                 $Events = $Events->andWhere(' e.auteur = :auteur')->setParameter('auteur', $usr->getUsername());
@@ -221,7 +222,8 @@ class DefaultController extends Controller
                 $Events->andWhere(" e.userid = :uid")->setParameter('uid', $usr->getId());
             }
             
-            $Events = $Events->getQuery()->getResult();
+            
+            $Events = $Events->addOrderBy("e.dateStart")->getQuery()->getResult();
             if (empty($Events))
                 return new JsonResponse($Events);
             return new JsonResponse(array(

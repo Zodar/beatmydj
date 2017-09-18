@@ -6,7 +6,8 @@ angular.module('beatMyDj', []).filter('secondsToDateTime', [function() {
 	};
 }]).controller('HeaderController', function($scope,$http) {
 	var getStreamAvaible = Routing.generate('streamavailable');
-
+	$('#glyphiconNextEvent').tooltip();   
+	$('.beattooltip').tooltip();   
 	$http.get(getStreamAvaible).then(function(response) {
 		if (response.data["events"] != null){
 			$scope.nextlive = new Date(response.data["events"] * 1000);
@@ -14,6 +15,10 @@ angular.module('beatMyDj', []).filter('secondsToDateTime', [function() {
 				document.getElementById("voirLive").href = document.getElementById("voirLive").href + response.data["id"];
 
 			CountDownTimer($scope.nextlive, 'remainig');
+		}
+		else{
+			$('#glyphiconNextEvent').attr("title","Aucun stream prévus");
+			$('#glyphiconNextEvent').css("color","white");
 		}
 
 	});	
@@ -72,32 +77,35 @@ function CountDownTimer(dt, id)
 		var distance = end - now;
 		if (distance < 0) {
 			$("#beforeLive").hide();
-			$("#gotolive").show();
+			$("#liveEnCours").show();
 			return;
 		}
 		var days = Math.floor(distance / _day);
 		var hours = Math.floor((distance % _day) / _hour);
 		var minutes = Math.floor((distance % _hour) / _minute);
 		var seconds = Math.floor((distance % _minute) / _second);
-
+		var str = "";
 		if (days >= 2)
 		{
-			document.getElementById(id).innerHTML = " + de " +  days + ' jours ';        	
+			$('#glyphiconNextEvent').css("color","brown");
+			str = " + de " +  days + ' jours ';        	
 		}
 		else{
-			if (days == 0)
-				document.getElementById(id).innerHTML = "";
-			else
-				document.getElementById(id).innerHTML = days + ' jours ';
-			document.getElementById(id).innerHTML += hours + ' hrs ';
-			document.getElementById(id).innerHTML += minutes + ' mins ';
-			document.getElementById(id).innerHTML += seconds + ' secs';
-		}
+			$('#glyphiconNextEvent').css("color","black");
 
+			if (days == 0)
+				str = "";
+			else
+				str = days + ' jours ';
+			str += hours + ' hrs ';
+			str += minutes + ' mins ';
+			str += seconds + ' secs';
+		}
+		$('#glyphiconNextEvent').attr("title",str);
 		if (days == 0 && hours == 0 && minutes < 15){
 		$("#liveEnCours").show();
 		$("#beforeLive").hide();
-		
+
 		}
 }
 
