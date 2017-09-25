@@ -72,7 +72,7 @@ $('body').on('keypress', '.input_chat', function(e) {
     	var nom = $(this).siblings('.conversation__header').html();
     	var msgValue = $(this).val();
     	
-    	var msg = "<li class='conversation__msg cf'> <br> <span class='right_chat'>";
+    	var msg = "<li class='conversation__msg right_chat cf'> <br> <span >";
     	msg += msgValue;
     	msg += "</span> </li>";
     	$(this).siblings(".conversation__wrap").append(msg);

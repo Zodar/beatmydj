@@ -19,11 +19,14 @@
       <div class="carousel-inner">
          {% for user in randomUsers %}
          <div class="item">
+         <a href="{{ path('profil') }}/{{user.userName}}" >
             <img src="{{asset('uploads/dj_photos/')}}{{user.path}}">
             <div class="carousel-caption">
               <h3>{{user.userName}}</h3>
               <p>{{user.presentation}}</p>
             </div>
+            </a>
+            
           </div>
           {% endfor %} 
           {% if lastUser %}

@@ -59,7 +59,7 @@
 					{% endif %}
 				</div>
 			</div>
-
+		{% if user.isDj() %}
 			<div class="col-md-3">
 				<h4 class="titleBMD">
 					<span class="glyphicon glyphicon-music "></span>Style
@@ -67,7 +67,7 @@
 				<hr>
 				<div>
 					<ul class="list-group profil_edition">
-						{% if user.isDj() %}
+				
 						<li class="list-group-item list-group-item style"><span
 							class="to_edit"> {% if own is null %} {{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form'}}) }}
 
@@ -81,10 +81,11 @@
 										<button id="prez_edit" class="MainButtonBMD buttonBlue">Valider</button>
 									</div> {% endif %}
 							</span></li>
-						{% endif %}
+				
 					</ul>
 				</div>
 			</div>
+					{% endif %}
 			{% if user.isDj() %}
 			<div class="col-md-4">
 				<h4 class="titleBMD">

@@ -1267,5 +1267,7 @@
 
 .conversation__wrap {
     height: 60%;
-    overflow-y: scroll;
+    overflow-y: auto;
+	margin:0;
+	padding:0;
 }

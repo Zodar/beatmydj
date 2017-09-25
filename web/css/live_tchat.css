@@ -126,8 +126,10 @@ left:0;
 }
 
 .conversation__header {
+	text-align: center;
     color: #ccc;
-    padding: 15px 10px;
+    font-size: 20px;
+    padding: 4px 2px;
     background: #343436;
     border-top: 2px solid #337ab7;
     margin-bottom: 10px;
@@ -149,13 +151,18 @@ left:0;
     border-radius: 100px;
     float: left;
 }
-
+.right_chat span{
+    background: #337ab7 !important;
+		color:white;
+}
+.conversation__msg {
+	clear:both;
+}
 .right_chat {
     float: right !important;
-    background: #337ab7 !important;
-    color: white !important;
-    width: 100%;
+
     text-align: right;
+	color:white;
 }
 
 .input_chat:focus {
@@ -166,12 +173,13 @@ left:0;
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 20px;
+    padding: 5px;
     background: #337ab7;
     border: 0;
     outline: 0;
     transition: 0.3s;
     color: white;
+	max-width:none;
 }
 
 .close-msg {
