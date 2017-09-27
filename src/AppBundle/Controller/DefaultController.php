@@ -231,6 +231,10 @@ class DefaultController extends Controller
                 'id' => $Events[0]->getuserid()
             ));
         }
+		   return new JsonResponse(array(
+                'events' => null,
+                'id' => null
+            ));
     }
 
     /**
