@@ -3,6 +3,48 @@ $(document).ready(function(){
 	var path_messages = $("input[name='path_messages']").val();
 	var page_type = $("input[name='page_type']").val();
 		
+	$.fn.form = function() {
+	    var formData = {};
+	    this.find('[name]').each(function() {
+	        formData[this.name] = this.value;  
+	    })
+	    return formData;
+	};
+	
+	
+	$("#submitEdit").on("click",function(){
+		var passwd = $("#editPassword")
+		var passwdConfirm = $("#editPasswordConfirm")
+		$(".errorEdit").text("");
+		if($(passwd).val().length < 6 ){
+			$(passwd).parent().find(".errorEdit").text("Le mot de passe doit contenir au minimum 6 caractères ")
+			return;
+		}
+		if($(passwd).val() != $(passwdConfirm).val()){
+			$(passwdConfirm).parent().find(".errorEdit").text("Le mot de passe n'est pas le même")
+			return;
+		}
+//		var avisurl = Routing.generate('editInfos');
+		var form = $("#edition_form").form()
+		console.log(form);
+		
+		$.ajax({type:"POST", data: {name : "infos",value : form}, url: baseurl + "profil/edit",
+			success: function(data){
+				console.log(data.responseText);
+				var dialog = bootbox.dialog({
+					message: 'Vos informations ont bien été enregistrés'
+				});
+				setTimeout(function(){
+					dialog.modal('hide')
+				}, 1500);
+			},
+			error: function(data){
+				console.log(data.responseText);
+			}
+		});
+		
+	});
+	
 	$("#send_messages").on("click",function(){
 		if($("#new_messages").val() == ""){
 			alert("Un message vide ne peux être envoyé");
@@ -78,7 +120,7 @@ $(document).ready(function(){
 			success: function(data){
 				console.log(data.responseText);
 				var dialog = bootbox.dialog({
-					message: 'Vos informations ont bien été enregistré'
+					message: 'Vos informations ont bien été enregistrés'
 				});
 				setTimeout(function(){
 					dialog.modal('hide')

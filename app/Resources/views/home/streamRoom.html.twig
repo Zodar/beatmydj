@@ -53,6 +53,17 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{asset('js/html2canvas.min.js')}}"></script>
+<!--     Code bientot utilisé 
+var canvas = document.createElement('canvas');
+canvas.width = 640;
+canvas.height = 480;
+var ctx = canvas.getContext('2d');
+//draw image to canvas. scale to target dimensions
+ctx.drawImage($('video')[0], 0, 0, canvas.width, canvas.height);
+//convert to desired file format
+var dataURI = canvas.toDataURL('image/png');
+ -->
 <script>
         'use strict';
         //ApiRTC Client Code
