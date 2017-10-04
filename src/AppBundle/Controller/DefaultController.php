@@ -222,8 +222,9 @@ class DefaultController extends Controller
                 $Events->andWhere(" e.userid = :uid")->setParameter('uid', $usr->getId());
             }
             
-            
-            $Events = $Events->addOrderBy("e.dateStart")->getQuery()->getResult();
+            $Events = $Events->addOrderBy("e.dateStart")
+                ->getQuery()
+                ->getResult();
             if (empty($Events))
                 return new JsonResponse($Events);
             return new JsonResponse(array(
@@ -231,10 +232,10 @@ class DefaultController extends Controller
                 'id' => $Events[0]->getuserid()
             ));
         }
-		   return new JsonResponse(array(
-                'events' => null,
-                'id' => null
-            ));
+        return new JsonResponse(array(
+            'events' => null,
+            'id' => null
+        ));
     }
 
     /**
@@ -356,11 +357,18 @@ class DefaultController extends Controller
         $comment = $find->findBy(array(
             "userpage" => $usr->getId()
         ));
-        
+        $find = $this->getDoctrine()->getRepository('BmdUserBundle:UserAvailability');
+        $events = null;
+        if ($usr->isClient())
+            $events = $find->findBy(array(
+                "auteur" => $usr->getUsername(),
+                "accept" => 1
+            ), array('dateStart' => 'DESC'));
         return $this->render('home/profil.html.twig', array(
             "user" => $usr,
             "own" => $user,
             "Allcomment" => $comment,
+            "events" => $events,
             "form" => $form
         ));
     }

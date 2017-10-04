@@ -9,6 +9,8 @@
 	<li><a href="#vues">Vue de profil</a></li>
 	<li><a href="#streams">Demande de streaming</a></li>
 	<li><a href="{{path('profil')}}/{{app.user.userName}}">Aperçu</a></li>
+	<li><a href="#gestions">Gestion du compte</a></li>
+	
 	{% endif %}
 </ul>
 {% endif %}
@@ -129,6 +131,29 @@
 				{% endif %}
 			</div>
 			<hr>
+								{% else %}
+			<div class="col-md-9">
+			<h4 class="titleBMD">
+				<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+				Mes resérvations
+			</h4>
+			<hr>
+			<ul class="listevents">
+			{% for event in events %}
+			<li><div><span class="calendarborder"> {{ event.dateStart |localizeddate("medium", "none", null, null, "MMMM") }} </span>
+			<div class="calendarday"> <span class="number"> {{ event.dateStart |localizeddate("medium", "none", null, null, "dd") }} </span>
+				 <span class="day"> {{ event.dateStart |localizeddate("medium", "none", null, null, "cccc") }} 	</span>	
+			  </div> 
+			  <div class="details"> <div class="content">
+			  <p> DJ: {{ findUser(event.userid).username }} </p>
+			  <p> Débute à : {{  event.dateStart |localizeddate("medium", "none", null, null, "hh") }}H </p>
+			  <p> Finis à : {{  event.dateEnd |localizeddate("medium", "none", null, null, "hh") }}H </p>
+			  </div> </div>
+			  </div>
+			</li>
+			{% endfor %}
+			</ul>
+			</div>
 	{% endif %}
 			<div class="only_view">
 				<form action="{{path('profil')}}">
@@ -150,8 +175,27 @@
 			</span>
 		</div>
 
-
 		<div class="col-md-6">
+			<h4 class="titleBMD"> <span class="glyphicon glyphicon-comment "></span>Mes avis</h4>
+			<hr>
+			{% if Allcomment is empty %}
+			<p class="basik_text">Aucun avis pour le moment.</p>
+			{% else %}
+			{% for comment in Allcomment %}
+			<fieldset>
+				<legend>
+					{{comment.pseudo}}
+					, le
+					{{comment.date|date('d/m/Y Ã  H:i') }}
+				</legend>
+				<p>
+					{{comment.content}}
+				</p>
+			</fieldset>
+			{% endfor %}
+			{% endif %}
+		</div>
+		<div class="col-md-12">
 			{% if user.isDj() %}
 			<h4 class="titleBMD">
 				<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
@@ -169,25 +213,7 @@
 			{{user.soundcloodlink}} </span> #}
 			{% endif %}
 		</div>
-		<div class="col-md-6">
-			<h3 class="">Commentaires</h3>
-			{% if Allcomment is empty %}
-			<p class="basik_text">Aucun commentaire pour le moment.</p>
-			{% else %}
-			{% for comment in Allcomment %}
-			<fieldset>
-				<legend>
-					{{comment.pseudo}}
-					, le
-					{{comment.date|date('d/m/Y Ã  H:i') }}
-				</legend>
-				<p>
-					{{comment.content}}
-				</p>
-			</fieldset>
-			{% endfor %}
-			{% endif %}
-		</div>
+		
 	</div>
 
 	{% if own is null %}
@@ -195,8 +221,11 @@
 		<h4 class="titleBMD">Mon compte</h4>
 		<hr>
 		<div class="form-group">
-			<button type="button" class="MainButtonBMD buttonRed"
-				id="remove_user">Clôturer</button>
+			<p class="premove_user" id="remove_user">
+			<img 	src="{{ asset('images/Cloture.png')}}"  > 
+			
+			<span> Clôture du compte</span>
+			</p>
 		</div>
 	</div>
 	{% endif %}
