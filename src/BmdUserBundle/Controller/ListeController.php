@@ -33,26 +33,12 @@ class ListeController extends Controller
         foreach ($djs as $dj) {
             $id[] = $dj->getidUser();
         }
-        
         $pseudo = $find->findBy(array(
             "id" => $id
         ));
         $datas = [];
-        
-		/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
         foreach ($pseudo as $user) {
-            $data = [];
-            $data["id"] = $user->getId();
-            $data["email"] = $user->getEmail();
-            $data["firstName"] = $user->getFirstName();
-            $data["lastName"] = $user->getLastName();
-            $data["userName"] = $user->getUserName();
-            $data["presentation"] = $user->getPresentation();
-            $data["style"] = $user->getStyle();
-            $data["styleText"] = $user->getStyleText();
-            $data["dispo"] = $user->getDispo();
-            $data["path"] = $user->path;
-            array_push($datas, $data);
+        	array_push($datas, $user->toArray());
         }
         
         $listeStyle = $user->getAllStyleText();
@@ -82,20 +68,8 @@ class ListeController extends Controller
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $datas = [];
         
-				/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
-
         foreach ($users as $user) {
-			$data = [];
-			$data["id"] = $user->getId();
-			$data["email"] = $user->getEmail();
-			$data["firstName"] = $user->getFirstName();
-			$data["lastName"] = $user->getLastName();
-			$data["userName"] = $user->getUserName();
-			$data["presentation"] = $user->getPresentation();
-			$data["style"] = $user->getStyle();
-			$data["dispo"] = $user->getDispo();
-			$data["path"] = $user->path;
-			array_push($datas, $data);
+        	array_push($datas, $user->toArray());
         }
         
         return new JsonResponse(array(
@@ -123,21 +97,11 @@ class ListeController extends Controller
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         $datas = [];
        
-	   /* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
 
         foreach ($users as $user) {
            // if ($usr->getId() != $user->getId()) {
-                $data = [];
-                $data["id"] = $user->getId();
-                $data["email"] = $user->getEmail();
-                $data["firstName"] = $user->getFirstName();
-                $data["lastName"] = $user->getLastName();
-                $data["userName"] = $user->getUserName();
-                $data["presentation"] = $user->getPresentation();
-                $data["style"] = $user->getStyle();
-                $data["dispo"] = $user->getDispo();
-                $data["path"] = $user->path;
-                array_push($datas, $data);
+        	array_push($datas, $user->toArray());
+        	
            // }
         }
         $r = new JsonResponse(array(
@@ -172,21 +136,9 @@ class ListeController extends Controller
 			$users = $this->getActive();
         $datas = [];
     
-			/* @TODO ce code apparait partout A FACTORISE !!! (faire une methode toString dans l'entité user */
-
         foreach ($users as $user) {
             if ($usr->getId() != $user->getId()) {
-                $data = [];
-                $data["id"] = $user->getId();
-                $data["email"] = $user->getEmail();
-                $data["firstName"] = $user->getFirstName();
-                $data["lastName"] = $user->getLastName();
-                $data["userName"] = $user->getUserName();
-                $data["presentation"] = $user->getPresentation();
-                $data["style"] = $user->getStyle();
-                $data["dispo"] = $user->getDispo();
-                $data["path"] = $user->path;
-                array_push($datas, $data);
+            	array_push($datas, $user->toArray());
             }
         }
     

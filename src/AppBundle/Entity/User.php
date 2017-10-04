@@ -133,6 +133,21 @@ class User extends Controller implements UserInterface, ParticipantInterface
         return $this->nbevents;
     }
 
+    public function toArray(){
+    	$data = [];
+    	$data["id"] = $this->getId();
+    	$data["email"] = $this->getEmail();
+    	$data["firstName"] = $this->getFirstName();
+    	$data["lastName"] = $this->getLastName();
+    	$data["userName"] = $this->getUserName();
+    	$data["presentation"] = $this->getPresentation();
+    	$data["style"] = $this->getStyle();
+    	$data["styleText"] = $this->getStyleText();
+    	$data["dispo"] = $this->getDispo();
+    	$data["path"] = $this->path;
+    	return $data;
+    	
+    }
     public function isDj(){
         return $this->role->getidRole() == BMDJConstant::ROLE_DJ;
     }
