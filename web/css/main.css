@@ -819,3 +819,42 @@ margin-top: 20px;
 font-size:15px;
     margin-top: 1%;
 }
+div.blockStyle{
+float:left;
+margin:0;
+}
+div.blockStyle label{
+margin-bottom:20px;
+padding-left:60px !important;
+    overflow: visible;
+	    height: 50px !important;
+    width: 150px !important;
+	    line-height: normal !important;
+    padding-top: 15px;
+}
+div.blockStyle:nth-child(n + 3){
+margin-left:10%;
+}
+
+div.blockStyle .css-checkbox:checked + label{
+ filter: invert(0%) !important ;
+
+}
+
+div.blockStyle label.css-label.search-checklabel{
+display:block !important;
+background-image: url(../images/styleCase.png); 
+background-position:0 8px !important;
+ background-size: 35px 35px;
+ filter: invert(100%);
+}
+div.blockStyle label.css-label.search-checklabel{
+display:block !important;
+background-image: url(../images/styleCase.png); 
+background-position:0 8px !important;
+ background-size: 35px 35px;
+ filter: invert(100%);
+}
+.advancedSearch{
+margin:30px 100px;
+}

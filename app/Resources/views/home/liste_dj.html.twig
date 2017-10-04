@@ -1,46 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-   	
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1>Liste des DJs</h1>
-        </div>
-	<hr>
-	   	
-	<div class="row">
-
-
-		{% if form is defined %}
-    <div id="advanced_search" class="col-md-3">
-	   		{{ form(form, {'method': 'GET'}) }}
-			{{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'style-form-listeDJ'}}) }}                		  
-			{{ form_end(form) }}        		    
-	    </div>
-{% endif %}
-	   	
-		 <div class="container">
-        
-        <div align="center">
-
-
-<input type="checkbox" name="Tous" id="Tous" data-filter="Tous" class="css-checkbox filter-button" />
-        			<label for="Tous" class="css-label">Tous</label>
+<div class="advancedSearch">
+	<div class="row Searchfiltre">
+		 <div class="col-md-7 style">
+		 <h3>Par Style </h3>
+		 	<div class="blockStyle">
+<input type="checkbox" name="Tous" id="Tous" data-filter="Tous" class="css-checkbox filter-button" checked />
+        			<label for="Tous" class="css-label search-checklabel">Tous</label>
             			
         	{% if listeStyle is not null %}
         		{% for style in listeStyle %}
-        			<input type="checkbox" name="{{ style|trans|replace({' ':''})|replace({'é':'e'})}}{% if not loop.last%}{% endif %}" id="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" class="css-checkbox filter-button"   data-filter="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" />
-        			<label for="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" class="css-label">{{ style|trans }}{% if not loop.last%}{% endif %}</label>
+					{%  if loop.index%5 == 0 %}
+						</div>
+						<div class="blockStyle">
+					{% endif %}
+        			<input type="checkbox" name="{{ style|trans|replace({' ':''})|replace({'é':'e'})}}{% if not loop.last%}{% endif %}" id="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" 
+class="css-checkbox filter-button"   data-filter="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" />
+        			<label for="{{ style|trans|replace({' ':''})|replace({'é':'e'}) }}{% if not loop.last%}{% endif %}" class="css-label search-checklabel">{{ style|trans }}{% if not loop.last%}{% endif %}</label>
             			
         		{% endfor %}
+				</div>
         	{% endif %}
 
-            </div>
-        <br/>
-
-<div class="row">
+     </div>
+	 </div>
+<div class="row content">
 	   		{% for user in users %}
 
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 filter all {% for style in user.styleText %} {{ style|trans|replace({' ':''})|replace({'é':'e'})}}{% if not loop.last%}{% endif %}{% if not loop.last%}{% endif %} {% endfor %}">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 filter all {% for style in user.styleText %} {{ style|trans|replace({' ':''})|replace({'é':'e'})}}{% if not loop.last%}{% endif %}{% if not loop.last%}{% endif %} {% 
+endfor %}">
                <a href="{{asset('uploads/dj_photos/')}}{{user['path']}}" title="{{user['userName'] | capitalize }}">
 						<img src="{{asset('uploads/dj_photos/')}}{{user['path']}}" alt="{{user['userName'] | capitalize }}" class="img-gallery " />
 					</a>
@@ -92,21 +81,42 @@
 	        </div>
 	    </div>
 	</div>
+	</div>
     
 {% endblock %}
 
 {% block javascripts %}
 	<script type="text/javascript">
     $("{% if listeStyle is not null %}{% for style in listeStyle %} #{{ style|trans|replace({' ':''})|replace({'é':'e'})}},{% if not loop.last%}{% endif %} {% endfor %}{% endif %} #Tous").click(function(){
- 		 $('input:checkbox').attr('checked',false);
- 		 $(this).prop('checked',true);
         let value = $(this).attr('data-filter');
-        if(value == "Tous")
+        if(value == "Tous"){
             $('.filter').show('1000');
+			$('input:checkbox').attr('checked',false);
+			$("#Tous").prop('checked',true);
+
+		}
         else
         {
-            $(".filter").not('.'+value).hide('3000');
-            $('.filter').filter('.'+value).show('3000');          
+					$("#Tous").attr('checked',false);
+
+			var input = $('input:checkbox:checked');
+			var classSelector = "";
+			for (var i = 0 ; i < input.length; i++){
+			classSelector += "." + $(input[i]).attr('data-filter')
+			if (i + 1 < input.length)
+			classSelector += ", ";
+			}
+			if (classSelector == ""){
+			    $('.filter').show('1000');
+							$("#Tous").prop('checked',true);
+
+			}
+				else
+			{
+			$('input:checkbox:checked')
+            $(".filter").not(classSelector).hide('3000');
+            $('.filter').filter(classSelector).show('3000');
+}			
         }
     });
     
