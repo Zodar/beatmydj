@@ -163,7 +163,10 @@ class ProfilController extends Controller
                 } else if ($this->get('request')->get('name') == "userLastName") {
                     $usr->setlastname($this->get('request')
                         ->get('value'));
-                } else if ($this->get('request')->get('name') == "userLocation") {
+                }  else if ($this->get('request')->get('name') == "userPrix") {
+                    $usr->setpph($this->get('request')
+                        ->get('value'));
+                }else if ($this->get('request')->get('name') == "userLocation") {
                     $usr->setLocation($this->get('request')
                         ->get('value'));
                 } else if ($this->get('request')->get('name') == "userEmail") {

@@ -96,6 +96,8 @@ $(document).ready(function(){
     	$('#userTarif').editable({type: 'text', pk: 1, url: finalURL, title: 'Tarif', validate: requiered});
     	$('#userStyles').editable({type: 'text', pk: 1, url: finalURL, title: 'Styles'});
     	$('#userPresentation').editable({type: 'textarea', pk: 1, url: finalURL, title: 'Présentation', inputclass: 'for_prez', rows: 7, mode: "inline", validate: requiered});
+    	$('#userPrix').editable({type: 'number', pk: 1, url: finalURL, title: 'Prix', validate: requiered});
+
     	$('#userDisponibilite').editable({type: 'text', pk: 1, url: finalURL, title: 'Disponibilité', validate: requiered});
     	$('#changePlaylist').editable({type: 'text', pk: 1, url: finalURL, title: 'Lien de la playlist SoundClood', validate: requiered});
 	}

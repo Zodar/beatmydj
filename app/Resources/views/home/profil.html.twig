@@ -43,9 +43,10 @@
 						<a id="new_message" href="#"> <span
 							class="glyphicon glyphicon-envelope"></span>
 						</a>
-					</h4>
-
 					{% endif %}
+					</h4>
+<span class="prixBlock"> Prix par heure: <span id="userPrix"> {{user.pph | nl2br}}</span>€ </span>
+
 					<hr>
 					<img id="user_image" class="img-responsive"
 						src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />

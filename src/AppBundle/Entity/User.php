@@ -49,6 +49,12 @@ class User extends Controller implements UserInterface, ParticipantInterface
     private $lastname;
 
     /**
+     * prix par heure
+     * @ORM\Column(type="integer")
+     */
+    private $pph;
+    
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
@@ -125,6 +131,22 @@ class User extends Controller implements UserInterface, ParticipantInterface
      */
     protected $nbevents = 0;
     
+    /**
+     * @return the $pph
+     */
+    public function getPph()
+    {
+        return $this->pph;
+    }
+
+    /**
+     * @param field_type $pph
+     */
+    public function setPph($pph)
+    {
+        $this->pph = $pph;
+    }
+
     /**
      * @return the $nbevents
      */
