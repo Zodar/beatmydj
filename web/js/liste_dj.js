@@ -10,9 +10,17 @@ var app = angular.module('beatMyDj' ).config(function($interpolateProvider){
 	$scope.reloadAllform  = function(){
 		$scope.allstyle = true;
 		$scope.style = null;
-		$http.get(getAllDj).then(function(response) {
-			$scope.DJS = response.data.users.user;
-		});	
+		var prix = range.noUiSlider.get();
+		$http({
+			url: getDjFiltred, 
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: {style: Array(), prix: prix, experience: $scope.experience}
+		}).then(function(response) {
+			$scope.DJS = response.data.users;
+		});	;
 	}
 	$scope.refreshForm  = function(){
 		$scope.allstyle = null;
@@ -26,9 +34,6 @@ var app = angular.module('beatMyDj' ).config(function($interpolateProvider){
 		if (result.length == 0 )
 			$scope.allstyle = true;
 		var prix = range.noUiSlider.get();
-		console.log(prix);
-		console.log($scope.experience);
-
 		$http({
 			url: getDjFiltred, 
 			method: "POST",
