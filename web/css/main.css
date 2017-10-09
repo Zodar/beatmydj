@@ -1062,10 +1062,10 @@ div.blockStyle label.css-label {
 }
 
 .advancedSearch .djResults {
-    background-image: url(../images/disque.png) !important;
+    background-image: url(../images/disqueTransparent.png) !important;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 1500px 1200px;
+  	background-size: 80% 80%;
     min-height: 1200px;
 	padding-top: 150px;
 	

@@ -42,7 +42,7 @@ var app = angular.module('beatMyDj' ).config(function($interpolateProvider){
 
 
 	}
-	$scope.reloadAllform ();
+	$scope.refreshForm  ();
 });
 
 

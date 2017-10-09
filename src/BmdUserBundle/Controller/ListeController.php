@@ -136,7 +136,7 @@ class ListeController extends Controller
         $qb->add('where', $qb->expr()->in('u.id',$id));
         $qb->andWhere("u.pph >= " .$prix[0] );
         $qb->andWhere("u.pph <= " .$prix[1] );
-        if ($experience != null && $experience > 0 )
+        if ($experience != null && $experience >= 0 )
         $qb->andWhere("u.experience = " .$experience );
         
         $pseudo = $qb->getQuery()->getResult();
