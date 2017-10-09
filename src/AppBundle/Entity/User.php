@@ -52,7 +52,7 @@ class User extends Controller implements UserInterface, ParticipantInterface
      * prix par heure
      * @ORM\Column(type="integer")
      */
-    private $pph;
+    private $pph = 20;
     
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -80,7 +80,7 @@ class User extends Controller implements UserInterface, ParticipantInterface
     /**
      * @ORM\Column(type="string", length=4096, nullable=true)
      */
-    private $experience;
+    private $experience = 0;
     
     /**
      * @ORM\Column(type="datetime",nullable=true)
@@ -144,6 +144,10 @@ class User extends Controller implements UserInterface, ParticipantInterface
      */
     public function setPph($pph)
     {
+    	if ($pph < 20)
+    		$pph = 20;
+    	if ($pph > 200)
+    		$pph = 200;
         $this->pph = $pph;
     }
 

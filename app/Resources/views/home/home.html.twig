@@ -12,7 +12,7 @@
 <hr class="featurette-divider">
 
 <div class="row featurette bluebkg"> 
-  <h2 class="titleBMD">Nos DJs</h2>
+  <h2 class="titleBMD titleWhite ">Nos DJs</h2>
   <div class="col-md-6">  
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- CARROUSSEL -->
@@ -50,7 +50,7 @@
           {% for key,user in randomUsers %}
               <li><p class="" data-target="#myCarousel" data-slide-to="{{key}}">{{user.userName}}</p></li>
           {% endfor %}
-          <li><a href="{{ url('liste_dj') }}">Plus de DJ</a></li>
+          <li id="goToAdvancedSearch" ><a href="{{ url('liste_dj') }}">Plus de DJ</a></li>
         </ul>
       </div>
     </div>  

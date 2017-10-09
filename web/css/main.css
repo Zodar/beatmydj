@@ -820,7 +820,9 @@ px
 	margin-right: 20px;
 	top: 5px;
 }
-
+.titleWhite{
+	color:white;
+}
 #formImgUpld {
 	font-size: 13px;
 }
@@ -1059,13 +1061,24 @@ div.blockStyle label.css-label {
 	text-align: left;
 }
 
+.advancedSearch .djResults {
+    background-image: url(../images/disque.png) !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1500px 1200px;
+    min-height: 1200px;
+	padding-top: 150px;
+	
+}
 .djButton {
 	background: none;
 	-webkit-appearance: button-bevel !important;
 	font-size: 20px;
 	color: black;
 }
-
+#goToAdvancedSearch:BEFORE{
+	content: none;
+}
 input[type=range][orient=vertical] {
 	writing-mode: bt-lr; /* IE */
 	-webkit-appearance: slider-vertical; /* WebKit */

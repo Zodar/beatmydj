@@ -44,6 +44,10 @@
 		<div class="col-md-3 experiencesDiv">
 			<h3>Par Experiences</h3>
 			<form id="formSearchExperience" enctype="multipart/form-data">
+			<span class="experience"> <label> <span
+						class="experience-Text"> Aucune
+					</span> <input type="radio" ng-model="experience" ng-change="refreshForm()"  name="experiences" value="-1" checked="checked">
+				</label>
 				{% for key , experience in constant('AppBundle\\Constant\\BMDJConstant::USER_EXPERIENCE') %}
 				<span class="experience"> <label> <img
 						class="image-experience"
@@ -56,7 +60,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="row content">
+	<div class="row content djResults">
 
 
 
