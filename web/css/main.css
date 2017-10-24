@@ -4,6 +4,24 @@
 	src: url('/web/fonts/Montserrat-Black');
 }
 
+.paymentForm{
+	float:right;
+	padding-left: 75px;
+	    border-left: 1px solid black;
+}
+.calendarBootbox{
+	width: 700px;
+}
+.calendarBootbox .modal-footer{
+	clear: both;
+	
+}
+.alwaysHide{
+	display: none !important;
+}
+.chooseCalendar{
+	float:left;
+}
 .body-content {
 	padding-left: 15px;
 	padding-right: 15px;

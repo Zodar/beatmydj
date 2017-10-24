@@ -5,6 +5,7 @@ $(function () {
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
+	var prix = $("#userPrix").text().replace( /^\D+/g, '');
 
 	$('#calendar-holder').fullCalendar({
 		header: {
@@ -21,7 +22,7 @@ $(function () {
 		dayClick: function(date, allDay, jsEvent, view) {
 			if ($( "input[name=user_isdj]" ).val() == 0){
 				moment.locale('fr');
-				bootbox.confirm("Quand aura lieu l'evenement ? <br/>" + '<input id="eventdatepicker" type="text" ></input>' + "</br>" + get_selects_hours(), function(result) {
+				bootbox.confirm("<div class='chooseCalendar'> Quand aura lieu l'evenement ? <br/>" + '<input id="eventdatepicker" type="text" ></input>' + "</br>" + get_selects_hours() + " </div>" + $(".alwaysHide .payment").html(), function(result) {
 					if (result != null)
 						if (result != ""){
 							$.ajax({type:"POST", data: {
@@ -43,7 +44,7 @@ $(function () {
 								else{
 									console.log(data.responseText);
 									var dialog = bootbox.dialog({
-										message: 'L\'evenement est en attente de validation du DJ'
+										message: 'L\'evenement est en attente de validation du DJ.</br> Le prélévement sera débité une fois que le DJ aura validé'
 									});
 									$('#calendar-holder').fullCalendar( 'refetchEvents' );
 									setTimeout(function(){
@@ -60,8 +61,9 @@ $(function () {
 
 
 						}
-				});
-				console.log(date._d);
+				}).find("div.modal-content").addClass("calendarBootbox");
+				$(".btn-primary").prop('disabled', true);
+				$(".bootbox-body .montant-total").text(prix * $("#hourseventdatepicker").val() +"€");
 				$( "#eventdatepicker" ).datetimepicker({
 					format:'d/m/Y H:00',
 					defaultDate: date._d,
@@ -104,6 +106,27 @@ $(function () {
 			return html;
 	}
 
+	
+	$("body").on("change",".inputCard",function(){
+		console.log("a");
+		$(".btn-primary").prop('disabled', false);
+		var value = $('.bootbox-body .owner').val();
+		if (value.length == 0)
+			$(".btn-primary").prop('disabled', true);
+		console.log("b");
+		var value = $('.bootbox-body .cardNumber').val();
+		if (value.length < 14)
+			$(".btn-primary").prop('disabled', true);
+		console.log("c");
+		var value = $('.bootbox-body .cvv').val();
+		if (value.length < 1)
+			$(".btn-primary").prop('disabled', true);
+		var cardDate = new Date("20" + $('.bootbox-body .expirationYear').val(), $('.bootbox-body .expirationMonth').val())
+		 todaysDate = new Date();
+	    todaysDate.setHours(0, 0, 0, 0);
+	    if (cardDate < todaysDate)
+	    	$(".btn-primary").prop('disabled', true);
+	});
 	$("#enlarge-calendar").click(function(){
 		$("#calendar-holder").fullCalendar('option', 'height', 900);
 		$('#calendar-holder').fullCalendar('option', 'aspectRatio', 10);
@@ -128,7 +151,14 @@ $(function () {
 		console.log("hide");
 
 	})
-$('.nav-tabs #calendrierTab').on('shown.bs.tab', function(event){
-	$('#calendar-holder').fullCalendar('render');
-	    });
+	
+	$('.nav-tabs #calendrierTab').on('shown.bs.tab', function(event){
+		$('#calendar-holder').fullCalendar('render');
+	});
+	
+	$("body").on("change","#hourseventdatepicker",function(){
+		$(".bootbox-body .montant-total").text(prix * $(this).val() +"€");
+
+	})
+
 });
