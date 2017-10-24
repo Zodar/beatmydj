@@ -190,9 +190,9 @@
 			<hr>
 			<ul class="listevents">
 			{% for event in events %}
-			<li><div><span class="calendarborder"> {{ event.dateStart |localizeddate("medium", "none", null, null, "MMMM") }} </span>
-			<div class="calendarday"> <span class="number"> {{ event.dateStart |localizeddate("medium", "none", null, null, "dd") }} </span>
-				 <span class="day"> {{ event.dateStart |localizeddate("medium", "none", null, null, "cccc") }} 	</span>	
+			<li><div><span class="calendarborder"> {{ event.dateStart |localizeddate("medium", "none", null,null,"MMMM") }} </span>
+			<div class="calendarday"> <span class="number"> {{ event.dateStart |localizeddate("medium", "none", null,null,"dd") }} </span>
+				 <span class="day"> {{ event.dateStart |localizeddate("medium", "none", null,null,"cccc") }} 	</span>	
 			  </div> 
 			  <div class="details"> <div class="content">
 			  <p> DJ: {{ findUser(event.userid).username }} </p>
@@ -274,7 +274,7 @@
 			<p class="premove_user" id="remove_user">
 			<img 	src="{{ asset('images/Cloture.png')}}"  > 
 			
-			<span> ClÃ´ture du compte</span>
+			<span> Clôture du compte</span>
 			</p>
 		</div>
 	</div>
