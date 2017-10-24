@@ -35,7 +35,7 @@ input, select {
 	max-width: 280px;
 }
 
-body, html {
+body, html, .montserrat {
 	height: 100%;
 	margin: 0;
 	font-family: 'Montserrat-Black';
@@ -45,11 +45,30 @@ body, html {
 	font-size: 6px;
 }
 
+.bold{
+	font-weight: bold;
+}
+
 li a {
 	display: block;
 	color: #000;
 	padding: 8px 0 8px 16px;
 	text-decoration: none;
+}
+
+.Ulfooter {
+	padding-left: 0px;
+}
+
+
+.Ulfooter > li{
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+.Ulfooter > li a{
+	color: white;
+	padding: 0px;
 }
 
 li a.active {

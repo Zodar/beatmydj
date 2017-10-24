@@ -159,17 +159,4 @@ class DjController extends Controller{
         else
             return $this->redirect($this->generateUrl('homepage'));
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
