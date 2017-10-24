@@ -36,7 +36,7 @@ function getAllUsers() {
 	$.ajax({data: $(this).serialize(), url: getAllUser,
 		success: function(data){
 			var usernames = new Array();
-			$.each(data.users, function(k, v) {
+			$.each(data.users.user, function(k, v) {
 				usernames.push(v.userName);
 			});
 			$("#search-query").prop('disabled', false);

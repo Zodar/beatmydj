@@ -14,6 +14,7 @@
 	<div class="container master grey lighten-5">
 		<div class="row">
 			<div class="col-md-12">
+			<span id="videoWaiting"> 
 				<h4 class="titleBMD">En attente de connexion</h4>
 				<hr>
 				{% if currentUserRole == 3 %}
@@ -23,6 +24,7 @@
 					onclick="apiCC.session.apiCCWebRTCClient.call({{DJID}});">
 					Rejoindre la session</button>
 				{% endif %}
+			</span>
 				<!--
 	            <div id="command"></div>
 	            <div id="status"></div>
@@ -82,6 +84,11 @@ var dataURI = canvas.toDataURL('image/png');
                 });
             }
         });
+
+        var vid = document.getElementById("myLocalVideo");
+        vid.onplay = function() {
+	$("#videoWaiting").hide();
+        };
     </script>
 
 {% endblock %}

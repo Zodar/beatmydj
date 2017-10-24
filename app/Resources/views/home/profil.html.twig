@@ -56,7 +56,7 @@
 	{% if  own is null  %}
 	<li><a href="#vues">Vue de profil</a></li>
 	<li><a href="#streams">Demande de streaming</a></li>
-	<li><a href="{{path('profil')}}/{{app.user.userName}}">AperÃ§u</a></li>
+	<li><a href="{{path('profil')}}/{{app.user.userName}}">Aperçu</a></li>
 	<li><a href="#gestions">Gestion du compte</a></li>
 	
 	{% endif %}
@@ -208,7 +208,7 @@
 			<div class="only_view">
 				<form action="{{path('profil')}}">
 					<input class="MainButtonBMD buttonBlue" type="submit"
-						value="Ã‰diter" />
+						value="Editer" />
 				</form>
 			</div>
 
