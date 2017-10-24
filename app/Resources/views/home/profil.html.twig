@@ -93,8 +93,9 @@
 						</a>
 					{% endif %}
 					</h4>
+							{% if user.isDj() %}
 <span class="prixBlock"> Prix par heure: <span id="userPrix"> {{user.pph | nl2br}}</span>€ </span>
-
+		{% endif %}
 					<hr>
 					<img id="user_image" class="img-responsive"
 						src="{{ asset('uploads/dj_photos/')}}{{user.path}}" />
