@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-    <title>BeatMyDJ</title>
+    <title>DJ streaming - {{ path(app.request.attributes.get('_route'),
+     app.request.attributes.get('_route_params')) |trim('/') }}</title>
     <meta charset="utf-8">
+    <meta name="description" content="BeatMyDJ permet de mettre en relation un dj (amateur ou professionnel) et des organisateur de soirée ( anniversaire, mariage, fête). Le concept est simple ! Lorsqu’un organisateur souhaite faire appel aux service d’un dj, il lui suffit de se rendre ici, choisir un style de dj et la date de l’évènement. Il ne resteras qu’à connecter ses enceintes à son ordinateur pour profiter pleinement de la musique !" />
     <link rel="icon" href="{{asset('images/logo.png')}}" />
 
     <!-- LIB CSS -->
