@@ -1,20 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section class="textblock add">
 
-<h2>Transport</h2>
-	<ul>
-		<li><strong>Métro 7</strong>, arrêt Mairie d'Ivry, </li>
-		<li><strong>RER C</strong>, arrêt Ivry-sur-Seine, </li>
-		<li><strong>Bus 125 et bus 323</strong>, arrêt Molière</li>
-	</ul>
-
-<h2>Plan d'accès</h2>
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d17674.763069594916!2d2.378720846478873!3d48.813015762664804!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e673b343b43e61%3A0x66b66ebde18b80a1!2s7+Rue+Maurice+Grandcoing%2C+94200+Ivry-sur-Seine!5e0!3m2!1sfr!2sfr!4v1449770951565" width="633" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-<h2>CONTACT</h2>
-<div>
+<h2>Nous contacter</h2>
+<div class="row">
+	<div class="col-md-1"></div>
 	<div class="col-md-2">
 		<figure class="">
 		    <img src="{{asset('/images/benzai_l.jpg')}}" width="75" height="90" />            
@@ -22,6 +12,7 @@
 		  Lasaad BEN ZAIED<br />
 		    benzai_l@etna-alternance.net<br />
 		</div>
+		<div class="col-md-1"></div>
 		<div class="col-md-2">
 		<figure class="">
 		    <img src="{{asset('/images/brites_f.jpg')}}" width="75" height="90" />            
@@ -29,6 +20,7 @@
 		  Fabio Brites Marques<br />
 		    brites_f@etna-alternance.net<br />
 		</div>
+		<div class="col-md-1"></div>
 		<div class="col-md-2">
 		<figure class="">
 		    <img src="{{asset('/images/handou_o.jpg')}}" width="75" height="90" />            
@@ -36,6 +28,7 @@
 		  Oualid Handoua<br />
 		    handou_o@etna-alternance.net<br />
 		</div>
+		<div class="col-md-1"></div>
 		<div class="col-md-2">
 		<figure class="">
 		    <img src="{{asset('/images/merabe_t.jpg')}}" width="75" height="90" />            
@@ -43,6 +36,7 @@
 		  Tarik MERABET<br />
 		    merabe_t@etna-alternance.net<br />
 		</div>
+		<div class="col-md-3"></div>
 		<div class="col-md-2">
 		<figure class="">
 		    <img src="{{asset('/images/ninot_k.jpg')}}" width="75" height="90" />            
@@ -50,15 +44,38 @@
 		  Kévin NINOT<br />
 		    ninot_k@etna-alternance.net<br />
 		</div>
+		<div class="col-md-1"></div>
 		<div class="col-md-2">
 		<figure class="">
 		    <img src="{{asset('/images/panoff_a.jpg')}}" width="75" height="90" />            
 		</figure>
 		  Axel PANOFF<br />
 		    panoff_a@etna-alternance.net<br />
-		</div>   
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-2">
+		<figure class="">
+		    <img src="{{asset('/images/dhiab_m.jpg')}}" width="75" height="90" />            
+		</figure>
+		  Mehdi DHIAB<br />
+		    dhiab_m@etna-alternance.net<br />
+		</div>
+
 </div>
+
+
+<h2>Nous Rencontrer</h2>
+<iframe  frame src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d17674.763069594916!2d2.378720846478873!3d48.813015762664804!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e673b343b43e61%3A0x66b66ebde18b80a1!2s7+Rue+Maurice+Grandcoing%2C+94200+Ivry-sur-Seine!5e0!3m2!1sfr!2sfr!4v1449770951565" width="633" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+<h2>Transport</h2>
+	<ul>
+		<li><strong>Métro 7</strong>, arrêt Mairie d'Ivry, </li>
+		<li><strong>RER C</strong>, arrêt Ivry-sur-Seine, </li>
+		<li><strong>Bus 125 et bus 323</strong>, arrêt Molière</li>
+	</ul>
 {% endblock %}
+
+
 
 {% block javascripts %}
 
